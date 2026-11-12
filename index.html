@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="22.1 (2026-11-12)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="22.2 (2026-11-12)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
 <title>Suspensiones MDOF: cargas y modos</title>
@@ -665,8 +665,23 @@ async function save(){
  if(FH){try{await writeFH(FH);markSaved(CURP);return true}catch(e){FH=null}}
  if(DLN){try{await dlSave(DLN);markSaved(DLN);return true}catch(e){await errBox('Guardar',e);return false}}
  return saveAs()}
-async function loadText(txt,n,h){try{const o=JSON.parse(txt);if(!o.S)throw Error('el archivo no es un cálculo MDOF');
- setState(o);FH=h||null;DLN=h?'':n;markSaved(n)}catch(e){await mbox('Abrir','No se pudo abrir: '+e.message,['Aceptar'])}}
+/* archivos de versiones antiguas (formato «version 2.0» con hojas) */
+function legacyToState(sh,info){const st=getState(),num=v=>{const x=parseFloat(String(v).replace(',','.'));return isFinite(x)?+x.toFixed(6):0},nn=v=>String(v==null?'':v);
+ st.S.mass=(sh.mass_data||[]).map(r=>{const c=[13,14,15].map(i=>num(r[i])),d=[10,11,12].map(i=>num(r[i])),ok=!!r[16]&&d.every(v=>v>0);
+  return[parseInt(r[1]),parseInt(r[2]),num(r[3]),num(r[4]),num(r[5]),num(r[6]),num(r[7]),num(r[8]),num(r[9]),nn(r[0]),'',0,0,0,...(ok?c.map((v,i)=>+(v-d[i]/2).toFixed(6)):[null,null,null]),...(ok?c.map((v,i)=>+(v+d[i]/2).toFixed(6)):[null,null,null])]});
+ st.S.mount=(sh.mount_data||[]).map(r=>[parseInt(r[0]),parseInt(r[1]),...[2,3,4,5,6,7,8,9,10,11,12,13].map(i=>num(r[i])),nn(r[14]),5e-4,/coupl|acopl/i.test(nn(r[14]))?'acopl':'taco','',null,null,null,'']);
+ const pi=info||{};st.cons=nn(pi.constrain||'2');
+ const comp=(st.S.mass.map(r=>r[0]).find(i=>String(i)!==st.cons))||1,roll=num(pi.inclinacion_roll),pit=num(pi.inclinacion_pitch),kw=num(pi.potencia),rpm=num(pi.rpm),L=(n,t,c,v,x)=>[n,t,c,...v,...(x||[0,0,0,0,0])];
+ const z=[0,0,0,0,0,0,0,0,0],par=kw>0&&rpm>0,lst='LIST '+roll+'º+TRIM '+pit+'º';
+ st.S.loads=[['WEIGHT','peso',1,...z,0,0,0,0,0],[lst,'peso',1,...z,roll,pit,0,0,0],...(par?[['PAR','carga',comp,0,0,0,+(kw*1e3/(rpm*2*Math.PI/60)).toFixed(1),0,0,0,0,0,0,0,0,0,0]]:[])];
+ st.S.cases=[{n:'Caso 1: reposo',items:[['WEIGHT',1,1]]},...(par?[{n:'Caso 2: navegando',items:[['WEIGHT',1,1],['PAR',1]]}]:[]),{n:'Caso 3: escora y cabeceo',items:[['WEIGHT',1,1,0],[lst,1],...(par?[['PAR',1]]:[])]}];
+ st.shi='0';st.nlop='auto';return st}
+async function legacyOpen(o){const names=Object.keys(o.sheets||{});if(!names.length)throw Error('el archivo no tiene hojas');let k=o.current_sheet&&o.sheets[o.current_sheet]?o.current_sheet:names[0];
+ if(names.length>1){const ord=[k,...names.filter(x=>x!==k)].slice(0,3),r=await mbox('Archivo de una versión anterior','Este archivo tiene varias hojas. ¿Cuál quieres abrir?',[...ord,'Cancelar']);if(r.i>=ord.length)return null;k=ord[r.i]}
+ const sh=o.sheets[k],st=legacyToState(sh,sh.project_info||o.project_info);
+ return{st,k,nm:(sh.mass_data||[]).length,nt:(sh.mount_data||[]).length}}
+async function loadText(txt,n,h){try{let o=JSON.parse(txt),lg=null;if(o&&o.sheets&&!o.S){lg=await legacyOpen(o);if(!lg)return;o=lg.st}if(!o.S)throw Error('el archivo no es un cálculo MDOF');
+ setState(o);FH=null;DLN=h?'':n;markSaved(lg?nameOf(n)+' (convertido)':n);if(lg){FH=null;await mbox('Archivo convertido','Se ha abierto la hoja «'+lg.k+'» ('+lg.nm+' masas, '+lg.nt+' suspensiones). Las cajas de los prismas se han calculado desde el centro y las dimensiones (los cilindros se dibujan como prismas); las suspensiones llamadas COUPLING pasan a acoplamiento; β vale 0,0005 s. Se han creado las cargas Peso, Escora+cabeceo y Par (P/ω, giro en x) y tres casos de carga. Revisa los signos y guarda el cálculo con el formato nuevo.',['Aceptar'])}else{FH=h||null}}catch(e){await mbox('Abrir','No se pudo abrir: '+e.message,['Aceptar'])}}
 async function openFile(){
  try{if(typeof window.showOpenFilePicker==='function'){const[h]=await showOpenFilePicker({types:FT}),f=await h.getFile();
   await loadText(await f.text(),nameOf(f.name),h);return}}
@@ -683,7 +698,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='22.1',APP_DATE='12-11-2026';
+const APP_VER='22.2',APP_DATE='12-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.']];
 function goTab(k,foc){
