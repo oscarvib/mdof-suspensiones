@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="22.0 (2026-11-12)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="22.1 (2026-11-12)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
 <title>Suspensiones MDOF: cargas y modos</title>
@@ -198,7 +198,7 @@ details.md>summary{font-size:15px}
 <h2>Editar curva</h2>
 <div class="nocalc" id="cvedit">
 <div class="cvbar"><label>Nombre <input class="cn" id="cvn" style="width:200px"></label><label>Interpolación <select id="cvm"><option value="pchip">PCHIP (monótona, recomendada)</option><option value="lin">Lineal por tramos</option><option value="spline">Spline cúbico natural</option><option value="poly">Polinomio ajustado (mínimos cuadrados)</option></select></label>
-<label id="cvdl">Grado <input class="sm" id="cvd" value="3"></label><label>Rigidez tras el último punto (kN/mm) <input class="sm" id="cvk" placeholder="tangente"></label><label>Radial <select id="cvrm"><option value="pchip">suave (PCHIP)</option><option value="lin">lineal</option></select></label></div>
+<label id="cvdl">Grado <input class="sm" id="cvd" value="3"></label><label>Rigidez tras el último punto (kN/mm) <input class="sm" id="cvk" placeholder="tangente"></label><label>Rigidez tangente mínima (kN/mm) <input class="sm" id="cvkm" placeholder="0,001"></label><label>Radial <select id="cvrm"><option value="pchip">suave (PCHIP)</option><option value="lin">lineal</option></select></label></div>
 <div class="cvbar"><button id="cvok">Aceptar cambios</button><button class="sc" id="cvno">Descartar cambios</button><span id="cvst" class="mu"></span></div>
 <div id="cvmsg"></div>
 <div class="cvgrid">
@@ -213,6 +213,7 @@ details.md>summary{font-size:15px}
 </div>
 <h3>Herramientas</h3>
 <div class="cvbar"><label>Multiplicar fuerzas por <input class="sm" id="cvsc" value="1"></label><button class="sc" id="cvscb">Aplicar</button><button class="sc" id="cvsm">Suavizar fuerzas (media de 3 puntos)</button><label>Remuestrear a <input class="sm" id="cvrn" value="20"> puntos</label><button class="sc" id="cvrs">Remuestrear</button></div>
+<div class="cvbar"><label>Baja carga: recta desde el origen hasta δ = <input class="sm" id="cvr0" value="3"> mm</label><button class="sc" id="cvrg">Regularizar</button><span class="mu">Sustituye los puntos de poca carga (suelen ser poco fiables) por una recta; vuelve atrás con «Descartar cambios».</span></div>
 </div>
 
 <h2>Gráficas</h2>
@@ -585,15 +586,15 @@ function runShock(){try{
   m.B.forEach((b,k)=>{for(let i=0;i<3;i++)f[6*k+i]=-b.m*ab[i]});
   const wv=x.map((xi,i)=>q1*xi+q2*v[i]+q3*a[i]),r1=mv(m.M,x.map((xi,i)=>p1*xi+p2*v[i]+p3*a[i])),r2=mv(m.Cm0,wv);let x1=null,xit=x;
   for(let it=0;it<40;it++){const Kk=(gl.length||nlf.length)?Ke.map(r=>r.slice()):Ke,rh=f.map((fi,i)=>fi+r1[i]+r2[i]);
-   nlf.forEach(nl=>{const J=m.mt[nl.qi].J[2],dz=J.reduce((s2,v,i)=>s2+v*xit[i],0),c=nl.op.c-nl.sg*dz*1e3,kn=nl.f[2]*Math.max(nl.cv.dP(c),1e-3)*1e6,k0=nl.op.ks[2]*nl.f[2],Fn=-nl.sg*nl.f[2]*(nl.cv.P(c)-nl.op.P)*1e3;
+   nlf.forEach(nl=>{const J=m.mt[nl.qi].J[2],dz=J.reduce((s2,v,i)=>s2+v*xit[i],0),c=nl.op.c-nl.sg*dz*1e3,kn=nl.f[2]*Math.max(nl.cv.dP(c),nl.cv.kmin)*1e6,k0=nl.op.ks[2]*nl.f[2],Fn=-nl.sg*nl.f[2]*(nl.cv.P(c)-nl.op.P)*1e3;
     for(let i=0;i<n;i++)if(J[i]){rh[i]-=J[i]*(Fn-kn*dz);for(let j=0;j<n;j++)if(J[j])Kk[i][j]+=(kn-k0)*J[i]*J[j]}});
    gl.forEach((qi,aa)=>{const gg=m.mt[qi].gap,J=m.mt[qi].J[gg.d],kd=gg.k*gg.f,c=kd*gg.b,s2=sg[aa],cst=kd*((s2>0?d0[aa]-gg.gp:s2<0?d0[aa]+gg.gn:0)-h0[aa]) - (s2?0:0);
     const Jw=J.reduce((t2,vv,i)=>t2+vv*wv[i],0);
     for(let i=0;i<n;i++)if(J[i]){rh[i]-=J[i]*(s2?cst:-kd*h0[aa]);if(s2){rh[i]+=J[i]*c*Jw;for(let j=0;j<n;j++)Kk[i][j]+=(kd+q1*c)*J[i]*J[j]}}});
-   x1=solve(Kk,rh);if(!x1)throw Error('Sistema singular');
+   x1=solve(Kk,rh);if(!x1)throw Error('Sistema singular');if(nlf.length&&it>=12){const om=it<24?.5:.25;x1=xit.map((v,i)=>v+om*(x1[i]-v))}
    const ns=gl.map((qi,aa)=>{const gg=m.mt[qi].gap;return sof(gg,d0[aa]+m.mt[qi].J[gg.d].reduce((t2,vv,i)=>t2+vv*x1[i],0))});
    const er=nlf.length?Math.max(...x1.map((vv,i)=>Math.abs(vv-xit[i]))):0,scx=Math.max(...x1.map(Math.abs),1e-9);xit=x1;
-   if(ns.every((vv,aa)=>vv===sg[aa])&&er<1e-9*scx+1e-14)break;sg=ns;if(it===39&&nlf.length)throw Error('El choque con curvas no lineales no converge: reduce el paso de tiempo')}
+   if(ns.every((vv,aa)=>vv===sg[aa])&&er<1e-9*scx+1e-14)break;sg=ns;if(it===39&&nlf.length)throw Error('El choque con curvas no lineales no converge en t = '+g(ts*1e3,2)+' ms: reduce el paso de tiempo o suaviza la zona de baja carga de la curva')}
   gl.forEach((qi,aa)=>{const gg=m.mt[qi].gap,dl=d0[aa]+m.mt[qi].J[gg.d].reduce((t2,vv,i)=>t2+vv*x1[i],0),hh=hf(gg,dl,sg[aa]);fg[aa].push(gg.k*gg.f*(hh-h0[aa]));if(sg[aa]){ct[aa].n++;ct[aa].pen=Math.max(ct[aa].pen,Math.abs(hh))}});
   const a1=x1.map((xi,i)=>p1*(xi-x[i])-p2*v[i]-p3*a[i]);v=v.map((vi,i)=>vi+dt*((1-ga)*a[i]+ga*a1[i]));x=x1;a=a1;t.push(ts*1e3);
   m.mt.forEach((o,q)=>o.J.forEach((row,d)=>df[q][d].push(row.reduce((s2,c,i)=>s2+c*x[i],0))));
@@ -682,7 +683,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='22.0',APP_DATE='12-11-2026';
+const APP_VER='22.1',APP_DATE='12-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.']];
 function goTab(k,foc){
@@ -1136,9 +1137,9 @@ function cvRad(pts,met){const a=(pts||[]).map(p=>[+p[0],+p[1]]).filter(p=>isFini
   const t2=t*t,t3=t2*t;return(2*t3-3*t2+1)*ys[i]+(t3-2*t2+t)*h*d[i]+(-2*t3+3*t2)*ys[i+1]+(t3-t2)*h*d[i+1]}}
 const cvPrep=p=>{let a=(p||[]).map(r=>[+r[0],+r[1]]).filter(r=>isFinite(r[0])&&isFinite(r[1])&&r[0]>=0).sort((u,v)=>u[0]-v[0]).filter((r,i,A)=>i===0||r[0]>A[i-1][0]);if(!a.length||a[0][0]>0)a.unshift([0,0]);return a};
 function compileCurve(cv){const ke=cv.kext!=null&&cv.kext!==''&&+cv.kext>0?+cv.kext:0,comp=cvMk(cvPrep(cv.comp),cv.met,cv.deg,ke),own=cv.tm==='own'&&(cv.ten||[]).length>1,ten=own?cvMk(cvPrep(cv.ten),cv.met,cv.deg,ke):comp;
- return{P:c=>c>=0?comp.P(c):-ten.P(-c),dP:c=>c>=0?comp.dP(c):ten.dP(-c),rad:[cvRad(cv.kx,cv.rm),cvRad(cv.ky,cv.rm)],comp,ten,own,ok:comp.xmax>0}}
+ return{P:c=>c>=0?comp.P(c):-ten.P(-c),dP:c=>c>=0?comp.dP(c):ten.dP(-c),rad:[cvRad(cv.kx,cv.rm),cvRad(cv.ky,cv.rm)],comp,ten,own,ok:comp.xmax>0,kmin:+cv.kmin>0?+cv.kmin:1e-3}}
 /* un taco no lineal: c = compresión (mm), P = fuerza de compresión (kN); F en N y N/m en ejes globales */
-function nlEval(nl,d){const c=-nl.sg*d[2]*1e3,P=nl.cv.P(c),kz=Math.max(nl.cv.dP(c),1e-3),rx=nl.cv.rad[0],ry=nl.cv.rad[1],
+function nlEval(nl,d){const c=-nl.sg*d[2]*1e3,P=nl.cv.P(c),kz=Math.max(nl.cv.dP(c),nl.cv.kmin),rx=nl.cv.rad[0],ry=nl.cv.rad[1],
   kx=rx?rx(P):nl.fb[0]/1e6,ky=ry?ry(P):nl.fb[1]/1e6;
  return{c,P,kz,kx,ky,F:[kx*1e6*d[0],ky*1e6*d[1],-nl.sg*P*1e3],ks:[kx*1e6,ky*1e6,kz*1e6]}}
 function nlAsm(m,q){const n=m.n,fi=Array(n).fill(0),Kn=Z(n,n);
@@ -1146,12 +1147,13 @@ function nlAsm(m,q){const n=m.n,fi=Array(n).fill(0),Kn=Z(n,n);
   for(let a=0;a<3;a++){const J=o.J[a];for(let i=0;i<n;i++)if(J[i]){fi[i]+=J[i]*e.F[a];for(let j=0;j<n;j++)if(J[j])Kn[i][j]+=J[i]*J[j]*e.ks[a]}}});
  return{fi,Kn}}
 /* Newton: Klin·x + (fi(q0+x) − fi0) = Ft, con gaps (conjunto activo) si gl no está vacío */
-function nlSolve(m,Klin,Ft,gl,q0,fi0){const n=m.n;let x=Array(n).fill(0),sol=null;
- for(let it=0;it<120;it++){const q=x.map((v,i)=>v+q0[i]),{fi,Kn}=nlAsm(m,q),Kt=Klin.map((r,i)=>r.map((v,j)=>v+Kn[i][j])),
+function nlSolve(m,Klin,Ft,gl,q0,fi0){for(const om of[1,.5,.25,.1]){const r=nlSolve1(m,Klin,Ft,gl,q0,fi0,om);if(r)return r}return null}
+function nlSolve1(m,Klin,Ft,gl,q0,fi0,om){const n=m.n;let x=Array(n).fill(0),sol=null;
+ for(let it=0;it<150/om;it++){const q=x.map((v,i)=>v+q0[i]),{fi,Kn}=nlAsm(m,q),Kt=Klin.map((r,i)=>r.map((v,j)=>v+Kn[i][j])),
    rh=Ft.map((v,i)=>v-(fi[i]-fi0[i])+Kn[i].reduce((s,a,j)=>s+a*x[j],0));
   sol=gl.length?gapSolve(m,Kt,rh,gl):{q:solve(Kt,rh)};if(!sol||!sol.q)return null;
-  const xn=sol.q,er=Math.max(...xn.map((v,i)=>Math.abs(v-x[i]))),sc=Math.max(...xn.map(Math.abs),1e-9);x=xn;
-  if(it>0&&er<1e-10*sc+1e-14)return{q:x,st:sol.st,f:sol.f};if(it===119)return null}
+  const xn=sol.q,er=Math.max(...xn.map((v,i)=>Math.abs(v-x[i]))),sc=Math.max(...xn.map(Math.abs),1e-9);
+  if(it>0&&er<1e-10*sc+1e-14)return{q:xn,st:sol.st,f:sol.f};x=om===1?xn:x.map((v,i)=>v+om*(xn[i]-v))}
  return null}
 function runCaseNL(m,F0,Fd,gl,chk){const{n,Ks0:Ks,Kt0:Kt}=m,z=Array(n).fill(0);let qp=z,q,dq,gs=null;
  if(Fd.some(v=>v)){const s1=nlSolve(m,Kt,Fd,(gl.length&&!chk)?gl:[],z,z);if(!s1)return null;qp=s1.q}
@@ -1177,7 +1179,7 @@ function cvDirty(v){CWD=v;$('cvst').textContent=v?'● Cambios sin aceptar (el c
 function cvList(){const el=$('cvs');el.innerHTML=S.curves.map((c,i)=>`<option value="${i}">${esc(c.name)}</option>`).join('');if(CWI>=0&&CWI<S.curves.length)el.value=CWI}
 function cvUsedBy(n){return S.mount.map((r,i)=>r[21]===n?i:-1).filter(i=>i>=0)}
 function cvUse(){const el=$('cvuse');if(!CW){el.textContent='';return}const u=cvUsedBy(S.curves[CWI]?S.curves[CWI].name:'');el.textContent=u.length?'Usada por las suspensiones: '+u.map(i=>S.mount[i][14]||('n.º '+(i+1))).join(', ')+'.':'Ninguna suspensión usa esta curva todavía.'}
-function cvForm(){if(!CW)return;$('cvn').value=CW.name;$('cvm').value=CW.met||'pchip';$('cvd').value=CW.deg||3;$('cvk').value=CW.kext==null?'':CW.kext;$('cvrm').value=CW.rm||'pchip';$('cvtm').value=CW.tm||'mirror';
+function cvForm(){if(!CW)return;$('cvn').value=CW.name;$('cvm').value=CW.met||'pchip';$('cvd').value=CW.deg||3;$('cvk').value=CW.kext==null?'':CW.kext;$('cvkm').value=CW.kmin==null?'':CW.kmin;$('cvrm').value=CW.rm||'pchip';$('cvtm').value=CW.tm||'mirror';
  $('cvdl').hidden=CW.met!=='poly';$('cvtenbox').hidden=CW.tm!=='own'}
 function cvTables(){['comp','ten','kx','ky'].forEach(t=>{const rows=CW?(CW[t]||[]):[];
  $('cvt_'+t).innerHTML='<tr>'+CVT[t].map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rows.map((r,i)=>`<tr><td><input data-cv="${t}" data-i="${i}" data-j="0" value="${cvf(r[0])}"></td><td><input data-cv="${t}" data-i="${i}" data-j="1" value="${cvf(r[1])}"></td><td><button class="x" data-cvdel="${t}" data-i="${i}" aria-label="Borrar punto">×</button></td></tr>`).join('')})}
@@ -1224,7 +1226,7 @@ function cvPlots(){if(!CW){['cvg1','cvg2','cvg3'].forEach(i=>$(i).innerHTML='');
   marks:ops.map(o=>({x:o.c,y:o.P,c:'#2f9e44',t:o.mount+': c = '+g(o.c,2)+' mm, Fz = '+g(o.P,2)+' kN'})),leg:[{c:'#2a7de1',t:'curva interpolada'},{c:'#2a7de1',dash:1,t:'extrapolación'}]});
  const dm=[];(c.comp.xmax>0?cvPrep(CW.comp):[]).forEach((r,i,A)=>{if(i)dm.push({x:(r[0]+A[i-1][0])/2,y:(r[1]-A[i-1][1])/(r[0]-A[i-1][0]),c:'#868e96',hol:1,r:3.5})});
  $('cvg2').innerHTML=cvPlot({title:'Rigidez vertical tangente (usada en modal, respuesta y choque)',xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'dFz/dδ (kN/mm)',H:280,fix:fixF(2),
-  ser:[{p:tested.map(x=>[x,c.dP(x)]),c:'#2a7de1'},{p:ext.map(x=>[x,c.dP(x)]),c:'#2a7de1',dash:1,w:1.6}],dots:dm,
+  ser:[{p:tested.map(x=>[x,Math.max(c.dP(x),c.kmin)]),c:'#2a7de1'},{p:ext.map(x=>[x,Math.max(c.dP(x),c.kmin)]),c:'#2a7de1',dash:1,w:1.6}],dots:dm,
   marks:ops.map(o=>({x:o.c,y:o.kz,c:'#2f9e44',t:o.mount+': kz tangente = '+g(o.kz,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'tangente de la curva'},{c:'#868e96',t:'○ pendiente entre puntos'}]});
  const pm=Math.max(...(CW.comp||[]).map(r=>+r[1]).filter(isFinite),...(CW.kx||[]).map(r=>+r[0]).filter(isFinite),...(CW.ky||[]).map(r=>+r[0]).filter(isFinite),1),ps=[];for(let i=0;i<=200;i++)ps.push(pm*i/200);
  const rx=c.rad[0],ry=c.rad[1],drr=(t,col)=>(CW[t]||[]).map((r,i)=>({x:+r[0],y:+r[1],c:col,r:4.5,drag:[t,i]})).filter(d=>isFinite(d.x)&&isFinite(d.y));
@@ -1241,7 +1243,7 @@ function drawOp(m){cvUse();const el=$('cvop');if(!el)return;
 /* eventos de edición */
 document.addEventListener('input',e=>{const d=e.target.dataset;if(!d)return;
  if(d.cv){const v=ev(e.target.value);if(v===v&&CW){CW[d.cv][+d.i][+d.j]=v;cvDirty(true);cvPlots()}return}
- const set={cvn:()=>CW.name=e.target.value,cvm:()=>{CW.met=e.target.value;cvForm()},cvd:()=>{const v=ev(e.target.value);if(v>=1)CW.deg=Math.round(v)},cvk:()=>{const v=ev(e.target.value);CW.kext=e.target.value.trim()===''?null:(v>0?v:null)},cvrm:()=>CW.rm=e.target.value,cvtm:()=>{CW.tm=e.target.value;if(CW.tm==='own'&&!(CW.ten||[]).length)CW.ten=cvClone(CW.comp);cvForm();cvTables()}};
+ const set={cvn:()=>CW.name=e.target.value,cvm:()=>{CW.met=e.target.value;cvForm()},cvd:()=>{const v=ev(e.target.value);if(v>=1)CW.deg=Math.round(v)},cvk:()=>{const v=ev(e.target.value);CW.kext=e.target.value.trim()===''?null:(v>0?v:null)},cvrm:()=>CW.rm=e.target.value,cvkm:()=>{const v=ev(e.target.value);CW.kmin=e.target.value.trim()===''?null:(v>0?v:null)},cvtm:()=>{CW.tm=e.target.value;if(CW.tm==='own'&&!(CW.ten||[]).length)CW.ten=cvClone(CW.comp);cvForm();cvTables()}};
  const f=set[e.target.id];if(f&&CW){f();cvDirty(true);cvPlots()}});
 document.addEventListener('change',e=>{const d=e.target.dataset;if(d&&d.cv&&CW){CW[d.cv].sort((a,b)=>a[0]-b[0]);cvTables();cvPlots()}});
 function cvPaste(t,all){const o=$('mdl');o.innerHTML=`<div class="bx"><b>${all?'Pegar la hoja de ensayo':'Pegar datos de Excel'}</b><div class="mu">${all?'Copia en Excel el bloque completo (columnas A-B: compresión; D-E: kx; G-H: ky; con o sin cabeceras) y pégalo aquí.':'Copia en Excel dos columnas (deformación y fuerza, o carga y rigidez) y pégalas aquí. Admite coma decimal.'}</div><textarea id="cvpt" style="height:200px" spellcheck="false"></textarea><div style="text-align:right"><button data-m="0">Aplicar</button><button class="sc" data-m="1">Cancelar</button></div></div>`;
@@ -1268,6 +1270,7 @@ document.addEventListener('click',async e=>{const d=e.target.dataset,id=e.target
  if(id==='cvscb'&&CW){const s=ev($('cvsc').value);if(s>0){CW.comp.forEach(r=>r[1]*=s);(CW.ten||[]).forEach(r=>r[1]*=s);cvDirty(true);cvTables();cvPlots()}}
  if(id==='cvsm'&&CW){const sm=a=>a.map((r,i)=>i>0&&i<a.length-1?[r[0],(a[i-1][1]+r[1]+a[i+1][1])/3]:r.slice());CW.comp=sm(CW.comp);if(CW.tm==='own')CW.ten=sm(CW.ten||[]);cvDirty(true);cvTables();cvPlots()}
  if(id==='cvrs'&&CW){const n=Math.round(ev($('cvrn').value));if(!(n>=3&&n<=200))return;const c=compileCurve(CW),xm=c.comp.xmax;CW.comp=Array.from({length:n},(_,i)=>{const x=xm*i/(n-1);return[+x.toPrecision(7),+c.comp.P(x).toPrecision(7)]});cvDirty(true);cvTables();cvPlots()}
+ if(id==='cvrg'&&CW){const d0=ev($('cvr0').value);if(!(d0>0))return;const c=compileCurve(CW),F0=c.comp.P(d0),rg=a=>{const k=cvPrep(a).filter(r=>r[0]>d0);return[[0,0],[+d0.toPrecision(7),+F0.toPrecision(7)],...k]};CW.comp=rg(CW.comp);if(CW.tm==='own'&&(CW.ten||[]).length>1){const t=compileCurve(CW),Ft=t.ten.P(d0);CW.ten=[[0,0],[d0,+Ft.toPrecision(7)],...cvPrep(CW.ten).filter(r=>r[0]>d0)]}cvDirty(true);cvTables();cvPlots()}
  if(id==='cvexp'){const b=new Blob([JSON.stringify({mdofCurves:1,curves:S.curves},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='curvas_tacos.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
  if(id==='cvimp')$('cvfile').click()});
 $('cvfile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const o=JSON.parse(await f.text()),a=Array.isArray(o)?o:o.curves;if(!Array.isArray(a)||!a.every(c=>c&&c.name&&Array.isArray(c.comp)))throw Error('El archivo no tiene curvas válidas');
