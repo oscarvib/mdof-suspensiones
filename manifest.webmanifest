@@ -1,0 +1,16 @@
+{
+ "name": "MDOF suspensiones",
+ "short_name": "MDOF",
+ "description": "Sólidos rígidos sobre suspensiones elásticas: estático, modal, respuesta forzada y choque.",
+ "start_url": "./index.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#0f2538",
+ "theme_color": "#0f2538",
+ "lang": "es",
+ "icons": [
+  {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+  {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+  {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+ ]
+}
