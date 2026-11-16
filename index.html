@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="22.6 (2026-11-15)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="23.0 (2026-11-15)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f2538">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
@@ -163,6 +163,8 @@ details.md>summary{font-size:15px}
 <div id="comb"></div>
 <h2>Suspensiones</h2>
 <p>Comp. A, comp. B, punto en A (xyz), punto en B (xyz), rigidez kx ky kz, factor dinámico/estático fx fy fz.</p>
+<datalist id="orl"><option value="z"><option value="-z"><option value="x"><option value="-x"><option value="y"><option value="-y"><option value="xz:30"><option value="yz:30"></datalist>
+<p class="mu"><b>Ejes locales:</b> «Eje z local» orienta el eje del taco (de la base hacia el cuerpo suspendido): <code>z</code> (vacío), <code>-z</code>, <code>x</code>, <code>y</code>, un vector como <code>0, 0.5, 0.866</code>, o <code>xz:30</code> / <code>yz:30</code> (inclinado 30° desde z hacia x o y). «Giro» gira los ejes x, y locales alrededor de z local (solo importa si kx ≠ ky). Rigideces, factores, gap, curva y los δ, F de los resultados de esa fila están en sus ejes locales; la vista 3D dibuja los ejes (x rojo, y verde, z azul).</p>
 <div class="cp"><button class="sc" data-cp="t">Copiar tabla</button></div><div class="w"><table id="t_mount"></table></div><button data-add="mount">+ fila</button>
 <p><b>Tipo</b>: <b>taco</b>, <b>acopl</b> (acoplamiento) o <b>desactivado</b> (la suspensión no cuenta en ningún cálculo; sirve para comprobaciones, y en resultados aparece con fuerza cero). El acoplamiento se monta después de que las cargas marcadas con «descontar» (normalmente el peso) hayan deformado los tacos, así que en los casos de carga no soporta esas cargas. En frecuencias, respuesta forzada y choque funciona como un taco más.</p>
 <p><b>Gap</b> (solo en tacos): elige el <b>eje</b> (x, y o z) y rellena <b>Gap +</b>, <b>Gap −</b> o ambos, en mm; el campo vacío significa que por ese lado no hay tope. La rigidez de ese eje actúa solo cuando la deformación δ = desplazamiento de A respecto a B supera +Gap+ (o es menor que −Gap−); la fuerza es k·(δ − gap). Al elegir un eje, la rigidez de los otros dos ejes se pone a cero y no se puede editar (si vuelves a «—» se recuperan sus valores); solo se edita la rigidez del eje con gap. Con eje «—» es un taco normal, y con el eje elegido y ambos gaps vacíos trabaja en ese eje sin gap. En resultados estáticos y choque en el tiempo se calcula con contacto (se marca en rojo cuando toca).</p>
@@ -299,7 +301,7 @@ details.md>summary{font-size:15px}
 <label>Cargas <select id="v3k"><option value="">Sin vectores de carga</option></select></label></div>
 <div class="mu" id="v3at"></div>
 <div class="v3bar"><button class="sc" data-v3="iso">Isométrica</button><button class="sc" data-v3="alz">Alzado (x-z)</button><button class="sc" data-v3="per">Perfil (y-z)</button><button class="sc" data-v3="pla">Planta (x-y)</button><button class="sc" data-v3="fit">Ajustar</button>
-<label class="opt oi"><input type="checkbox" id="v3b" checked> Prismas</label><label class="opt oi"><input type="checkbox" id="v3s" checked> Suspensiones</label><label class="opt oi"><input type="checkbox" id="v3c2" checked> CdG</label><label class="opt oi"><input type="checkbox" id="v3l"> Etiquetas</label><label class="opt oi"><input type="checkbox" id="v3g" checked> Cuadrícula</label>
+<label class="opt oi"><input type="checkbox" id="v3b" checked> Prismas</label><label class="opt oi"><input type="checkbox" id="v3s" checked> Suspensiones</label><label class="opt oi"><input type="checkbox" id="v3x" checked> Ejes locales de tacos</label><label class="opt oi"><input type="checkbox" id="v3c2" checked> CdG</label><label class="opt oi"><input type="checkbox" id="v3l"> Etiquetas</label><label class="opt oi"><input type="checkbox" id="v3g" checked> Cuadrícula</label>
 <button class="sc" data-v3="img">Copiar imagen</button><button class="sc" data-v3="big">Ampliar</button></div>
 <div class="v3w"><canvas id="v3c"></canvas></div>
 <p class="mu">Arrastrar: girar · Mayús + arrastrar (o botón central o derecho): desplazar · Rueda: zoom (sobre el cursor) · Doble clic: ajustar la vista. Prismas translúcidos definidos por las dos esquinas opuestas de la tabla de masas; el círculo es el CdG de cada masa y la cruz con círculo, el CdG del sólido combinado. Suspensiones: cuadrado en el punto A y círculo en el punto B (negro: taco; verde discontinuo: taco con gap; naranja grueso: acoplamiento; gris discontinuo: desactivado). En la animación cada vértice se mueve con el desplazamiento del CdG de su sólido más el giro por la distancia a ese CdG (u + θ×r); el punto B de un componente suelo permanece fijo.</p></div></div></section>
@@ -316,18 +318,28 @@ const S={
  loads:[['Peso','peso',1,0,0,0,0,0,0,0,0,0,0,0],['Peso escora 10','peso',1,0,0,0,0,0,0,0,0,0,10,0],['Par motor','carga',1,0,0,0,10000,0,0,0,0,0,0,0],['Empuje helice','carga',1,50000,0,0,0,0,0,-3,0,-0.5,0,0]],
  cases:[{n:'Caso 1: reposo',items:[['Peso',1,1]]},{n:'Caso 2: navegando',items:[['Peso',1,1],['Par motor',1],['Empuje helice',1]]},{n:'Caso 3: escora',items:[['Peso',1,1,0],['Peso escora 10',1],['Par motor',1]]}]};
 const H={mass:['Comp','Sub','Masa','CdG x','CdG y','CdG z','Ixx','Iyy','Izz','Nombre sub.','Nombre comp.','Ixy','Ixz','Iyz','Esq.1 x','Esq.1 y','Esq.1 z','Esq.2 x','Esq.2 y','Esq.2 z'],
- mount:['A','B','Ax','Ay','Az','Bx','By','Bz','kx','ky','kz','fx','fy','fz','Nombre','β (s)','Tipo','Eje gap','Gap + (mm)','Gap − (mm)','','Curva'],
+ mount:['A','B','Ax','Ay','Az','Bx','By','Bz','kx','ky','kz','fx','fy','fz','Nombre','β (s)','Tipo','Eje gap','Gap + (mm)','Gap − (mm)','','Curva','Eje z local','Giro (°)'],
  loads:['Carga','Tipo','Comp','Fx','Fy','Fz','Mx','My','Mz','px','py','pz','Escora°','Cabeceo°','ax','ay','az'],
  points:['Punto','Comp','x','y','z'],
  dpts:['Punto','Comp','x','y','z'],
  exc:['Comp','Fx','Fy','Fz','Mx','My','Mz','px','py','pz'],
  srs:['f (Hz)','SRS (g)']};
-const NEW={mass:[1,1,0,0,0,0,0,0,0,'','',0,0,0,null,null,null,null,null,null],mount:[1,2,0,0,0,0,0,0,...K,'Taco',5e-4,'taco','',null,null,null,''],loads:['Nueva','carga',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],points:['Punto',1,0,0,0],dpts:['Punto',1,0,0,0],exc:[1,0,0,0,0,0,0,0,0,0],srs:[100,10]};
+const NEW={mass:[1,1,0,0,0,0,0,0,0,'','',0,0,0,null,null,null,null,null,null],mount:[1,2,0,0,0,0,0,0,...K,'Taco',5e-4,'taco','',null,null,null,'','',0],loads:['Nueva','carga',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],points:['Punto',1,0,0,0],dpts:['Punto',1,0,0,0],exc:[1,0,0,0,0,0,0,0,0,0],srs:[100,10]};
 const AXI=v=>v?'xyz'.indexOf(v):-1;
-const DO={mass:[10,0,9,1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,19],mount:[14,16,21,0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,17,18,19]};
+const DO={mass:[10,0,9,1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,19],mount:[14,16,21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,17,18,19]};
 function applyAxis(r){if(r[20]){for(let i=0;i<3;i++)r[8+i]=r[20][i];r[20]=null}const a=AXI(r[17]);if(a>=0){r[20]=r.slice(8,11);for(let i=0;i<3;i++)if(i!==a)r[8+i]=0}}
 function normMass(){S.mass.forEach(r=>{if(r.length>=9){while(r.length<14)r.push(r.length<11?'':0);while(r.length<20)r.push(null)}})}
-function normMount(){S.mount.forEach(r=>{if(r.length>=17)while(r.length<22)r.push(r.length===17||r.length===21?'':null)})}
+const orV=(r,q)=>{const s=String(r[22]==null?'':r[22]).trim().toLowerCase(),ps=Number(r[23])||0;let e=[0,0,1],m;
+ if(s){if(m=/^([+-]?)([xyz])$/.exec(s)){e=[0,0,0];e['xyz'.indexOf(m[2])]=m[1]==='-'?-1:1}
+  else if(m=/^(xz|yz)\s*[:@]\s*(-?[\d.]+)$/.exec(s)){const a=+m[2]*Math.PI/180;e=m[1]==='xz'?[Math.sin(a),0,Math.cos(a)]:[0,Math.sin(a),Math.cos(a)]}
+  else{const p=s.split(/[\s,;]+/).filter(Boolean).map(x=>ev(x));if(p.length!==3||p.some(v=>!(v===v)))throw Error('Suspensión '+(q+1)+': orientación «'+s+'» no válida (usa z, -z, x, y, un vector «0, 0.5, 0.866» o xz:30)');e=p}}
+ const nn=Math.hypot(...e);if(!(nn>1e-9))throw Error('Suspensión '+(q+1)+': el vector de orientación es nulo');e=e.map(v=>v/nn);
+ if(e[0]===0&&e[1]===0&&e[2]===1&&!ps)return null;
+ const X=Math.abs(e[0])>.999?[0,1,0]:[1,0,0],dx=X[0]*e[0]+X[1]*e[1]+X[2]*e[2];let ex=X.map((v,i)=>v-dx*e[i]);const nx=Math.hypot(...ex);ex=ex.map(v=>v/nx);
+ let ey=[e[1]*ex[2]-e[2]*ex[1],e[2]*ex[0]-e[0]*ex[2],e[0]*ex[1]-e[1]*ex[0]];
+ if(ps){const c=Math.cos(ps*Math.PI/180),sn=Math.sin(ps*Math.PI/180),a=ex.map((v,i)=>c*v+sn*ey[i]),b=ex.map((v,i)=>-sn*v+c*ey[i]);ex=a;ey=b}
+ return[ex,ey,e]};
+function normMount(){S.mount.forEach(r=>{if(r.length>=17)while(r.length<24)r.push(r.length===17||r.length===21||r.length===22?'':r.length===23?0:null)})}
 const ordr=(t,r)=>DO[t]?DO[t].map(j=>r[j]):r;
 const DRG=['mass','mount'];let DGI=null;
 document.addEventListener('dragstart',e=>{const h=e.target.closest&&e.target.closest('.dg');if(!h)return;DGI={t:h.dataset.dg,i:+h.dataset.i};const tr=h.closest('tr');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain','fila');try{e.dataTransfer.setDragImage(tr,10,10)}catch(x){}tr.classList.add('dgo')});
@@ -343,7 +355,7 @@ function draw(t){if(t==='mount')normMount();if(t==='mass')normMass();const od=DO
  S[t].map((r,i)=>'<tr>'+(DRG.includes(t)?`<td><span class="dg" draggable="true" data-dg="${t}" data-i="${i}" title="Arrastra para cambiar el orden">⠿</span></td>`:'')+od.map(j=>`<td>${cell(t,i,j,r[j])}</td>`).join('')+`<td><button class="x" data-del="${t}" data-i="${i}">×</button></td></tr>`).join('');
 }
 document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.nocalc'))return;const d=e.target.dataset;
- if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21))||(d.t==='mass'&&(d.j==9||d.j==10))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');
+ if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21||d.j==22))||(d.t==='mass'&&(d.j==9||d.j==10))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');
   if(d.t==='mass'&&d.j==10){const c0=S.mass[d.i][0];S.mass.forEach(r=>{if(r[0]===c0)r[10]=v});document.querySelectorAll('#t_mass input[data-j="10"]').forEach(inp=>{if(inp!==e.target)inp.value=S.mass[+inp.dataset.i][10]})}
   if(d.t==='loads'&&d.j==0&&old!==v){S.cases.forEach(c=>c.items.forEach(it=>{if(it[0]===old)it[0]=v}));drawCases()}}
   if(d.t==='loads'&&d.j==1)draw('loads');}
@@ -367,6 +379,7 @@ function cell(t,i,j,v){const a=`data-t="${t}" data-i="${i}" data-j="${j}"`;
  if(t==='mount'&&j==16)return `<select ${a}>${[['taco','taco'],['acopl','acopl'],['off','desactivado']].map(o=>`<option value="${o[0]}"${o[0]==v?' selected':''}>${o[1]}</option>`).join('')}</select>`;
  if(t==='mount'&&j==17)return `<select ${a}>${[['','—'],['x','x'],['y','y'],['z','z']].map(o=>`<option value="${o[0]}"${o[0]===v?' selected':''}>${o[1]}</option>`).join('')}</select>`;
  if(t==='mount'&&j==21)return `<select ${a}><option value="">— lineal —</option>${S.curves.map(c=>`<option value="${esc(c.name)}"${c.name===v?' selected':''}>${esc(c.name)}</option>`).join('')}${v&&!cvFind(v)?`<option value="${esc(v)}" selected>${esc(v)} (no existe)</option>`:''}</select>`;
+ if(t==='mount'&&j==22)return `<input value="${esc(v==null?'':v)}" ${a} placeholder="z" list="orl" style="width:110px" title="Eje z local del taco, de la base hacia el cuerpo suspendido: z, -z, x, y, un vector (0, 0.5, 0.866) o xz:30 / yz:30">`;
  if((t==='mount'&&(j==18||j==19))||(t==='mass'&&j>=14))return `<input value="${v==null?'':v}" ${a} placeholder="—">`;
  if(t==='loads'&&j==1)return `<select ${a}>${['peso','carga','acel'].map(o=>`<option${o==v?' selected':''}>${o}</option>`).join('')}</select>`;
  const pe=t==='loads'&&S.loads[i][1]==='peso',ty=t==='loads'?S.loads[i][1]:'',off=(t==='loads'&&j>1&&!(ty==='peso'?j>=12&&j<=13:ty==='acel'?j>=14:j<=11))||(t==='mount'&&j>=8&&j<=10&&AXI(S.mount[i][17])>=0&&j-8!==AXI(S.mount[i][17]))||(t==='mount'&&j==10&&!!S.mount[i][21]&&S.mount[i][16]==='taco');
@@ -412,6 +425,7 @@ function build(){
   const put=(k,p,sg)=>{if(k<0)return;const c=B[k].c,s=sk([p[0]-c[0],p[1]-c[1],p[2]-c[2]]);
    for(let i=0;i<3;i++){J[i][6*k+i]+=sg;for(let j=0;j<3;j++)J[i][6*k+3+j]-=sg*s[i][j]}};
   put(a,r.slice(2,5),1);put(b,r.slice(5,8),-1);
+  const OR=orV(r,q);if(OR){const Jg=J.map(x=>x.slice());for(let i=0;i<3;i++)for(let c=0;c<n;c++)J[i][c]=OR[i][0]*Jg[0][c]+OR[i][1]*Jg[1][c]+OR[i][2]*Jg[2][c]}
   const k0=r.slice(8,11),f=r.slice(11,14),cp=r[16]==='acopl',off=r[16]==='off',ag=AXI(r[17]),nu=v=>typeof v==='number'&&v===v,cvn=r[21],cv0=(!cp&&!off&&cvn)?cvFind(cvn):null;
   if(cvn&&!cp&&!off&&!cv0)throw Error(`Suspensión ${q+1}: la curva «${cvn}» no existe (pestaña Curvas de tacos)`);
   const nlm=cv0?{qi:q,name:cvn,cv:compileCurve(cv0),sg:a<0?-1:1,fb:[k0[0],k0[1]],f:r.slice(11,14),be:r[15]||0}:null,k=nlm?[0,0,0]:k0,
@@ -421,7 +435,7 @@ function build(){
   for(let d=0;d<3;d++){const ig=hg&&d===ag;for(let i=0;i<n;i++)if(J[d][i])for(let j=0;j<n;j++){const w=J[d][i]*J[d][j],v=w*(off?0:k[d]),be=r[15]||0;
    if(!ig||gcl){Ks[i][j]+=v;if(!cp)Kt[i][j]+=v;Kd[i][j]+=v*f[d];Cm[i][j]+=v*f[d]*be}
    if(!ig){Ks0[i][j]+=v;if(!cp)Kt0[i][j]+=v;Kd0[i][j]+=v*f[d];Cm0[i][j]+=v*f[d]*be}}}
-  mt.push({J,k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,k:k[ag],f:f[ag],b:r[15]||0}:null});if(nlm)nls.push(nlm)});
+  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,k:k[ag],f:f[ag],b:r[15]||0}:null});if(nlm)nls.push(nlm)});
  const m={B,n,M,Ks,Kt,Kd,Cm,Ks0,Kt0,Kd0,Cm0,mt,ids,nl:nls};if(nls.length)nlOp(m);return m}
 function gapSolve(m,Kb,F,gl){const n=m.n;let st=gl.map(()=>0),q=null,reg=false;
  for(let it=0;it<60;it++){const K=Kb.map(r=>r.slice()),rh=F.slice();
@@ -468,7 +482,7 @@ function runCase(m,cs){const{B,n,Ks0:Ks,Kt0:Kt,mt,ids}=m,F0=Array(n).fill(0),Fd=
 const g=(x,d=2)=>Number(x).toFixed(d);
 const bl=b=>b.name?b.id+' · '+b.name:b.id;
 function tab(h,rows){return '<div class="w"><table><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+rows.map(r=>'<tr'+(r.red?' class="red"':r.bold?' class="tot"':'')+'>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</table></div>'}
-const mname=q=>S.mount[q][14]+(S.mount[q][16]==='acopl'?' (acopl.)':S.mount[q][16]==='off'?' (desact.)':'');
+const mname=q=>S.mount[q][14]+(S.mount[q][16]==='acopl'?' (acopl.)':S.mount[q][16]==='off'?' (desact.)':'')+((String(S.mount[q][22]||'').trim()||Number(S.mount[q][23]))?' [ejes locales]':'');
 function buildShi(){const el=$('shi');if(!el)return;const cur=el.value;el.innerHTML='<option value="0">Reposo (sin estado estático previo)</option>'+S.cases.map((c,i)=>`<option value="c${i}">Caso estático: ${String(c.n).replace(/[<&"]/g,'')}</option>`).join('');if([...el.options].some(o=>o.value===cur))el.value=cur}
 function massSummary(){normMass();const cons=ev($('cons').value),ids=[...new Set(S.mass.map(r=>r[0]))].sort((a,b)=>a-b);
  const comp=id=>{const rs=S.mass.filter(r=>r[0]===id);let m=0,c=[0,0,0];rs.forEach(r=>{m+=r[2];for(let i=0;i<3;i++)c[i]+=r[2]*r[3+i]});c=m>0?c.map(v=>v/m):c;
@@ -713,7 +727,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='22.6',APP_DATE='15-11-2026';
+const APP_VER='23.0',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
 function goTab(k,foc){
@@ -851,7 +865,7 @@ function msCalc(m,md){const el=$('mres');try{
  const d=d0.map(v=>v/nd);let gnote='';
  {const gsel=$('mgp').value;
   if(gsel&&$('gapm').value==='closed')gnote='<p class="mu">La opción «cerrar tacos con gap» no se aplica porque en la pestaña de suspensiones ya están todos cerrados.</p>';
-  else if(gsel){const sel=m.mt.map(o=>!!(o.gap&&Math.abs(d[o.gap.d])>1e-9&&(gsel==='p'?o.gap.gp!==null:o.gap.gn!==null)));
+  else if(gsel){const sel=m.mt.map(o=>!!(o.gap&&Math.abs(o.R[o.gap.d].reduce((t2,v2,i)=>t2+v2*d[i],0))>1e-9&&(gsel==='p'?o.gap.gp!==null:o.gap.gn!==null)));
    if(sel.some(Boolean)){const Kd=m.Kd.map(r=>r.slice()),Cm=m.Cm.map(r=>r.slice()),mt=m.mt.slice();
     sel.forEach((v,q)=>{if(!v)return;const o=m.mt[q],gg=o.gap,J=o.J[gg.d],kd=gg.k*gg.f;
      for(let i=0;i<n;i++)if(J[i])for(let j=0;j<n;j++)if(J[j]){Kd[i][j]+=kd*J[i]*J[j];Cm[i][j]+=kd*gg.b*J[i]*J[j]}
@@ -1038,7 +1052,7 @@ const V3=(()=>{
     for(let i=0;i<8;i++)v.push([i&1?b[0]:a[0],i&2?b[1]:a[1],i&4?b[2]:a[2]]);geo.boxes.push({k,v,nm,c:cr0});v.forEach(p=>pts.push(p))}});
   m.B.forEach((b,k)=>{geo.cc.push({k,p:b.c.slice(),nm:(b.name||('Comp '+b.id)),c:col(k)});pts.push(b.c)});
   S.mount.forEach(r=>{const ka=m.ids.indexOf(r[0]),kb=m.ids.indexOf(r[1]),A=[r[2],r[3],r[4]],B=[r[5],r[6],r[7]];
-   if(![...A,...B].every(isN))return;geo.mt.push({ka,kb,A,B,nm:r[14]||'',ty:r[16],gap:AXI(r[17])>=0});pts.push(A,B)});
+   if(![...A,...B].every(isN))return;let OR=null;try{OR=orV(r,0)}catch(e){}geo.mt.push({ka,kb,A,B,nm:r[14]||'',ty:r[16],gap:AXI(r[17])>=0,R:OR||[[1,0,0],[0,1,0],[0,0,1]]});pts.push(A,B)});
   const lo=[1e9,1e9,1e9],hi=[-1e9,-1e9,-1e9];pts.forEach(p=>{for(let i=0;i<3;i++){lo[i]=Math.min(lo[i],p[i]);hi[i]=Math.max(hi[i],p[i])}});
   if(!pts.length){lo.fill(0);hi.fill(1)}
   geo.lo=lo;geo.hi=hi;geo.cen=lo.map((v,i)=>(v+hi[i])/2);geo.R=Math.max(.1,Math.hypot(...hi.map((v,i)=>v-lo[i]))/2)}
@@ -1079,7 +1093,10 @@ const V3=(()=>{
   if(opt('v3s')){geo.mt.forEach(t=>{const a=P(t.ka,t.A),b=P(t.kb,t.B),col=t.ty==='off'?'#868e96':t.ty==='acopl'?'#e8590c':t.gap?'#2f9e44':'#1c1c1e',cc=t.ty==='off'?MU:col===('#1c1c1e')?FG:col;
     line(a,b,cc,t.ty==='acopl'?4:2.4,t.ty==='off'?[5,4]:t.gap?[8,4]:null);
     cx.fillStyle=cc;cx.fillRect(a.x-3.5,a.y-3.5,7,7);cx.beginPath();cx.arc(b.x,b.y,3.5,0,7);cx.fillStyle=BG;cx.fill();cx.strokeStyle=cc;cx.lineWidth=1.6;cx.stroke();
-    if(opt('v3l')&&t.nm){cx.fillStyle=cc;cx.fillText(t.nm,(a.x+b.x)/2+4,(a.y+b.y)/2-4)}})}
+    if(opt('v3l')&&t.nm){cx.fillStyle=cc;cx.fillText(t.nm,(a.x+b.x)/2+4,(a.y+b.y)/2-4)}});
+   if(opt('v3x')){const L=.1*geo.R,AC=['#e03131','#2f9e44','#1c7ed6'];geo.mt.forEach(t=>{if(t.ty==='off')return;const o=P(t.ka,t.A);for(let i=0;i<3;i++){const e=t.R[i],tip=P(t.ka,[t.A[0]+L*e[0],t.A[1]+L*e[1],t.A[2]+L*e[2]]);line(o,tip,AC[i],i===2?2.6:1.8);
+     if(i===2){const dx=tip.x-o.x,dy=tip.y-o.y,l=Math.hypot(dx,dy)||1,ux=dx/l,uy=dy/l;cx.beginPath();cx.moveTo(tip.x,tip.y);cx.lineTo(tip.x-7*ux-3.5*uy,tip.y-7*uy+3.5*ux);cx.lineTo(tip.x-7*ux+3.5*uy,tip.y-7*uy-3.5*ux);cx.closePath();cx.fillStyle=AC[2];cx.fill()}
+     cx.fillStyle=AC[i];cx.font='bold 11px Arial, sans-serif';cx.fillText(['x','y','z'][i],tip.x+3,tip.y-3);cx.font='12px Arial, sans-serif'}})}}
   if(opt('v3c2')){geo.cg.forEach(q=>{const p=P(q.k,q.p);cx.beginPath();cx.arc(p.x,p.y,4,0,7);cx.fillStyle=BG;cx.fill();cx.strokeStyle=q.c;cx.lineWidth=2;cx.stroke();cx.beginPath();cx.arc(p.x,p.y,1.4,0,7);cx.fillStyle=q.c;cx.fill();
     if(opt('v3l')){cx.fillStyle=FG;cx.fillText(q.nm,p.x+7,p.y-6)}});
    geo.cc.forEach(q=>{const p=P(q.k,q.p);cx.strokeStyle=FG;cx.lineWidth=2.2;cx.beginPath();cx.moveTo(p.x-9,p.y);cx.lineTo(p.x+9,p.y);cx.moveTo(p.x,p.y-9);cx.lineTo(p.x,p.y+9);cx.stroke();cx.beginPath();cx.arc(p.x,p.y,6,0,7);cx.stroke();
@@ -1113,7 +1130,7 @@ const V3=(()=>{
  $('v3p').onclick=()=>{if(!fld){$('v3at').textContent='Elige un modo o una deformada estática para animar';return}play(!an.play)};
  $('v3m').addEventListener('input',()=>{mlSync();cur=$('v3m').value;setField();play(false);if(fld&&cur[0]==='m')play(true);sched()});
  $('v3a').addEventListener('input',()=>{setField();sched()});
- ['v3b','v3s','v3c2','v3l','v3g','v3k'].forEach(i=>{const e=$(i);if(e)e.addEventListener('input',sched)});
+ ['v3b','v3s','v3x','v3c2','v3l','v3g','v3k'].forEach(i=>{const e=$(i);if(e)e.addEventListener('input',sched)});
  document.querySelectorAll('[data-v3]').forEach(b=>b.onclick=()=>{const k=b.dataset.v3;if(k==='iso')view(-55,22);else if(k==='alz')view(-90,0);else if(k==='per')view(0,0);else if(k==='pla')view(-90,90);else if(k==='fit'){cam.z=1;cam.px=cam.py=0;sched()}
   else if(k==='big'){const w=cv.parentElement;w.classList.toggle('tall');b.textContent=w.classList.contains('tall')?'Reducir':'Ampliar';sched()}
   else if(k==='img'){cv.toBlob(async bl=>{try{await navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);b.textContent='¡Copiada!'}catch(e){const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download='vista3d.png';a.click();b.textContent='Descargada'}setTimeout(()=>b.textContent='Copiar imagen',2000)})}});
