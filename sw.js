@@ -1,7 +1,7 @@
 /* Service worker: la herramienta funciona sin conexión.
    Con conexión descarga siempre la última versión; sin ella usa la copia guardada.
    Al publicar una versión nueva, cambia V (y el número de versión del HTML). */
-const V='23.2',CACHE='mdof-'+V,FILES=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon.svg'];
+const V='23.3',CACHE='mdof-'+V,FILES=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon.svg'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('mdof-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{const r=e.request;if(r.method!=='GET'||new URL(r.url).origin!==location.origin)return;
