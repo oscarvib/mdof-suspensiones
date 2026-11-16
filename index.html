@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="23.0 (2026-11-15)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="23.1 (2026-11-15)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f2538">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
@@ -168,6 +168,7 @@ details.md>summary{font-size:15px}
 <div class="cp"><button class="sc" data-cp="t">Copiar tabla</button></div><div class="w"><table id="t_mount"></table></div><button data-add="mount">+ fila</button>
 <p><b>Tipo</b>: <b>taco</b>, <b>acopl</b> (acoplamiento) o <b>desactivado</b> (la suspensión no cuenta en ningún cálculo; sirve para comprobaciones, y en resultados aparece con fuerza cero). El acoplamiento se monta después de que las cargas marcadas con «descontar» (normalmente el peso) hayan deformado los tacos, así que en los casos de carga no soporta esas cargas. En frecuencias, respuesta forzada y choque funciona como un taco más.</p>
 <p><b>Gap</b> (solo en tacos): elige el <b>eje</b> (x, y o z) y rellena <b>Gap +</b>, <b>Gap −</b> o ambos, en mm; el campo vacío significa que por ese lado no hay tope. La rigidez de ese eje actúa solo cuando la deformación δ = desplazamiento de A respecto a B supera +Gap+ (o es menor que −Gap−); la fuerza es k·(δ − gap). Al elegir un eje, la rigidez de los otros dos ejes se pone a cero y no se puede editar (si vuelves a «—» se recuperan sus valores); solo se edita la rigidez del eje con gap. Con eje «—» es un taco normal, y con el eje elegido y ambos gaps vacíos trabaja en ese eje sin gap. En resultados estáticos y choque en el tiempo se calcula con contacto (se marca en rojo cuando toca).</p>
+<p class="mu"><b>Gap con curva no lineal (stopper):</b> en la misma fila puedes elegir una curva y un gap en el eje <b>z</b> (local). La fuerza es cero dentro de la holgura y, al cerrarla, sigue la curva de compresión (o de tracción) en función de la penetración (deformación − gap). La compresión usa el gap del lado de compresión (Gap − si z apunta de la base al cuerpo) y la tracción el del otro lado; un lado vacío no tiene tope. En frecuencias y choque modal vale la opción abiertos/cerrados de abajo. En el choque en el tiempo la curva se sigue siempre completa y parte del caso elegido en «Estado inicial».</p>
 <p><label class="opt"><input type="checkbox" id="gapd" checked> <b>Gap medido desde la posición de montaje</b></label> <span class="mu">(en los tacos con gap, las deformaciones mostradas son entonces las medidas desde esa posición de montaje, no desde la posición sin carga; las cargas marcadas «Descontar» se aplican antes de que los tacos con gap trabajen; si lo desmarcas, el gap se mide desde la posición sin carga).</span></p>
 <p>Tacos con gap en frecuencias, respuesta forzada y choque modal: <select id="gapm"><option value="open">abiertos (no cuentan)</option><option value="closed">cerrados (rigidez completa)</option></select></p>
 
@@ -429,13 +430,15 @@ function build(){
   const k0=r.slice(8,11),f=r.slice(11,14),cp=r[16]==='acopl',off=r[16]==='off',ag=AXI(r[17]),nu=v=>typeof v==='number'&&v===v,cvn=r[21],cv0=(!cp&&!off&&cvn)?cvFind(cvn):null;
   if(cvn&&!cp&&!off&&!cv0)throw Error(`Suspensión ${q+1}: la curva «${cvn}» no existe (pestaña Curvas de tacos)`);
   const nlm=cv0?{qi:q,name:cvn,cv:compileCurve(cv0),sg:a<0?-1:1,fb:[k0[0],k0[1]],f:r.slice(11,14),be:r[15]||0}:null,k=nlm?[0,0,0]:k0,
-   gp=nu(r[18])?r[18]/1e3:null,gn=nu(r[19])?r[19]/1e3:null,hg=!cp&&!off&&ag>=0&&(gp!==null||gn!==null);
-  if(nlm&&!nlm.cv.ok)throw Error(`Curva «${cvn}»: faltan datos de compresión`);if(nlm&&hg)throw Error(`Suspensión ${q+1}: una curva no lineal no se puede combinar con gap en la misma fila; define el tope en otra fila`);
+   gp=nu(r[18])?r[18]/1e3:null,gn=nu(r[19])?r[19]/1e3:null,hg0=!cp&&!off&&ag>=0&&(gp!==null||gn!==null),hg=hg0&&!nlm;
+  if(nlm&&!nlm.cv.ok)throw Error(`Curva «${cvn}»: faltan datos de compresión`);if(nlm&&hg0){if(ag!==2)throw Error(`Suspensión ${q+1}: con una curva no lineal el eje del gap debe ser z (la curva actúa en el eje z local)`);
+   const sg=nlm.sg,GI=v=>v===null?Infinity:v*1e3,gC=sg>0?GI(gn):GI(gp),gT=sg>0?GI(gp):GI(gn);nlm.gap={gC,gT};
+   nlm.ce=c=>c>gC?c-gC:c<-gT?c+gT:0}else if(nlm){nlm.gap=null;nlm.ce=c=>c}
   const ke=k.map((v,d)=>off||(hg&&d===ag&&!gcl)?0:v),kn=k.map(v=>off?0:v);
   for(let d=0;d<3;d++){const ig=hg&&d===ag;for(let i=0;i<n;i++)if(J[d][i])for(let j=0;j<n;j++){const w=J[d][i]*J[d][j],v=w*(off?0:k[d]),be=r[15]||0;
    if(!ig||gcl){Ks[i][j]+=v;if(!cp)Kt[i][j]+=v;Kd[i][j]+=v*f[d];Cm[i][j]+=v*f[d]*be}
    if(!ig){Ks0[i][j]+=v;if(!cp)Kt0[i][j]+=v;Kd0[i][j]+=v*f[d];Cm0[i][j]+=v*f[d]*be}}}
-  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,k:k[ag],f:f[ag],b:r[15]||0}:null});if(nlm)nls.push(nlm)});
+  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,nlg:!!(nlm&&nlm.gap),k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,k:k[ag],f:f[ag],b:r[15]||0}:null});if(nlm)nls.push(nlm)});
  const m={B,n,M,Ks,Kt,Kd,Cm,Ks0,Kt0,Kd0,Cm0,mt,ids,nl:nls};if(nls.length)nlOp(m);return m}
 function gapSolve(m,Kb,F,gl){const n=m.n;let st=gl.map(()=>0),q=null,reg=false;
  for(let it=0;it<60;it++){const K=Kb.map(r=>r.slice()),rh=F.slice();
@@ -475,7 +478,8 @@ function runCase(m,cs){const{B,n,Ks0:Ks,Kt0:Kt,mt,ids}=m,F0=Array(n).fill(0),Fd=
  if(!gl.length){dq=solve(Ks,F0.map((v,i)=>v-Fd[i]));if(!dq)return null;q=dq.map((v,i)=>v+qp[i])}
  else if(chk){gs=gapSolve(m,Ks,F0.map((v,i)=>v-Fd[i]),gl);if(!gs)return null;dq=gs.q;q=dq.map((v,i)=>v+qp[i])}
  else{const Kc=Ks.map((r,i)=>r.map((v,j)=>v-Kt[i][j])),rh=F0.map((v,i)=>v+Kc[i].reduce((s,x,j)=>s+x*qp[j],0));gs=gapSolve(m,Ks,rh,gl);if(!gs)return null;q=gs.q;dq=q.map((v,i)=>v-qp[i])}}
- return{q,dq,mounts:mt.map((o,qi)=>{const d=o.J.map(r=>r.reduce((s,v,i)=>s+v*(o.cp||(o.gap&&chk)?dq:q)[i],0)),F=o.nl?nlEval(o.nl,d).F:d.map((x,i)=>x*o.kn[i]);let st;
+ return{q,dq,mounts:mt.map((o,qi)=>{const d=o.J.map(r=>r.reduce((s,v,i)=>s+v*(o.cp||((o.gap||o.nlg)&&chk)?dq:q)[i],0)),F=o.nl?nlEval(o.nl,d).F:d.map((x,i)=>x*o.kn[i]);let st;
+  if(o.nlg)st=nlEval(o.nl,d).st;
   if(o.gap){const a=gl.indexOf(qi);st=gs.st[a];F[o.gap.d]=gs.f[a]}return{d,F,Fd:F.map((x,i)=>x*o.f[i]),st}})}}
 
 /* ---------- salida ---------- */
@@ -513,9 +517,9 @@ function calc(){const R=$('res');drawComb();buildSel();buildShi();buildNlop();$(
   S.cases.forEach(c=>{let r;try{r=runCase(m,c)}catch(er){h+='<div class="case'+(RCOL.has(c.n)?' cl':'')+'"><h3 style="font-size:14px;margin:14px 0 4px">'+c.n+'</h3><p class="err">'+er.message+'</p></div>';return}h+='<div class="case'+(RCOL.has(c.n)?' cl':'')+'"><h3 style="font-size:14px;margin:14px 0 4px">'+c.n+'</h3><p>'+c.items.map(i=>i[1]+'×'+i[0]).join(' + ')+'</p>';
    if(!r){h+='<p class="err">Sistema singular: faltan suspensiones o gdl sin restringir.</p></div>';return}
    h+='<h4 class="gh">Centros de gravedad</h4>'+tab(['Comp','ux mm','uy mm','uz mm','θx mrad','θy mrad','θz mrad'],m.B.map((b,k)=>[bl(b),...[0,1,2].map(i=>g(r.q[6*k+i]*1e3,3)),...[3,4,5].map(i=>g(r.q[6*k+i]*1e3,3))]));
-   const ex=m.mt.some(o=>o.gap||o.off);
+   const ex=m.mt.some(o=>o.gap||o.nlg||o.off);
    h+='<h4 class="gh">Tacos</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN',...(ex?['Estado']:[])],
-    r.mounts.map((o,i)=>{const row=[mname(i),S.mount[i][0]+'-'+S.mount[i][1],...o.d.map(x=>g(x*1e3,3)),...o.F.map(x=>g(x/1e3,3)),...(ex?[m.mt[i].off?'desactivado':m.mt[i].gap?(o.st>0?'CONTACTO +':o.st<0?'CONTACTO −':'abierto'):'—']:[])];row.red=!!o.st;return row}));
+    r.mounts.map((o,i)=>{const row=[mname(i),S.mount[i][0]+'-'+S.mount[i][1],...o.d.map(x=>g(x*1e3,3)),...o.F.map(x=>g(x/1e3,3)),...(ex?[m.mt[i].off?'desactivado':(m.mt[i].gap||m.mt[i].nlg)?(o.st>0?'CONTACTO +':o.st<0?'CONTACTO −':'abierto'):'—']:[])];row.red=!!o.st;return row}));
    h+=nlWarn(m,r);if(S.points.length)h+='<h4 class="gh">Puntos'+($('ptd').checked?' (desplazamiento desde el montaje)':'')+'</h4>'+tab(['Nombre','Comp','ux mm','uy mm','uz mm'],S.points.map(p=>{const Q=$('ptd').checked?r.dq:r.q;const k=m.ids.indexOf(p[1]);if(k<0)throw Error('Punto "'+p[0]+'": el componente '+p[1]+' no es móvil');const c0=m.B[k].c,u=cr([3,4,5].map(i=>Q[6*k+i]),[p[2]-c0[0],p[3]-c0[1],p[4]-c0[2]]);return[p[0],p[1],...[0,1,2].map(i=>g((Q[6*k+i]+u[i])*1e3,3))]}));h+='</div>'});
   R.innerHTML=h}catch(e){R.innerHTML='<p class="err">'+e.message+'</p>';OPS=[];$('cvop').innerHTML=R.innerHTML;cvPlots();$('resmod').innerHTML=R.innerHTML;$('mres').innerHTML=R.innerHTML}}
 
@@ -592,12 +596,14 @@ function runShock(){try{
  const N=Math.round(tt/dt);if(N>20000)throw Error('Demasiados pasos: aumenta el paso o reduce el tiempo total');
  const be=.25,ga=.5,p1=1/(be*dt*dt),p2=1/(be*dt),p3=1/(2*be)-1,q1=ga/(be*dt),q2=ga/be-1,q3=dt*(ga/(2*be)-1);
  const Ke=m.Kd0.map((r,i)=>r.map((v,j)=>v+q1*m.Cm0[i][j]+p1*m.M[i][j])),mv=(A,x)=>A.map(r=>r.reduce((s,v,j)=>s+v*x[j],0));
- const nlf=($('shnl').value==='full'&&m.nl.length)?m.nl:[];
+ const nlf=$('shnl').value==='full'?m.nl:m.nl.filter(a=>a.gap);const nct={};nlf.forEach(a=>{if(a.gap)nct[a.qi]={n:0,pen:0}});
  const gl=m.mt.map((o,i)=>o.gap?i:-1).filter(i=>i>=0),hf=(gg,dl,s2)=>s2>0?dl-gg.gp:s2<0?dl+gg.gn:0,sof=(gg,dl)=>gg.gp!==null&&dl>gg.gp?1:gg.gn!==null&&dl<-gg.gn?-1:0;
  let d0=gl.map(()=>0);const si=$('shi').value,wst=$('shst').checked;let rc=null,cname='';
  if(si[0]==='c'){const cs=S.cases[+si.slice(1)];if(!cs)throw Error('El caso estático inicial ya no existe');cname=cs.n;rc=runCase(m,cs);if(!rc)throw Error('No se pudo calcular el estado estático inicial (sistema singular)')}
  if(wst&&!rc)throw Error('Para sumar el estado estático elige un caso en «Estado inicial»');
  if(gl.length&&rc){const Q=$('gapd').checked?rc.dq:rc.q;d0=gl.map(qi=>m.mt[qi].J[m.mt[qi].gap.d].reduce((s2,v,i)=>s2+v*Q[i],0))}
+ const ini={};nlf.forEach(nl=>{if(!nl.gap)return;const dz0=rc?rc.mounts[nl.qi].d[2]:0,cr=-nl.sg*dz0*1e3,c=nl.ce(cr);ini[nl.qi]={cr,c,P:nl.cv.P(c),st:c>0?-nl.sg:c<0?nl.sg:0}});
+ const I0=nl=>ini[nl.qi]||nl.op;
  const sd=m.mt.map((o,q)=>wst?rc.mounts[q].d.slice():[0,0,0]),sF=m.mt.map((o,q)=>wst?rc.mounts[q].F.slice():[0,0,0]);
  const h0=gl.map((qi,a)=>hf(m.mt[qi].gap,d0[a],sof(m.mt[qi].gap,d0[a])));
  let sg=gl.map((qi,a)=>sof(m.mt[qi].gap,d0[a]));
@@ -609,8 +615,9 @@ function runShock(){try{
   m.B.forEach((b,k)=>{for(let i=0;i<3;i++)f[6*k+i]=-b.m*ab[i]});
   const wv=x.map((xi,i)=>q1*xi+q2*v[i]+q3*a[i]),r1=mv(m.M,x.map((xi,i)=>p1*xi+p2*v[i]+p3*a[i])),r2=mv(m.Cm0,wv);let x1=null,xit=x;
   for(let it=0;it<40;it++){const Kk=(gl.length||nlf.length)?Ke.map(r=>r.slice()):Ke,rh=f.map((fi,i)=>fi+r1[i]+r2[i]);
-   nlf.forEach(nl=>{const J=m.mt[nl.qi].J[2],dz=J.reduce((s2,v,i)=>s2+v*xit[i],0),c=nl.op.c-nl.sg*dz*1e3,kn=nl.f[2]*Math.max(nl.cv.dP(c),nl.cv.kmin)*1e6,k0=nl.op.ks[2]*nl.f[2],Fn=-nl.sg*nl.f[2]*(nl.cv.P(c)-nl.op.P)*1e3;
-    for(let i=0;i<n;i++)if(J[i]){rh[i]-=J[i]*(Fn-kn*dz);for(let j=0;j<n;j++)if(J[j])Kk[i][j]+=(kn-k0)*J[i]*J[j]}});
+   nlf.forEach(nl=>{const J=m.mt[nl.qi].J[2],dz=J.reduce((s2,v,i)=>s2+v*xit[i],0),cr=I0(nl).cr-nl.sg*dz*1e3,c=nl.ce(cr),kn=nl.f[2]*((nl.gap&&c===0)?nl.cv.kmin:Math.max(nl.cv.dP(c),nl.cv.kmin))*1e6,k0=nl.op.ks[2]*nl.f[2],Fn=-nl.sg*nl.f[2]*(nl.cv.P(c)-I0(nl).P)*1e3;
+    const cc=(nl.gap&&c!==0)?(kn-k0)*nl.be:0,Jw=cc?J.reduce((t2,vv,i)=>t2+vv*wv[i],0):0;
+    for(let i=0;i<n;i++)if(J[i]){rh[i]-=J[i]*(Fn-kn*dz);if(cc)rh[i]+=J[i]*cc*Jw;for(let j=0;j<n;j++)if(J[j])Kk[i][j]+=(kn-k0)*J[i]*J[j]+q1*cc*J[i]*J[j]}});
    gl.forEach((qi,aa)=>{const gg=m.mt[qi].gap,J=m.mt[qi].J[gg.d],kd=gg.k*gg.f,c=kd*gg.b,s2=sg[aa],cst=kd*((s2>0?d0[aa]-gg.gp:s2<0?d0[aa]+gg.gn:0)-h0[aa]) - (s2?0:0);
     const Jw=J.reduce((t2,vv,i)=>t2+vv*wv[i],0);
     for(let i=0;i<n;i++)if(J[i]){rh[i]-=J[i]*(s2?cst:-kd*h0[aa]);if(s2){rh[i]+=J[i]*c*Jw;for(let j=0;j<n;j++)Kk[i][j]+=(kd+q1*c)*J[i]*J[j]}}});
@@ -619,31 +626,35 @@ function runShock(){try{
    const er=nlf.length?Math.max(...x1.map((vv,i)=>Math.abs(vv-xit[i]))):0,scx=Math.max(...x1.map(Math.abs),1e-9);xit=x1;
    if(ns.every((vv,aa)=>vv===sg[aa])&&er<1e-9*scx+1e-14)break;sg=ns;if(it===39&&nlf.length)throw Error('El choque con curvas no lineales no converge en t = '+g(ts*1e3,2)+' ms: reduce el paso de tiempo o suaviza la zona de baja carga de la curva')}
   gl.forEach((qi,aa)=>{const gg=m.mt[qi].gap,dl=d0[aa]+m.mt[qi].J[gg.d].reduce((t2,vv,i)=>t2+vv*x1[i],0),hh=hf(gg,dl,sg[aa]);fg[aa].push(gg.k*gg.f*(hh-h0[aa]));if(sg[aa]){ct[aa].n++;ct[aa].pen=Math.max(ct[aa].pen,Math.abs(hh))}});
+  nlf.forEach(nl=>{if(!nl.gap)return;const dz=m.mt[nl.qi].J[2].reduce((s2,vv,i)=>s2+vv*x1[i],0),c=nl.ce(I0(nl).cr-nl.sg*dz*1e3);if(c!==0){nct[nl.qi].n++;nct[nl.qi].pen=Math.max(nct[nl.qi].pen,Math.abs(c)/1e3)}});
   const a1=x1.map((xi,i)=>p1*(xi-x[i])-p2*v[i]-p3*a[i]);v=v.map((vi,i)=>vi+dt*((1-ga)*a[i]+ga*a1[i]));x=x1;a=a1;t.push(ts*1e3);
   m.mt.forEach((o,q)=>o.J.forEach((row,d)=>df[q][d].push(row.reduce((s2,c,i)=>s2+c*x[i],0))));
   m.B.forEach((b,k)=>{for(let i=0;i<6;i++)ac[k][i].push(i<3?(a[6*k+i]+ab[i])/9.81:a[6*k+i])});
   pp.forEach(p=>{const ur=cr([3,4,5].map(i=>x[6*p.k+i]),p.r),ar=cr([3,4,5].map(i=>a[6*p.k+i]),p.r);for(let c=0;c<3;c++){p.u[c].push(x[6*p.k+c]+ur[c]);p.a[c].push((a[6*p.k+c]+ab[c]+ar[c])/9.81)}})}
  if(wst){df.forEach((a,q)=>a.forEach((sr,d)=>{for(let i=0;i<sr.length;i++)sr[i]+=sd[q][d]}));
   const Qp=$('ptd').checked?rc.dq:rc.q;pp.forEach(p=>{const c0=m.B[p.k].c,us=cr([3,4,5].map(i=>Qp[6*p.k+i]),p.r);for(let c=0;c<3;c++){const o=Qp[6*p.k+c]+us[c];for(let i=0;i<p.u[c].length;i++)p.u[c][i]+=o}})}
- const fdy=(q,d,y)=>{const nl=nlf.length&&m.mt[q].nl;if(nl&&d===2)return -nl.sg*nl.f[2]*(nl.cv.P(nl.op.c-nl.sg*(y-sd[q][d])*1e3)-nl.op.P)*1e3+sF[q][d];return (y-sd[q][d])*m.mt[q].kn[d]*m.mt[q].f[d]+sF[q][d]};
+ const fdy=(q,d,y)=>{const nl=m.mt[q].nl;if(nl&&nlf.includes(nl)&&d===2)return -nl.sg*nl.f[2]*(nl.cv.P(nl.ce(I0(nl).cr-nl.sg*(y-sd[q][d])*1e3))-I0(nl).P)*1e3+sF[q][d];return (y-sd[q][d])*m.mt[q].kn[d]*m.mt[q].f[d]+sF[q][d]};
  R3={t,df,ac,pp,fg,gl,d0,mt:m.mt,wst,sd,sF,fd:fdy};const mx=z=>z.reduce((s,y)=>Math.max(s,Math.abs(y)),0);
- const ex=m.mt.some(o=>o.gap||o.off);
+ const ex=m.mt.some(o=>o.gap||o.nlg||o.off);
  const mm=(z,k)=>g(Math.min(...z)*k,3)+' / '+g(Math.max(...z)*k,3);
  const SG='<h4 class="gh">Tacos: mínimo / máximo con signo'+(wst?' (con el estático sumado)':'')+'</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN'],
   m.mt.map((o,q)=>{const a=gl.indexOf(q);return[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>mm(df[q][d],1e3)),...[0,1,2].map(d=>mm(a>=0&&o.gap.d===d?fg[a].map(y=>y+sF[q][d]):df[q][d].map(y=>fdy(q,d,y)),1e-3))]}));
  let h='<h4 class="gh">Tacos: máximos'+(wst?' (con el estado estático del caso «'+esc(cname)+'» sumado)':'')+'</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN',...(ex?['Contacto']:[])],
   m.mt.map((o,q)=>{const a=gl.indexOf(q),row=[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>g(mx(df[q][d])*1e3,3)),...[0,1,2].map(d=>a>=0&&o.gap.d===d?g(mx(fg[a].map(y=>y+sF[q][d]))/1e3,3):g(mx(df[q][d].map(y=>fdy(q,d,y)))/1e3,3)),
-   ...(ex?[o.off?'desactivado':a>=0?(ct[a].n?'SÍ: '+g(ct[a].n*dt*1e3,1)+' ms, penetr. máx. '+g(ct[a].pen*1e3,2)+' mm':'no'):'—']:[])];row.red=a>=0&&ct[a].n>0;return row}));
- if(gl.length){const f1=v=>v===null?'—':g(v*1e3,3);
+   ...(ex?[o.off?'desactivado':a>=0?(ct[a].n?'SÍ: '+g(ct[a].n*dt*1e3,1)+' ms, penetr. máx. '+g(ct[a].pen*1e3,2)+' mm':'no'):o.nlg?(nct[q]&&nct[q].n?'SÍ: '+g(nct[q].n*dt*1e3,1)+' ms, penetr. máx. '+g(nct[q].pen*1e3,2)+' mm':'no'):'—']:[])];row.red=(a>=0&&ct[a].n>0)||(o.nlg&&!!nct[q]&&nct[q].n>0);return row}));
+ const nlg=m.nl.filter(a=>a.gap);
+ if(gl.length||nlg.length){const f1=v=>v===null?'—':g(v*1e3,3);
+  const rows=gl.map((qi,aa)=>{const gg=m.mt[qi].gap,dd=d0[aa],s0=sof(gg,dd);return{qi,ax:['x','y','z'][gg.d],gp:gg.gp,gn:gg.gn,dd,s0,pre:Math.abs(h0[aa])}})
+   .concat(nlg.map(nl=>{const G=v=>isFinite(v)?v/1e3:null,gp=G(nl.sg>0?nl.gap.gT:nl.gap.gC),gn=G(nl.sg>0?nl.gap.gC:nl.gap.gT);return{qi:nl.qi,ax:'z (curva)',gp,gn,dd:-nl.sg*I0(nl).cr/1e3,s0:I0(nl).st,pre:Math.abs(I0(nl).c)/1e3}}));
   h='<h4 class="gh">Tacos con gap: estado inicial del choque'+(rc?' (caso «'+esc(cname)+'»'+($('gapd').checked?', gap medido desde la posición de montaje':', gap medido desde la posición sin carga')+')':'')+'</h4>'+
    (rc?'':'<p class="err">Estado inicial en «Reposo»: se supone deformación 0 en todos los tacos. Si el peso o el par ya cierran algún gap, elige el caso de carga en «Estado inicial».</p>')+
-   tab(['Nombre','A-B','Eje','Gap + mm','Gap − mm','δ inicial mm','Holgura + mm','Holgura − mm','Estado inicial'],gl.map((qi,aa)=>{const gg=m.mt[qi].gap,dd=d0[aa],s0=sof(gg,dd);
-    const row=[mname(qi),S.mount[qi][0]+'-'+S.mount[qi][1],['x','y','z'][gg.d],f1(gg.gp),f1(gg.gn),g(dd*1e3,3),gg.gp!==null?g((gg.gp-dd)*1e3,3):'—',gg.gn!==null?g((gg.gn+dd)*1e3,3):'—',s0>0?'EN CONTACTO (+), precarga '+g(h0[aa]*1e3,3)+' mm':s0<0?'EN CONTACTO (−), precarga '+g(Math.abs(h0[aa])*1e3,3)+' mm':'abierto'];row.red=s0!==0;return row}))+
-   '<p class="mu">Holgura = recorrido que le falta al taco para cerrar el gap en ese lado, medido desde el estado inicial. Un valor negativo significa que el gap ya está cerrado en ese lado; su valor absoluto es la precarga.</p>'+h}
+   tab(['Nombre','A-B','Eje','Gap + mm','Gap − mm','δ inicial mm','Holgura + mm','Holgura − mm','Estado inicial'],rows.map(w=>{
+    const row=[mname(w.qi),S.mount[w.qi][0]+'-'+S.mount[w.qi][1],w.ax,f1(w.gp),f1(w.gn),g(w.dd*1e3,3),w.gp!==null?g((w.gp-w.dd)*1e3,3):'—',w.gn!==null?g((w.gn+w.dd)*1e3,3):'—',w.s0>0?'EN CONTACTO (+), precarga '+g(w.pre*1e3,3)+' mm':w.s0<0?'EN CONTACTO (−), precarga '+g(w.pre*1e3,3)+' mm':'abierto'];row.red=w.s0!==0;return row}))+
+   '<p class="mu">Holgura = recorrido que le falta al taco para cerrar el gap en ese lado, medido desde el estado inicial. Un valor negativo significa que el gap ya está cerrado en ese lado; su valor absoluto es la precarga.'+(nlg.length?' En los tacos con curva la fuerza sigue la curva de la compresión (o tracción) más allá del gap; en un choque con tacos de este tipo la curva siempre se sigue completa, aunque el selector del choque esté en «lineal».':'')+'</p>'+h}
  h+=SG+'<p class="mu">Los máximos son en módulo; en la tabla de mínimo / máximo se ve el signo. La fuerza es la elástica (rigidez dinámica × deformación del choque'+(wst?' más la fuerza estática del caso':'')+'), sin la parte de amortiguamiento.</p><h4 class="gh">Sólidos: máximos en el CdG (aceleración absoluta)</h4>'+tab(['Comp','ax g','ay g','az g','αx rad/s²','αy rad/s²','αz rad/s²'],
   m.B.map((b,k)=>[bl(b),...[0,1,2].map(i=>g(mx(ac[k][i]),2)),...[3,4,5].map(i=>g(mx(ac[k][i]),0))]));
  if(pp.length)h+='<h4 class="gh">Puntos adicionales: máximos (desplazamiento'+(wst?' con el estático sumado':' respecto a la base')+' y aceleración absoluta del choque)</h4>'+tab(['Nombre','Comp','ux mm','uy mm','uz mm','ax g','ay g','az g'],pp.map((p,i)=>[S.points[i][0],S.points[i][1],...[0,1,2].map(c=>g(mx(p.u[c])*1e3,3)),...[0,1,2].map(c=>g(mx(p.a[c]),2))]));
- {h=rngW(m.nl.map(nl=>{const dz=df[nl.qi][2].map(y=>-nl.sg*(y-sd[nl.qi][2])*1e3);return{n:mname(nl.qi),c:nl.op.c+Math.max(...dz),x:nl.cv.comp.xmax}}).filter(a=>a.c>a.x),'Choque (compresión máxima)')+h}
+ {h=rngW(m.nl.map(nl=>{const dz=df[nl.qi][2].map(y=>-nl.sg*(y-sd[nl.qi][2])*1e3);return{n:mname(nl.qi),c:nl.ce(I0(nl).cr+Math.max(...dz)),x:nl.cv.comp.xmax}}).filter(a=>a.c>a.x),'Choque (compresión máxima)')+h}
  $('shk').innerHTML=h;
  $('shs').innerHTML=S.mount.map((r,q)=>`<option value="t${q}">Taco (deformación): ${mname(q)}</option>`).join('')+S.mount.map((r,q)=>`<option value="f${q}">Taco (fuerza): ${mname(q)}</option>`).join('')+m.B.map((b,k)=>`<option value="b${k}">Sólido: ${bl(b)}</option>`).join('')+pp.map((p,i)=>`<option value="pd${i}">Punto (desplazamiento): ${S.points[i][0]}</option><option value="pa${i}">Punto (aceleración): ${S.points[i][0]}</option>`).join('');
  drawShock()}catch(e){R3=null;$('shk').innerHTML='<p class="err">'+e.message+'</p>';$('shc').innerHTML=''}}
@@ -727,7 +738,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='23.0',APP_DATE='15-11-2026';
+const APP_VER='23.1',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
 function goTab(k,foc){
@@ -1187,25 +1198,25 @@ const cvPrep=p=>{let a=(p||[]).map(r=>[+r[0],+r[1]]).filter(r=>isFinite(r[0])&&i
 function compileCurve(cv){const ke=cv.kext!=null&&cv.kext!==''&&+cv.kext>0?+cv.kext:0,comp=cvMk(cvPrep(cv.comp),cv.met,cv.deg,ke),own=cv.tm==='own'&&(cv.ten||[]).length>1,ten=own?cvMk(cvPrep(cv.ten),cv.met,cv.deg,ke):comp;
  return{P:c=>c>=0?comp.P(c):-ten.P(-c),dP:c=>c>=0?comp.dP(c):ten.dP(-c),rad:[cvRad(cv.kx,cv.rm),cvRad(cv.ky,cv.rm)],comp,ten,own,ok:comp.xmax>0,kmin:+cv.kmin>0?+cv.kmin:1e-3}}
 /* un taco no lineal: c = compresión (mm), P = fuerza de compresión (kN); F en N y N/m en ejes globales */
-function nlEval(nl,d){const c=-nl.sg*d[2]*1e3,P=nl.cv.P(c),kz=Math.max(nl.cv.dP(c),nl.cv.kmin),rx=nl.cv.rad[0],ry=nl.cv.rad[1],
+function nlEval(nl,d){const cr=-nl.sg*d[2]*1e3,c=nl.ce(cr),P=nl.cv.P(c),kz=(nl.gap&&c===0)?nl.cv.kmin:Math.max(nl.cv.dP(c),nl.cv.kmin),rx=nl.cv.rad[0],ry=nl.cv.rad[1],
   kx=rx?rx(P):nl.fb[0]/1e6,ky=ry?ry(P):nl.fb[1]/1e6;
- return{c,P,kz,kx,ky,F:[kx*1e6*d[0],ky*1e6*d[1],-nl.sg*P*1e3],ks:[kx*1e6,ky*1e6,kz*1e6]}}
-function nlAsm(m,q){const n=m.n,fi=Array(n).fill(0),Kn=Z(n,n);
- m.nl.forEach(nl=>{const o=m.mt[nl.qi],d=o.J.map(r=>r.reduce((s,v,i)=>s+v*q[i],0)),e=nlEval(nl,d);
+ return{c,cr,P,kz,kx,ky,st:nl.gap?(c>0?-nl.sg:c<0?nl.sg:0):0,F:[kx*1e6*d[0],ky*1e6*d[1],-nl.sg*P*1e3],ks:[kx*1e6,ky*1e6,kz*1e6]}}
+function nlAsm(m,q,op){const n=m.n,fi=Array(n).fill(0),Kn=Z(n,n);op=op||{};
+ m.nl.forEach(nl=>{const o=m.mt[nl.qi];if(op.skipG&&nl.gap)return;const qq=(op.qb&&nl.gap)?q.map((v,i)=>v-op.qb[i]):q,d=o.J.map(r=>r.reduce((s,v,i)=>s+v*qq[i],0)),e=nlEval(nl,d);
   for(let a=0;a<3;a++){const J=o.J[a];for(let i=0;i<n;i++)if(J[i]){fi[i]+=J[i]*e.F[a];for(let j=0;j<n;j++)if(J[j])Kn[i][j]+=J[i]*J[j]*e.ks[a]}}});
  return{fi,Kn}}
 /* Newton: Klin·x + (fi(q0+x) − fi0) = Ft, con gaps (conjunto activo) si gl no está vacío */
-function nlSolve(m,Klin,Ft,gl,q0,fi0){for(const om of[1,.5,.25,.1]){const r=nlSolve1(m,Klin,Ft,gl,q0,fi0,om);if(r)return r}return null}
-function nlSolve1(m,Klin,Ft,gl,q0,fi0,om){const n=m.n;let x=Array(n).fill(0),sol=null;
- for(let it=0;it<150/om;it++){const q=x.map((v,i)=>v+q0[i]),{fi,Kn}=nlAsm(m,q),Kt=Klin.map((r,i)=>r.map((v,j)=>v+Kn[i][j])),
+function nlSolve(m,Klin,Ft,gl,q0,fi0,op){for(const om of[1,.5,.25,.1]){const r=nlSolve1(m,Klin,Ft,gl,q0,fi0,om,op);if(r)return r}return null}
+function nlSolve1(m,Klin,Ft,gl,q0,fi0,om,op){const n=m.n;let x=Array(n).fill(0),sol=null;
+ for(let it=0;it<150/om;it++){const q=x.map((v,i)=>v+q0[i]),{fi,Kn}=nlAsm(m,q,op),Kt=Klin.map((r,i)=>r.map((v,j)=>v+Kn[i][j])),
    rh=Ft.map((v,i)=>v-(fi[i]-fi0[i])+Kn[i].reduce((s,a,j)=>s+a*x[j],0));
   sol=gl.length?gapSolve(m,Kt,rh,gl):{q:solve(Kt,rh)};if(!sol||!sol.q)return null;
   const xn=sol.q,er=Math.max(...xn.map((v,i)=>Math.abs(v-x[i]))),sc=Math.max(...xn.map(Math.abs),1e-9);
   if(it>0&&er<1e-10*sc+1e-14)return{q:xn,st:sol.st,f:sol.f};x=om===1?xn:x.map((v,i)=>v+om*(xn[i]-v))}
  return null}
 function runCaseNL(m,F0,Fd,gl,chk){const{n,Ks0:Ks,Kt0:Kt}=m,z=Array(n).fill(0);let qp=z,q,dq,gs=null;
- if(Fd.some(v=>v)){const s1=nlSolve(m,Kt,Fd,(gl.length&&!chk)?gl:[],z,z);if(!s1)return null;qp=s1.q}
- if(!gl.length||chk){const s2=nlSolve(m,Ks,F0.map((v,i)=>v-Fd[i]),gl,qp,nlAsm(m,qp).fi);if(!s2)return null;dq=s2.q;q=dq.map((v,i)=>v+qp[i]);gs=gl.length?s2:null}
+ if(Fd.some(v=>v)){const s1=nlSolve(m,Kt,Fd,(gl.length&&!chk)?gl:[],z,z,{skipG:chk});if(!s1)return null;qp=s1.q}
+ if(!gl.length||chk){const o2=chk?{qb:qp}:{},s2=nlSolve(m,Ks,F0.map((v,i)=>v-Fd[i]),gl,qp,nlAsm(m,qp,o2).fi,o2);if(!s2)return null;dq=s2.q;q=dq.map((v,i)=>v+qp[i]);gs=gl.length?s2:null}
  else{const rh=F0.map((v,i)=>v+Ks[i].reduce((s,x,j)=>s+(x-Kt[i][j])*qp[j],0)),s2=nlSolve(m,Ks,rh,gl,z,z);if(!s2)return null;q=s2.q;dq=q.map((v,i)=>v-qp[i]);gs=s2}
  return{q,dq,gs}}
 /* estado de operación: rigidez tangente (vertical) y radial a la carga vertical del caso elegido, × factor dinámico */
@@ -1213,7 +1224,7 @@ function nlOp(m){const sel=$('nlop').value;let cs=null;
  if(sel==='auto')cs=S.cases.find(c=>c.items.some(it=>{const l=S.loads.find(x=>x[0]===it[0]);return l&&l[1]==='peso'}))||null;else if(sel[0]==='c')cs=S.cases[+sel.slice(1)]||null;
  let rc=null;if(cs){rc=runCase(m,cs);if(!rc)throw Error('No se pudo calcular el estado de operación de los tacos no lineales («'+cs.n+'»): sistema singular o sin convergencia')}
  m.op={cs,rc};
- m.nl.forEach(nl=>{const o=m.mt[nl.qi],d=rc?rc.mounts[nl.qi].d.slice():[0,0,0],e=nlEval(nl,d);nl.op=e;nl.d0=d;o.k=e.ks.slice();o.kn=e.ks.slice();
+ m.nl.forEach(nl=>{const o=m.mt[nl.qi],d=rc?rc.mounts[nl.qi].d.slice():[0,0,0],e=nlEval(nl,d);if(nl.gap){e.kz=$('gapm').value==='closed'?(e.c===0?Math.max(nl.cv.dP(0),nl.cv.kmin):e.kz):0;e.ks[2]=e.kz*1e6}nl.op=e;nl.d0=d;o.k=e.ks.slice();o.kn=e.ks.slice();
   for(let dd=0;dd<3;dd++)for(let i=0;i<m.n;i++)if(o.J[dd][i])for(let j=0;j<m.n;j++)if(o.J[dd][j]){const w=o.J[dd][i]*o.J[dd][j]*e.ks[dd];
    m.Kd[i][j]+=w*nl.f[dd];m.Kd0[i][j]+=w*nl.f[dd];m.Cm[i][j]+=w*nl.f[dd]*nl.be;m.Cm0[i][j]+=w*nl.f[dd]*nl.be}})}
 
