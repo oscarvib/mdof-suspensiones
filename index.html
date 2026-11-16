@@ -770,7 +770,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='24.3',APP_DATE='15-11-2026';
+const APP_VER='24.4',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
@@ -1489,6 +1489,7 @@ document.addEventListener('click',async e=>{const d=e.target.dataset,id=e.target
 $('cvfile').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const o=JSON.parse(await f.text()),a=Array.isArray(o)?o:o.curves;if(!Array.isArray(a)||!a.every(c=>c&&c.name&&Array.isArray(c.comp)))throw Error('El archivo no tiene curvas válidas');
  mergeCurves(a);cvList();CWD=false;await cvSel(Math.min(Math.max(CWI,0),S.curves.length-1));drawMountsCv();calc();$('cvmsg').insertAdjacentHTML('afterbegin','<p class="mu">ℹ Importadas '+a.length+' curva(s) (las de igual nombre se han sustituido).</p>')}catch(er){$('cvmsg').insertAdjacentHTML('afterbegin','<p class="err">✖ '+esc(er.message)+'</p>')}};
 const drawMountsCv=()=>draw('mount');
+document.addEventListener('change',e=>{if(e.target.id==='cvs')cvSel(+e.target.value)});
 /* arrastrar puntos */
 document.addEventListener('pointerdown',e=>{const c=e.target.closest&&e.target.closest('circle[data-dg]');if(!c||!CW)return;e.preventDefault();const sv=c.ownerSVGElement,ds=sv.dataset,g1=sv.parentElement.parentElement.id;
  CDG={t:c.dataset.dg,i:+c.dataset.di,g:g1==='cvg1'?1:g1==='cvg2'?2:3,id:g1,b:{x0:+ds.x0,x1:+ds.x1,y0:+ds.y0,y1:+ds.y1}}});
