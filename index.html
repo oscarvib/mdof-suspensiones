@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="24.0 (2026-11-15)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="24.1 (2026-11-15)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f2538">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
@@ -108,6 +108,7 @@ input[type=checkbox],td input[type=checkbox]{width:20px;height:20px;min-height:0
 #tp8 .v3w{height:calc(100vh - 330px);min-height:460px}
 #v3hostM .v3w{height:min(560px,calc(100vh - 260px));min-height:380px}
 #v3hostM{margin-top:16px}
+#t_mount td.rn{font-weight:700;color:var(--mu);text-align:right;padding-right:8px}#t_mount tr.bad td{background:rgba(224,49,49,.18)}#t_mount tr.bad td.rn{color:#c92a2a}#t_mount tr.bad input,#t_mount tr.bad select{border-color:#c92a2a}
 #resmod tr[data-mode]{cursor:pointer}#resmod tr.sel td{outline:2px solid var(--ac);outline-offset:-2px}
 .mlab{width:200px;text-align:left}
 @media (max-width:900px){
@@ -353,8 +354,9 @@ document.addEventListener('drop',e=>{if(!DGI)return;const tr=e.target.closest&&e
  if(to!==from){const row=S[t].splice(from,1)[0];S[t].splice(to,0,row);draw(t);calc()}});
 document.addEventListener('dragend',()=>{dgClear();DGI=null});
 function draw(t){if(t==='mount')normMount();if(t==='mass')normMass();const od=DO[t]||H[t].map((_,j)=>j);
- $('t_'+t).innerHTML='<tr>'+(DRG.includes(t)?'<th></th>':'')+od.map(j=>'<th>'+H[t][j]+'</th>').join('')+'<th></th></tr>'+
- S[t].map((r,i)=>'<tr>'+(DRG.includes(t)?`<td><span class="dg" draggable="true" data-dg="${t}" data-i="${i}" title="Arrastra para cambiar el orden">⠿</span></td>`:'')+od.map(j=>`<td>${cell(t,i,j,r[j])}</td>`).join('')+`<td><button class="x" data-del="${t}" data-i="${i}">×</button></td></tr>`).join('');
+ $('t_'+t).innerHTML='<tr>'+(DRG.includes(t)?'<th></th>':'')+(t==='mount'?'<th>n.º</th>':'')+od.map(j=>'<th>'+H[t][j]+'</th>').join('')+'<th></th></tr>'+
+ S[t].map((r,i)=>'<tr>'+(DRG.includes(t)?`<td><span class="dg" draggable="true" data-dg="${t}" data-i="${i}" title="Arrastra para cambiar el orden">⠿</span></td>`:'')+(t==='mount'?`<td class="rn">${i+1}</td>`:'')+od.map(j=>`<td>${cell(t,i,j,r[j])}</td>`).join('')+`<td><button class="x" data-del="${t}" data-i="${i}">×</button></td></tr>`).join('');
+ if(t==='mount')markMount();
 }
 document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.nocalc'))return;const d=e.target.dataset;
  if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21||d.j==22))||(d.t==='mass'&&(d.j==9||d.j==10))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');if(d.t==='mount'&&(d.j==22||d.j==23)&&AXI(S.mount[d.i][17])>=0){applyAxis(S.mount[d.i]);draw('mount')}
@@ -409,6 +411,9 @@ function jacobi(A){const n=A.length;A=A.map(r=>r.slice());const V=Z(n,n);for(let
  return{val:A.map((r,i)=>r[i]),V}}
 
 /* ---------- modelo ---------- */
+let MERR={};
+function markMount(){document.querySelectorAll('#t_mount tr').forEach((tr,i)=>{if(!i)return;const m=MERR[i-1];tr.classList.toggle('bad',!!m);tr.title=m||''})}
+function throwMerr(){const k=Object.keys(MERR).map(Number);markMount();throw Error('Suspensión '+(k[0]+1)+': '+MERR[k[0]]+(k.length>1?' (hay '+k.length+' suspensiones con error; las filas están en rojo en la tabla de suspensiones)':''))}
 function build(){
  normMass();const cons=ev($('cons').value);
  const ids=[...new Set(S.mass.map(r=>r[0]))].filter(i=>i!==cons).sort((a,b)=>a-b);
@@ -423,7 +428,7 @@ function build(){
  const ix=(c,q)=>{if(c===cons)return -1;const k=ids.indexOf(c);if(k<0)throw Error(`Suspensión ${q+1}: el componente ${c} no existe en masas`);return k};
  normMount();const gcl=$('gapm').value==='closed';
  const Ks=Z(n,n),Kt=Z(n,n),Kd=Z(n,n),Cm=Z(n,n),Ks0=Z(n,n),Kt0=Z(n,n),Kd0=Z(n,n),Cm0=Z(n,n),mt=[],nls=[];
- S.mount.forEach((r,q)=>{const a=ix(r[0],q),b=ix(r[1],q),J=Z(3,n);
+ MERR={};S.mount.forEach((r,q)=>{try{const a=ix(r[0],q),b=ix(r[1],q),J=Z(3,n);
   const put=(k,p,sg)=>{if(k<0)return;const c=B[k].c,s=sk([p[0]-c[0],p[1]-c[1],p[2]-c[2]]);
    for(let i=0;i<3;i++){J[i][6*k+i]+=sg;for(let j=0;j<3;j++)J[i][6*k+3+j]-=sg*s[i][j]}};
   put(a,r.slice(2,5),1);put(b,r.slice(5,8),-1);
@@ -442,8 +447,8 @@ function build(){
   for(let d=0;d<3;d++){const ig=hg&&d===ag;for(let i=0;i<n;i++)if(J[d][i])for(let j=0;j<n;j++){const w=J[d][i]*J[d][j],v=w*(off?0:k[d]),be=r[15]||0;
    if(!ig||gcl){Ks[i][j]+=v;if(!cp)Kt[i][j]+=v;Kd[i][j]+=v*f[d];Cm[i][j]+=v*f[d]*be}
    if(!ig){Ks0[i][j]+=v;if(!cp)Kt0[i][j]+=v;Kd0[i][j]+=v*f[d];Cm0[i][j]+=v*f[d]*be}}}
-  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,nlg:!!(nlm&&nlm.gap),k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,ga,gs,gpU,gnU,k:k[ag],f:f[ag],b:r[15]||0}:null,Jg:Jg0,gsg:hg?gs:(nlm&&nlm.gap?gs:1)});if(nlm)nls.push(nlm)});
- const m={B,n,M,Ks,Kt,Kd,Cm,Ks0,Kt0,Kd0,Cm0,mt,ids,nl:nls};if(nls.length)nlOp(m);return m}
+  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,nlg:!!(nlm&&nlm.gap),k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,ga,gs,gpU,gnU,k:k[ag],f:f[ag],b:r[15]||0}:null,Jg:Jg0,gsg:hg?gs:(nlm&&nlm.gap?gs:1)});if(nlm)nls.push(nlm)}catch(e){MERR[q]=String(e.message).replace(/^Suspensión \d+: /,'')}});if(Object.keys(MERR).length)throwMerr();
+ const m={B,n,M,Ks,Kt,Kd,Cm,Ks0,Kt0,Kd0,Cm0,mt,ids,nl:nls};markMount();if(nls.length)nlOp(m);return m}
 function gapSolve(m,Kb,F,gl){const n=m.n;let st=gl.map(()=>0),q=null,reg=false;
  for(let it=0;it<60;it++){const K=Kb.map(r=>r.slice()),rh=F.slice();
   gl.forEach((qi,a)=>{if(!st[a])return;const o=m.mt[qi],gg=o.gap,J=o.J[gg.d],kk=gg.k,off=st[a]>0?gg.gp:-gg.gn;
@@ -747,7 +752,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='24.0',APP_DATE='15-11-2026';
+const APP_VER='24.1',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
 function goTab(k,foc){
@@ -989,7 +994,7 @@ function buildReport(){
  const on=i=>$('rp'+i).checked,secs=[],warn=[];let n=0;
  const sec=(t,b)=>{n++;secs.push('<section><h2>'+n+'. '+t+'</h2>'+b+'</section>')},par=t=>'<p class="par">'+t+'</p>';
  if(on(0))sec('Datos del modelo','<h3>Masas</h3>'+rt(ordr('mass',H.mass).slice(0,14),S.mass.map(r=>ordr('mass',r).slice(0,14)))+par('Componente suelo (constrain): '+esc($('cons').value))+
-  '<h3>Sólidos combinados</h3>'+cl('comb').replace(/<h4[^>]*>.*?<\/h4>/,'')+'<h3>Suspensiones</h3>'+rt(ordr('mount',H.mount),S.mount.map(r=>ordr('mount',r)))+(()=>{try{return oriBlock(build()).replace(/<h4[^>]*>/,'<h4>')}catch(e){return ''}})()+
+  '<h3>Sólidos combinados</h3>'+cl('comb').replace(/<h4[^>]*>.*?<\/h4>/,'')+'<h3>Suspensiones</h3>'+rt(['n.º',...ordr('mount',H.mount)],S.mount.map((r,i)=>[i+1,...ordr('mount',r)]))+(()=>{try{return oriBlock(build()).replace(/<h4[^>]*>/,'<h4>')}catch(e){return ''}})()+
   cvReport()+(S.points.length?'<h3>Puntos adicionales</h3>'+rt(H.points,S.points):''));
  if(on(1))sec('Cálculo estático','<h3>Biblioteca de cargas</h3>'+rt(H.loads,S.loads)+'<h3>Casos de carga</h3>'+
   S.cases.map(c=>'<h4>'+esc(c.n)+'</h4>'+rt(['Carga','Factor','Aplicar','Descontar (montaje)'],c.items.map(it=>[it[0],it[1],it[3]!==0?'sí':'no',it[2]?'sí':'no']))).join('')+
