@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="23.3 (2026-11-15)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="24.0 (2026-11-15)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f2538">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
@@ -164,11 +164,11 @@ details.md>summary{font-size:15px}
 <h2>Suspensiones</h2>
 <p>Comp. A, comp. B, punto en A (xyz), punto en B (xyz), rigidez kx ky kz, factor dinámico/estático fx fy fz.</p>
 <datalist id="orl"><option value="z"><option value="-z"><option value="x"><option value="-x"><option value="y"><option value="-y"><option value="xz:30"><option value="yz:30"></datalist>
-<p class="mu"><b>Ejes locales:</b> «Eje z local» orienta el eje del taco (de la base hacia el cuerpo suspendido): <code>z</code> (vacío), <code>-z</code>, <code>x</code>, <code>y</code>, un vector como <code>0, 0.5, 0.866</code>, o <code>xz:30</code> / <code>yz:30</code> (inclinado 30° desde z hacia x o y). «Giro» gira los ejes x, y locales alrededor de z local (solo importa si kx ≠ ky). Rigideces, factores, gap, curva y los δ, F de los resultados de esa fila están en sus ejes locales; la vista 3D dibuja los ejes (x rojo, y verde, z azul).</p>
+<p class="mu"><b>Ejes locales:</b> «Eje z local» orienta el eje del taco (de la base hacia el cuerpo suspendido): <code>z</code> (vacío), <code>-z</code>, <code>x</code>, <code>y</code>, un vector como <code>0, 0.5, 0.866</code>, o <code>xz:30</code> / <code>yz:30</code> (inclinado 30° desde z hacia x o y). «Giro» gira los ejes x, y locales alrededor de z local (solo importa si kx ≠ ky). Las rigideces (kx, ky, kz), los factores y la curva están en ejes locales. El «Eje gap» y los valores Gap +/− están en ejes globales y el eje local que coincide con esa dirección global es el que actúa como stopper: si ninguno coincide, el programa da una ALARMA (con curva, ese eje debe ser el z local). Las deformaciones δ y las fuerzas F de los resultados están siempre en ejes globales. La vista 3D dibuja los ejes locales (x rojo, y verde, z azul).</p>
 <div class="cp"><button class="sc" data-cp="t">Copiar tabla</button></div><div class="w"><table id="t_mount"></table></div><button data-add="mount">+ fila</button>
 <p><b>Tipo</b>: <b>taco</b>, <b>acopl</b> (acoplamiento) o <b>desactivado</b> (la suspensión no cuenta en ningún cálculo; sirve para comprobaciones, y en resultados aparece con fuerza cero). El acoplamiento se monta después de que las cargas marcadas con «descontar» (normalmente el peso) hayan deformado los tacos, así que en los casos de carga no soporta esas cargas. En frecuencias, respuesta forzada y choque funciona como un taco más.</p>
 <p><b>Gap</b> (solo en tacos): elige el <b>eje</b> (x, y o z) y rellena <b>Gap +</b>, <b>Gap −</b> o ambos, en mm; el campo vacío significa que por ese lado no hay tope. La rigidez de ese eje actúa solo cuando la deformación δ = desplazamiento de A respecto a B supera +Gap+ (o es menor que −Gap−); la fuerza es k·(δ − gap). Al elegir un eje, la rigidez de los otros dos ejes se pone a cero y no se puede editar (si vuelves a «—» se recuperan sus valores); solo se edita la rigidez del eje con gap. Con eje «—» es un taco normal, y con el eje elegido y ambos gaps vacíos trabaja en ese eje sin gap. En resultados estáticos y choque en el tiempo se calcula con contacto (se marca en rojo cuando toca).</p>
-<p class="mu"><b>Gap con curva no lineal (stopper):</b> en la misma fila puedes elegir una curva y un gap en el eje <b>z</b> (local). La fuerza es cero dentro de la holgura y, al cerrarla, sigue la curva de compresión (o de tracción) en función de la penetración (deformación − gap). La compresión usa el gap del lado de compresión (Gap − si z apunta de la base al cuerpo) y la tracción el del otro lado; un lado vacío no tiene tope. En frecuencias y choque modal vale la opción abiertos/cerrados de abajo. En el choque en el tiempo la curva se sigue siempre completa y parte del caso elegido en «Estado inicial».</p>
+<p class="mu"><b>Gap con curva no lineal (stopper):</b> en la misma fila puedes elegir una curva y un gap en un eje global; el eje z local del taco debe ir sobre esa dirección (por ejemplo, «Eje gap» = y y «Eje z local» = y). La fuerza es cero dentro de la holgura y, al cerrarla, sigue la curva de compresión (o de tracción) en función de la penetración (deformación − gap). Gap + y Gap − se miden en el eje global; un lado vacío no tiene tope. En frecuencias y choque modal vale la opción abiertos/cerrados de abajo. En el choque en el tiempo la curva se sigue siempre completa y parte del caso elegido en «Estado inicial».</p>
 <p><label class="opt"><input type="checkbox" id="gapd" checked> <b>Gap medido desde la posición de montaje</b></label> <span class="mu">(en los tacos con gap, las deformaciones mostradas son entonces las medidas desde esa posición de montaje, no desde la posición sin carga; las cargas marcadas «Descontar» se aplican antes de que los tacos con gap trabajen; si lo desmarcas, el gap se mide desde la posición sin carga).</span></p>
 <p>Tacos con gap en frecuencias, respuesta forzada y choque modal: <select id="gapm"><option value="open">abiertos (no cuentan)</option><option value="closed">cerrados (rigidez completa)</option></select></p>
 
@@ -327,8 +327,9 @@ const H={mass:['Comp','Sub','Masa','CdG x','CdG y','CdG z','Ixx','Iyy','Izz','No
  srs:['f (Hz)','SRS (g)']};
 const NEW={mass:[1,1,0,0,0,0,0,0,0,'','',0,0,0,null,null,null,null,null,null],mount:[1,2,0,0,0,0,0,0,...K,'Taco',5e-4,'taco','',null,null,null,'','',0],loads:['Nueva','carga',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],points:['Punto',1,0,0,0],dpts:['Punto',1,0,0,0],exc:[1,0,0,0,0,0,0,0,0,0],srs:[100,10]};
 const AXI=v=>v?'xyz'.indexOf(v):-1;
+const gAx=r=>{const a=AXI(r[17]);if(a<0)return -1;let R=null;try{R=orV(r,0)}catch(e){}if(!R)return a;for(let i=0;i<3;i++)if(Math.abs(Math.abs(R[i][a])-1)<1e-6)return i;return a};
 const DO={mass:[10,0,9,1,2,3,4,5,6,7,8,11,12,13,14,15,16,17,18,19],mount:[14,16,21,22,23,0,1,2,3,4,5,6,7,8,9,10,11,12,13,15,17,18,19]};
-function applyAxis(r){if(r[20]){for(let i=0;i<3;i++)r[8+i]=r[20][i];r[20]=null}const a=AXI(r[17]);if(a>=0){r[20]=r.slice(8,11);for(let i=0;i<3;i++)if(i!==a)r[8+i]=0}}
+function applyAxis(r){if(r[20]){for(let i=0;i<3;i++)r[8+i]=r[20][i];r[20]=null}const a=gAx(r);if(a>=0){r[20]=r.slice(8,11);for(let i=0;i<3;i++)if(i!==a)r[8+i]=0}}
 function normMass(){S.mass.forEach(r=>{if(r.length>=9){while(r.length<14)r.push(r.length<11?'':0);while(r.length<20)r.push(null)}})}
 const orV=(r,q)=>{const s=String(r[22]==null?'':r[22]).trim().toLowerCase(),ps=Number(r[23])||0;let e=[0,0,1],m;
  if(s){if(m=/^([+-]?)([xyz])$/.exec(s)){e=[0,0,0];e['xyz'.indexOf(m[2])]=m[1]==='-'?-1:1}
@@ -356,7 +357,7 @@ function draw(t){if(t==='mount')normMount();if(t==='mass')normMass();const od=DO
  S[t].map((r,i)=>'<tr>'+(DRG.includes(t)?`<td><span class="dg" draggable="true" data-dg="${t}" data-i="${i}" title="Arrastra para cambiar el orden">⠿</span></td>`:'')+od.map(j=>`<td>${cell(t,i,j,r[j])}</td>`).join('')+`<td><button class="x" data-del="${t}" data-i="${i}">×</button></td></tr>`).join('');
 }
 document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.nocalc'))return;const d=e.target.dataset;
- if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21||d.j==22))||(d.t==='mass'&&(d.j==9||d.j==10))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');
+ if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21||d.j==22))||(d.t==='mass'&&(d.j==9||d.j==10))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');if(d.t==='mount'&&(d.j==22||d.j==23)&&AXI(S.mount[d.i][17])>=0){applyAxis(S.mount[d.i]);draw('mount')}
   if(d.t==='mass'&&d.j==10){const c0=S.mass[d.i][0];S.mass.forEach(r=>{if(r[0]===c0)r[10]=v});document.querySelectorAll('#t_mass input[data-j="10"]').forEach(inp=>{if(inp!==e.target)inp.value=S.mass[+inp.dataset.i][10]})}
   if(d.t==='loads'&&d.j==0&&old!==v){S.cases.forEach(c=>c.items.forEach(it=>{if(it[0]===old)it[0]=v}));drawCases()}}
   if(d.t==='loads'&&d.j==1)draw('loads');}
@@ -383,7 +384,7 @@ function cell(t,i,j,v){const a=`data-t="${t}" data-i="${i}" data-j="${j}"`;
  if(t==='mount'&&j==22)return `<input value="${esc(v==null?'':v)}" ${a} placeholder="z" list="orl" style="width:110px" title="Eje z local del taco, de la base hacia el cuerpo suspendido: z, -z, x, y, un vector (0, 0.5, 0.866) o xz:30 / yz:30">`;
  if((t==='mount'&&(j==18||j==19))||(t==='mass'&&j>=14))return `<input value="${v==null?'':v}" ${a} placeholder="—">`;
  if(t==='loads'&&j==1)return `<select ${a}>${['peso','carga','acel'].map(o=>`<option${o==v?' selected':''}>${o}</option>`).join('')}</select>`;
- const pe=t==='loads'&&S.loads[i][1]==='peso',ty=t==='loads'?S.loads[i][1]:'',off=(t==='loads'&&j>1&&!(ty==='peso'?j>=12&&j<=13:ty==='acel'?j>=14:j<=11))||(t==='mount'&&j>=8&&j<=10&&AXI(S.mount[i][17])>=0&&j-8!==AXI(S.mount[i][17]))||(t==='mount'&&j==10&&!!S.mount[i][21]&&S.mount[i][16]==='taco');
+ const pe=t==='loads'&&S.loads[i][1]==='peso',ty=t==='loads'?S.loads[i][1]:'',off=(t==='loads'&&j>1&&!(ty==='peso'?j>=12&&j<=13:ty==='acel'?j>=14:j<=11))||(t==='mount'&&j>=8&&j<=10&&AXI(S.mount[i][17])>=0&&j-8!==gAx(S.mount[i]))||(t==='mount'&&j==10&&!!S.mount[i][21]&&S.mount[i][16]==='taco');
  return `<input ${(t!=='mass'&&t!=='mount'&&t!=='exc'&&t!=='srs'&&!j)||(t==='mount'&&j==14)||(t==='mass'&&(j==9||j==10))?'class="n"':''} value="${v}" ${a}${off?' disabled':''}>`}
 const CLS=new WeakSet(),RCOL=new Set();
 function drawCases(){$('cases').innerHTML=S.cases.map((c,ci)=>{const col=CLS.has(c);return `<div class="w" style="margin-top:8px;padding:6px"><button class="sc tg" data-tgc="${ci}" title="Plegar o desplegar este caso">${col?'▸':'▾'}</button> <b>Caso:</b> <input class="cn" value="${c.n}" data-c="${ci}"> <button class="x" data-delc="${ci}">eliminar caso</button>${col?`<div class="mu" style="margin:4px 0 0 4px">${c.items.map(i=>i[1]+'×'+i[0]).join(' + ')||'(sin cargas)'}</div>`:`<table><tr><th>Carga</th><th>Factor</th><th title="Si se desmarca, la carga no se suma al caso: solo sirve de referencia para descontar">Aplicar</th><th title="Estado de montaje: su efecto no lo soportan el acoplamiento ni (si se activa) los puntos adicionales">Descontar (montaje)</th><th></th></tr>${c.items.map((it,k)=>`<tr><td><input class="n" list="ln" value="${it[0]}" data-c="${ci}" data-k="${k}" data-f="0"></td><td><input value="${it[1]}" data-c="${ci}" data-k="${k}" data-f="1"></td><td style="text-align:center"><input type="checkbox" data-c="${ci}" data-k="${k}" data-f="3"${it[3]!==0?' checked':''}></td><td style="text-align:center"><input type="checkbox" data-c="${ci}" data-k="${k}" data-f="2"${it[2]?' checked':''}></td><td><button class="x" data-deli="${ci}" data-k="${k}">×</button></td></tr>`).join('')}</table><button data-addi="${ci}">+ carga</button>`}</div>`}).join('')}
@@ -426,19 +427,22 @@ function build(){
   const put=(k,p,sg)=>{if(k<0)return;const c=B[k].c,s=sk([p[0]-c[0],p[1]-c[1],p[2]-c[2]]);
    for(let i=0;i<3;i++){J[i][6*k+i]+=sg;for(let j=0;j<3;j++)J[i][6*k+3+j]-=sg*s[i][j]}};
   put(a,r.slice(2,5),1);put(b,r.slice(5,8),-1);
-  const OR=orV(r,q);if(OR){const Jg=J.map(x=>x.slice());for(let i=0;i<3;i++)for(let c=0;c<n;c++)J[i][c]=OR[i][0]*Jg[0][c]+OR[i][1]*Jg[1][c]+OR[i][2]*Jg[2][c]}
-  const k0=r.slice(8,11),f=r.slice(11,14),cp=r[16]==='acopl',off=r[16]==='off',ag=AXI(r[17]),nu=v=>typeof v==='number'&&v===v,cvn=r[21],cv0=(!cp&&!off&&cvn)?cvFind(cvn):null;
+  const OR=orV(r,q),Jg0=J.map(x=>x.slice());if(OR){const Jg=J.map(x=>x.slice());for(let i=0;i<3;i++)for(let c=0;c<n;c++)J[i][c]=OR[i][0]*Jg[0][c]+OR[i][1]*Jg[1][c]+OR[i][2]*Jg[2][c]}
+  const k0=r.slice(8,11),f=r.slice(11,14),cp=r[16]==='acopl',off=r[16]==='off',ga=AXI(r[17]),nu=v=>typeof v==='number'&&v===v,cvn=r[21],cv0=(!cp&&!off&&cvn)?cvFind(cvn):null;
   if(cvn&&!cp&&!off&&!cv0)throw Error(`Suspensión ${q+1}: la curva «${cvn}» no existe (pestaña Curvas de tacos)`);
   const nlm=cv0?{qi:q,name:cvn,cv:compileCurve(cv0),sg:a<0?-1:1,fb:[k0[0],k0[1]],f:r.slice(11,14),be:r[15]||0}:null,k=nlm?[0,0,0]:k0,
-   gp=nu(r[18])?r[18]/1e3:null,gn=nu(r[19])?r[19]/1e3:null,hg0=!cp&&!off&&ag>=0&&(gp!==null||gn!==null),hg=hg0&&!nlm;
-  if(nlm&&!nlm.cv.ok)throw Error(`Curva «${cvn}»: faltan datos de compresión`);if(nlm&&hg0){if(ag!==2)throw Error(`Suspensión ${q+1}: con una curva no lineal el eje del gap debe ser z (la curva actúa en el eje z local)`);
-   const sg=nlm.sg,GI=v=>v===null?Infinity:v*1e3,gC=sg>0?GI(gn):GI(gp),gT=sg>0?GI(gp):GI(gn);nlm.gap={gC,gT};
+   gpU=nu(r[18])?r[18]/1e3:null,gnU=nu(r[19])?r[19]/1e3:null,hg0=!cp&&!off&&ga>=0&&(gpU!==null||gnU!==null);
+  let ag=-1,gs=1;if(hg0){const Rm=OR||[[1,0,0],[0,1,0],[0,0,1]];for(let i=0;i<3;i++)if(Math.abs(Math.abs(Rm[i][ga])-1)<1e-6){ag=i;gs=Rm[i][ga]>0?1:-1;break}
+   if(ag<0)throw Error(`Suspensión ${q+1}: ALARMA, el eje global del gap (${'xyz'[ga]}) no coincide con ninguno de los ejes locales del taco; orienta el eje z local sobre la dirección del gap (por ejemplo «${'xyz'[ga]}» en «Eje z local»)`)}
+  const gp=gs>0?gpU:gnU,gn=gs>0?gnU:gpU,hg=hg0&&!nlm;
+  if(nlm&&!nlm.cv.ok)throw Error(`Curva «${cvn}»: faltan datos de compresión`);if(nlm&&hg0){if(ag!==2)throw Error(`Suspensión ${q+1}: ALARMA, con una curva no lineal el eje z local debe ir sobre la dirección global del gap (${'xyz'[ga]}); escribe «${'xyz'[ga]}» (o su vector) en «Eje z local»`);
+   const sg=nlm.sg,GI=v=>v===null?Infinity:v*1e3,cp0=-sg*gs>0,gC=cp0?GI(gpU):GI(gnU),gT=cp0?GI(gnU):GI(gpU);nlm.gap={gC,gT};nlm.gu={ga,gs,gp:gpU,gn:gnU};
    nlm.ce=c=>c>gC?c-gC:c<-gT?c+gT:0}else if(nlm){nlm.gap=null;nlm.ce=c=>c}
   const ke=k.map((v,d)=>off||(hg&&d===ag&&!gcl)?0:v),kn=k.map(v=>off?0:v);
   for(let d=0;d<3;d++){const ig=hg&&d===ag;for(let i=0;i<n;i++)if(J[d][i])for(let j=0;j<n;j++){const w=J[d][i]*J[d][j],v=w*(off?0:k[d]),be=r[15]||0;
    if(!ig||gcl){Ks[i][j]+=v;if(!cp)Kt[i][j]+=v;Kd[i][j]+=v*f[d];Cm[i][j]+=v*f[d]*be}
    if(!ig){Ks0[i][j]+=v;if(!cp)Kt0[i][j]+=v;Kd0[i][j]+=v*f[d];Cm0[i][j]+=v*f[d]*be}}}
-  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,nlg:!!(nlm&&nlm.gap),k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,k:k[ag],f:f[ag],b:r[15]||0}:null});if(nlm)nls.push(nlm)});
+  mt.push({J,R:OR||[[1,0,0],[0,1,0],[0,0,1]],ori:!!OR,nlg:!!(nlm&&nlm.gap),k:ke,kn,f,cp,off,nl:nlm,gap:hg?{d:ag,gp,gn,ga,gs,gpU,gnU,k:k[ag],f:f[ag],b:r[15]||0}:null,Jg:Jg0,gsg:hg?gs:(nlm&&nlm.gap?gs:1)});if(nlm)nls.push(nlm)});
  const m={B,n,M,Ks,Kt,Kd,Cm,Ks0,Kt0,Kd0,Cm0,mt,ids,nl:nls};if(nls.length)nlOp(m);return m}
 function gapSolve(m,Kb,F,gl){const n=m.n;let st=gl.map(()=>0),q=null,reg=false;
  for(let it=0;it<60;it++){const K=Kb.map(r=>r.slice()),rh=F.slice();
@@ -480,15 +484,15 @@ function runCase(m,cs){const{B,n,Ks0:Ks,Kt0:Kt,mt,ids}=m,F0=Array(n).fill(0),Fd=
  else{const Kc=Ks.map((r,i)=>r.map((v,j)=>v-Kt[i][j])),rh=F0.map((v,i)=>v+Kc[i].reduce((s,x,j)=>s+x*qp[j],0));gs=gapSolve(m,Ks,rh,gl);if(!gs)return null;q=gs.q;dq=q.map((v,i)=>v-qp[i])}}
  return{q,dq,mounts:mt.map((o,qi)=>{const d=o.J.map(r=>r.reduce((s,v,i)=>s+v*(o.cp||((o.gap||o.nlg)&&chk)?dq:q)[i],0)),F=o.nl?nlEval(o.nl,d).F:d.map((x,i)=>x*o.kn[i]);let st;
   if(o.nlg)st=nlEval(o.nl,d).st;
-  if(o.gap){const a=gl.indexOf(qi);st=gs.st[a];F[o.gap.d]=gs.f[a]}return{d,F,Fd:F.map((x,i)=>x*o.f[i]),st}})}}
+  if(o.gap){const a=gl.indexOf(qi);st=gs.st[a];F[o.gap.d]=gs.f[a]}const rg=v=>[0,1,2].map(c=>v[0]*o.R[0][c]+v[1]*o.R[1][c]+v[2]*o.R[2][c]);return{d,F,Fd:F.map((x,i)=>x*o.f[i]),st,dg:rg(d),Fg:rg(F)}})}}
 
 /* ---------- salida ---------- */
 const g=(x,d=2)=>Number(x).toFixed(d);
 const bl=b=>b.name?b.id+' · '+b.name:b.id;
 function tab(h,rows){return '<div class="w"><table><tr>'+h.map(x=>'<th>'+x+'</th>').join('')+'</tr>'+rows.map(r=>'<tr'+(r.red?' class="red"':r.bold?' class="tot"':'')+'>'+r.map(x=>'<td>'+x+'</td>').join('')+'</tr>').join('')+'</table></div>'}
 const oriBlock=m=>{const L=m.mt.map((o,q)=>o.ori?q:-1).filter(q=>q>=0);if(!L.length)return '';const v=e=>'('+e.map(x=>g(x,3)).join('; ')+')';
- return '<h4 class="gh">Ejes locales de los tacos orientados</h4>'+tab(['Nombre','x local (en ejes globales)','y local','z local (eje del taco)'],L.map(q=>[mname(q),...m.mt[q].R.map(v)]))+'<p class="mu">En los tacos marcados «[ejes locales]» las rigideces, el gap, la curva y los valores δ y F de las tablas están en estos ejes locales. Cada eje se da como vector unitario en los ejes globales x, y, z. El eje z local va de la base hacia el cuerpo suspendido (la compresión es el movimiento hacia la base). Las cargas, los desplazamientos de los sólidos y los puntos son siempre globales.</p>'};
-const mname=q=>S.mount[q][14]+(S.mount[q][16]==='acopl'?' (acopl.)':S.mount[q][16]==='off'?' (desact.)':'')+((String(S.mount[q][22]||'').trim()||Number(S.mount[q][23]))?' [ejes locales]':'');
+ return '<h4 class="gh">Ejes locales de los tacos orientados</h4>'+tab(['Nombre','x local (en ejes globales)','y local','z local (eje del taco)'],L.map(q=>[mname(q),...m.mt[q].R.map(v)]))+'<p class="mu">En los tacos marcados «[orient.]» las rigideces (kx, ky, kz) y la curva están en estos ejes locales; cada eje se da como vector unitario en los ejes globales x, y, z. El eje z local va de la base hacia el cuerpo suspendido (la compresión es el movimiento hacia la base). El gap, las deformaciones δ, las fuerzas F, las cargas y los desplazamientos de las tablas están siempre en ejes globales.</p>'};
+const mname=q=>S.mount[q][14]+(S.mount[q][16]==='acopl'?' (acopl.)':S.mount[q][16]==='off'?' (desact.)':'')+((String(S.mount[q][22]||'').trim()||Number(S.mount[q][23]))?' [orient.]':'');
 function buildShi(){const el=$('shi');if(!el)return;const cur=el.value;el.innerHTML='<option value="0">Reposo (sin estado estático previo)</option>'+S.cases.map((c,i)=>`<option value="c${i}">Caso estático: ${String(c.n).replace(/[<&"]/g,'')}</option>`).join('');if([...el.options].some(o=>o.value===cur))el.value=cur}
 function massSummary(){normMass();const cons=ev($('cons').value),ids=[...new Set(S.mass.map(r=>r[0]))].sort((a,b)=>a-b);
  const comp=id=>{const rs=S.mass.filter(r=>r[0]===id);let m=0,c=[0,0,0];rs.forEach(r=>{m+=r[2];for(let i=0;i<3;i++)c[i]+=r[2]*r[3+i]});c=m>0?c.map(v=>v/m):c;
@@ -521,7 +525,7 @@ function calc(){const R=$('res');drawComb();buildSel();buildShi();buildNlop();$(
    h+='<h4 class="gh">Centros de gravedad</h4>'+tab(['Comp','ux mm','uy mm','uz mm','θx mrad','θy mrad','θz mrad'],m.B.map((b,k)=>[bl(b),...[0,1,2].map(i=>g(r.q[6*k+i]*1e3,3)),...[3,4,5].map(i=>g(r.q[6*k+i]*1e3,3))]));
    const ex=m.mt.some(o=>o.gap||o.nlg||o.off);
    h+='<h4 class="gh">Tacos</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN',...(ex?['Estado']:[])],
-    r.mounts.map((o,i)=>{const row=[mname(i),S.mount[i][0]+'-'+S.mount[i][1],...o.d.map(x=>g(x*1e3,3)),...o.F.map(x=>g(x/1e3,3)),...(ex?[m.mt[i].off?'desactivado':(m.mt[i].gap||m.mt[i].nlg)?(o.st>0?'CONTACTO +':o.st<0?'CONTACTO −':'abierto'):'—']:[])];row.red=!!o.st;return row}));
+    r.mounts.map((o,i)=>{const row=[mname(i),S.mount[i][0]+'-'+S.mount[i][1],...o.dg.map(x=>g(x*1e3,3)),...o.Fg.map(x=>g(x/1e3,3)),...(ex?[m.mt[i].off?'desactivado':(m.mt[i].gap||m.mt[i].nlg)?(o.st*m.mt[i].gsg>0?'CONTACTO +':o.st*m.mt[i].gsg<0?'CONTACTO −':'abierto'):'—']:[])];row.red=!!o.st;return row}));
    h+=nlWarn(m,r);if(S.points.length)h+='<h4 class="gh">Puntos'+($('ptd').checked?' (desplazamiento desde el montaje)':'')+'</h4>'+tab(['Nombre','Comp','ux mm','uy mm','uz mm'],S.points.map(p=>{const Q=$('ptd').checked?r.dq:r.q;const k=m.ids.indexOf(p[1]);if(k<0)throw Error('Punto "'+p[0]+'": el componente '+p[1]+' no es móvil');const c0=m.B[k].c,u=cr([3,4,5].map(i=>Q[6*k+i]),[p[2]-c0[0],p[3]-c0[1],p[4]-c0[2]]);return[p[0],p[1],...[0,1,2].map(i=>g((Q[6*k+i]+u[i])*1e3,3))]}));h+='</div>'});
   R.innerHTML=h}catch(e){V3.err(e.message);R.innerHTML='<p class="err">'+e.message+'</p>';OPS=[];$('cvop').innerHTML=R.innerHTML;cvPlots();$('resmod').innerHTML=R.innerHTML;$('mres').innerHTML=R.innerHTML}}
 
@@ -636,18 +640,21 @@ function runShock(){try{
  if(wst){df.forEach((a,q)=>a.forEach((sr,d)=>{for(let i=0;i<sr.length;i++)sr[i]+=sd[q][d]}));
   const Qp=$('ptd').checked?rc.dq:rc.q;pp.forEach(p=>{const c0=m.B[p.k].c,us=cr([3,4,5].map(i=>Qp[6*p.k+i]),p.r);for(let c=0;c<3;c++){const o=Qp[6*p.k+c]+us[c];for(let i=0;i<p.u[c].length;i++)p.u[c][i]+=o}})}
  const fdy=(q,d,y)=>{const nl=m.mt[q].nl;if(nl&&nlf.includes(nl)&&d===2)return -nl.sg*nl.f[2]*(nl.cv.P(nl.ce(I0(nl).cr-nl.sg*(y-sd[q][d])*1e3))-I0(nl).P)*1e3+sF[q][d];return (y-sd[q][d])*m.mt[q].kn[d]*m.mt[q].f[d]+sF[q][d]};
- R3={t,df,ac,pp,fg,gl,d0,mt:m.mt,wst,sd,sF,fd:fdy};const mx=z=>z.reduce((s,y)=>Math.max(s,Math.abs(y)),0);
+ const fl=m.mt.map((o,q)=>{const a=gl.indexOf(q);return[0,1,2].map(i=>a>=0&&o.gap.d===i?fg[a].map(y=>y+sF[q][i]):df[q][i].map(y=>fdy(q,i,y)))});
+ const rot=(o,A)=>o.ori?[0,1,2].map(c=>A[0].map((_,k)=>A[0][k]*o.R[0][c]+A[1][k]*o.R[1][c]+A[2][k]*o.R[2][c])):A;
+ const dfG=m.mt.map((o,q)=>rot(o,df[q])),flG=m.mt.map((o,q)=>rot(o,fl[q]));
+ R3={t,df,dfG,flG,ac,pp,fg,gl,d0,mt:m.mt,wst,sd,sF,fd:fdy};const mx=z=>z.reduce((s,y)=>Math.max(s,Math.abs(y)),0);
  const ex=m.mt.some(o=>o.gap||o.nlg||o.off);
  const mm=(z,k)=>g(Math.min(...z)*k,3)+' / '+g(Math.max(...z)*k,3);
  const SG='<h4 class="gh">Tacos: mínimo / máximo con signo'+(wst?' (con el estático sumado)':'')+'</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN'],
-  m.mt.map((o,q)=>{const a=gl.indexOf(q);return[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>mm(df[q][d],1e3)),...[0,1,2].map(d=>mm(a>=0&&o.gap.d===d?fg[a].map(y=>y+sF[q][d]):df[q][d].map(y=>fdy(q,d,y)),1e-3))]}));
+  m.mt.map((o,q)=>{const a=gl.indexOf(q);return[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>mm(dfG[q][d],1e3)),...[0,1,2].map(d=>mm(flG[q][d],1e-3))]}));
  let h=oriBlock(m)+'<h4 class="gh">Tacos: máximos'+(wst?' (con el estado estático del caso «'+esc(cname)+'» sumado)':'')+'</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN',...(ex?['Contacto']:[])],
-  m.mt.map((o,q)=>{const a=gl.indexOf(q),row=[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>g(mx(df[q][d])*1e3,3)),...[0,1,2].map(d=>a>=0&&o.gap.d===d?g(mx(fg[a].map(y=>y+sF[q][d]))/1e3,3):g(mx(df[q][d].map(y=>fdy(q,d,y)))/1e3,3)),
+  m.mt.map((o,q)=>{const a=gl.indexOf(q),row=[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...[0,1,2].map(d=>g(mx(dfG[q][d])*1e3,3)),...[0,1,2].map(d=>g(mx(flG[q][d])/1e3,3)),
    ...(ex?[o.off?'desactivado':a>=0?(ct[a].n?'SÍ: '+g(ct[a].n*dt*1e3,1)+' ms, penetr. máx. '+g(ct[a].pen*1e3,2)+' mm':'no'):o.nlg?(nct[q]&&nct[q].n?'SÍ: '+g(nct[q].n*dt*1e3,1)+' ms, penetr. máx. '+g(nct[q].pen*1e3,2)+' mm':'no'):'—']:[])];row.red=(a>=0&&ct[a].n>0)||(o.nlg&&!!nct[q]&&nct[q].n>0);return row}));
  const nlg=m.nl.filter(a=>a.gap);
  if(gl.length||nlg.length){const f1=v=>v===null?'—':g(v*1e3,3);
-  const rows=gl.map((qi,aa)=>{const gg=m.mt[qi].gap,dd=d0[aa],s0=sof(gg,dd);return{qi,ax:['x','y','z'][gg.d],gp:gg.gp,gn:gg.gn,dd,s0,pre:Math.abs(h0[aa])}})
-   .concat(nlg.map(nl=>{const G=v=>isFinite(v)?v/1e3:null,gp=G(nl.sg>0?nl.gap.gT:nl.gap.gC),gn=G(nl.sg>0?nl.gap.gC:nl.gap.gT);return{qi:nl.qi,ax:'z (curva)',gp,gn,dd:-nl.sg*I0(nl).cr/1e3,s0:I0(nl).st,pre:Math.abs(I0(nl).c)/1e3}}));
+  const rows=gl.map((qi,aa)=>{const gg=m.mt[qi].gap,dd=gg.gs*d0[aa],s0=gg.gs*sof(gg,d0[aa]);return{qi,ax:'xyz'[gg.ga],gp:gg.gpU,gn:gg.gnU,dd,s0,pre:Math.abs(h0[aa])}})
+   .concat(nlg.map(nl=>{const u=nl.gu;return{qi:nl.qi,ax:'xyz'[u.ga]+' (curva)',gp:u.gp,gn:u.gn,dd:u.gs*(-nl.sg*I0(nl).cr/1e3),s0:u.gs*I0(nl).st,pre:Math.abs(I0(nl).c)/1e3}}));
   h='<h4 class="gh">Tacos con gap: estado inicial del choque'+(rc?' (caso «'+esc(cname)+'»'+($('gapd').checked?', gap medido desde la posición de montaje':', gap medido desde la posición sin carga')+')':'')+'</h4>'+
    (rc?'':'<p class="err">Estado inicial en «Reposo»: se supone deformación 0 en todos los tacos. Si el peso o el par ya cierran algún gap, elige el caso de carga en «Estado inicial».</p>')+
    tab(['Nombre','A-B','Eje','Gap + mm','Gap − mm','δ inicial mm','Holgura + mm','Holgura − mm','Estado inicial'],rows.map(w=>{
@@ -663,9 +670,9 @@ function runShock(){try{
 function drawShock(){if(!R3)return;$('shc').innerHTML=shockFig($('shs').value)}
 function shockFig(v){const {t,df,ac,pp,fg,gl,d0,mt,wst,sd,sF}=R3,AX=['x','y','z'];let ser,un,nm0,hl;
  if(v[0]==='p'){const p=pp[+v.slice(2)];if(v[1]==='d'){ser=AX.map((a,i)=>({n:'u'+a,v:p.u[i].map(y=>y*1e3)}));un='mm';nm0='Desplazamiento'}else{ser=AX.map((a,i)=>({n:'a'+a,v:p.a[i]}));un='g'}}
- else if(v[0]==='t'){const q=+v.slice(1),a=gl.indexOf(q);ser=AX.map((x,i)=>({n:'δ'+x,v:df[q][i].map(y=>y*1e3)}));un='mm';
-  if(a>=0){const gg=mt[q].gap,c=COL[gg.d];hl=[];if(gg.gp!==null)hl.push({v:(gg.gp-(wst?0:d0[a]))*1e3,c,n:'contacto + (δ'+AX[gg.d]+')'});if(gg.gn!==null)hl.push({v:(-gg.gn-(wst?0:d0[a]))*1e3,c,n:'contacto − (δ'+AX[gg.d]+')'})}}
- else if(v[0]==='f'){const q=+v.slice(1),a=gl.indexOf(q),o=mt[q];ser=AX.map((x,i)=>({n:'F'+x,v:(a>=0&&o.gap.d===i?fg[a].map(y=>y+sF[q][i]):df[q][i].map(y=>R3.fd(q,i,y))).map(y=>y/1e3)}));un='kN';nm0='Fuerza elástica en el taco'}
+ else if(v[0]==='t'){const q=+v.slice(1),a=gl.indexOf(q);ser=AX.map((x,i)=>({n:'δ'+x,v:R3.dfG[q][i].map(y=>y*1e3)}));un='mm';
+  if(a>=0){const gg=mt[q].gap,c=COL[gg.ga],dg0=wst?0:gg.gs*d0[a];hl=[];if(gg.gpU!==null)hl.push({v:(gg.gpU-dg0)*1e3,c,n:'contacto + (δ'+AX[gg.ga]+')'});if(gg.gnU!==null)hl.push({v:(-gg.gnU-dg0)*1e3,c,n:'contacto − (δ'+AX[gg.ga]+')'})}}
+ else if(v[0]==='f'){const q=+v.slice(1),a=gl.indexOf(q),o=mt[q];ser=AX.map((x,i)=>({n:'F'+x,v:R3.flG[q][i].map(y=>y/1e3)}));un='kN';nm0='Fuerza elástica en el taco'}
  else{const k=+v.slice(1);ser=AX.map((a,i)=>({n:'a'+a,v:ac[k][i]}));un='g'}
  return plotT(t,ser,un,nm0,hl)}
 function plotT(t,ser,un,nm0,hl){const nm=nm0||(un==='mm'?'Deformación':'Aceleración'),
@@ -740,7 +747,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='23.3',APP_DATE='15-11-2026';
+const APP_VER='24.0',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
 function goTab(k,foc){
@@ -878,7 +885,7 @@ function msCalc(m,md){const el=$('mres');try{
  const d=d0.map(v=>v/nd);let gnote='';
  {const gsel=$('mgp').value;
   if(gsel&&$('gapm').value==='closed')gnote='<p class="mu">La opción «cerrar tacos con gap» no se aplica porque en la pestaña de suspensiones ya están todos cerrados.</p>';
-  else if(gsel){const sel=m.mt.map(o=>!!(o.gap&&Math.abs(o.R[o.gap.d].reduce((t2,v2,i)=>t2+v2*d[i],0))>1e-9&&(gsel==='p'?o.gap.gp!==null:o.gap.gn!==null)));
+  else if(gsel){const sel=m.mt.map(o=>!!(o.gap&&Math.abs(o.R[o.gap.d].reduce((t2,v2,i)=>t2+v2*d[i],0))>1e-9&&(gsel==='p'?o.gap.gpU!==null:o.gap.gnU!==null)));
    if(sel.some(Boolean)){const Kd=m.Kd.map(r=>r.slice()),Cm=m.Cm.map(r=>r.slice()),mt=m.mt.slice();
     sel.forEach((v,q)=>{if(!v)return;const o=m.mt[q],gg=o.gap,J=o.J[gg.d],kd=gg.k*gg.f;
      for(let i=0;i<n;i++)if(J[i])for(let j=0;j<n;j++)if(J[j]){Kd[i][j]+=kd*J[i]*J[j];Cm[i][j]+=kd*gg.b*J[i]*J[j]}
@@ -908,8 +915,8 @@ function msCalc(m,md){const el=$('mres');try{
    h+='<h4 class="gh">Comparación con el medio seno de '+g(oA,3)+' g y '+g(oT*1e3,3)+' ms (ζ = '+g(ze,3)+')</h4>'+tab(['Modo','f (Hz)','% de la masa','Aceleración de diseño (g)','SRS del medio seno (g)','SRS / diseño','Resultado'],rows)+
     '<p class="mu">'+(bad.length?'Modos con más del 1 % de la masa que el pulso no cubre: <b>'+bad.map(o=>ms.indexOf(o)+1).join(', ')+'</b> (en rojo). Sube A o ajusta T.':'El pulso cubre todos los modos con más del 1 % de la masa efectiva.')+' Los modos con menos del 1 % no se marcan.</p>'}}
  h+=oriBlock(m)+'<h4 class="gh">Tacos: máximos con combinación '+nom+'</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN'],
-  m.mt.map((o,q)=>{const dl=[0,1,2].map(c=>comb(ms.map(s=>o.J[c].reduce((t,v,j)=>t+v*s.u[j],0))));
-   return[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...dl.map(v=>g(v*1e3,3)),...dl.map((v,c)=>g(v*o.k[c]*o.f[c]/1e3,3))]}));
+  m.mt.map((o,q)=>{const lo=ms.map(s=>[0,1,2].map(i=>o.J[i].reduce((t,v,j)=>t+v*s.u[j],0))),dl=[0,1,2].map(c=>comb(lo.map(l=>l[0]*o.R[0][c]+l[1]*o.R[1][c]+l[2]*o.R[2][c]))),fl=[0,1,2].map(c=>comb(lo.map(l=>[0,1,2].reduce((t,i)=>t+l[i]*o.k[i]*o.f[i]*o.R[i][c],0))));
+   return[mname(q),S.mount[q][0]+'-'+S.mount[q][1],...dl.map(v=>g(v*1e3,3)),...fl.map(v=>g(v/1e3,3))]}));
  h+='<p class="mu">La fuerza es la elástica (rigidez dinámica × deformación). Los valores combinados son módulos, sin signo.</p>';
  h+='<h4 class="gh">Sólidos: aceleración equivalente en el CdG (Γ·φ·aceleración del modo), combinación '+nom+'</h4>'+tab(['Comp','ax g','ay g','az g','αx rad/s²','αy rad/s²','αz rad/s²'],
   m.B.map((b,k)=>[bl(b),...[0,1,2,3,4,5].map(c=>{const v=comb(ms.map(s=>s.x[6*k+c]));return c<3?g(v/G,2):g(v,0)})]));
