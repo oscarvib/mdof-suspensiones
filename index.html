@@ -127,12 +127,12 @@ details.md>summary{font-size:15px}
 .card.pad>h2:first-child{margin-bottom:6px}
 .cvbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:8px 0}.cvbar button{margin:0}.cvbar label{display:inline-flex;align-items:center;gap:8px;color:var(--mu)}
 .cvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px 22px;margin-top:6px}.cvgrid .w{max-height:340px}.cvgrid td input{width:100px}
-.cvch{margin:6px 0 14px}.cvch svg circle[data-dg]{touch-action:none}
+.cvch{margin:6px 0 14px;position:relative}.cvcp{position:absolute;right:2px;top:2px;padding:2px 9px;font-size:12px;z-index:2}.cvch svg circle[data-dg]{touch-action:none}
 .ico{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 </style></head><body><a class="skip" href="#main">Saltar al contenido</a>
 <div class="app"><nav class="rail" aria-label="Secciones">
 <div class="brand"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="3" y="3" width="28" height="28" rx="7" fill="none" stroke="#7fe0ea" stroke-width="2"/><path d="M7 21h4l2-8 3 12 3-9 2 5h6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div><b>MDOF</b><span>Sólidos sobre suspensiones</span></div></div>
-<div id="tabs" role="tablist" aria-orientation="vertical" aria-label="Secciones"><span class="grp" role="presentation">Definir</span><button data-tab="1" role="tab" id="tab1" aria-controls="tp1" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M5 19c3-1 4-5 6-9s5-5 9-6"/></svg><span>Curvas de tacos</span></button><button data-tab="0" role="tab" id="tab0" aria-controls="tp0" aria-selected="true" tabindex="0" class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg><span>Modelo</span></button><button data-tab="8" role="tab" id="tab8" aria-controls="tp8" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg><span>Vista 3D</span></button><span class="grp" role="presentation">Analizar</span><button data-tab="2" role="tab" id="tab2" aria-controls="tp2" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14M5 10l7 7 7-7M4 21h16"/></svg><span>Cálculo estático</span></button><button data-tab="3" role="tab" id="tab3" aria-controls="tp3" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2-8 4-8 6 0s4 8 6 0 4-8 6 0"/></svg><span>Modal</span></button><button data-tab="4" role="tab" id="tab4" aria-controls="tp4" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M7 15l4-5 3 3 5-7"/></svg><span>Respuesta dinámica</span></button><button data-tab="5" role="tab" id="tab5" aria-controls="tp5" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h4l3-12 3 16 3-10 2 6h3"/></svg><span>Choque</span></button><button data-tab="6" role="tab" id="tab6" aria-controls="tp6" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M6 17c2-9 5-11 8-11s4 4 7 9"/></svg><span>Choque modal (SRS)</span></button><span class="grp" role="presentation">Informar</span><button data-tab="7" role="tab" id="tab7" aria-controls="tp7" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg><span>Informe</span></button></div>
+<div id="tabs" role="tablist" aria-orientation="vertical" aria-label="Secciones"><span class="grp" role="presentation">Definir</span><button data-tab="1" role="tab" id="tab1" aria-controls="tp1" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M5 19c3-1 4-5 6-9s5-5 9-6"/></svg><span>Curvas de tacos</span></button><button data-tab="9" role="tab" id="tab9" aria-controls="tp9" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M5 19c3-1 4-5 6-9s5-5 9-6"/><path d="M14 8l3 3-3 3-3-3z"/></svg><span>Tacos en el cálculo</span></button><button data-tab="0" role="tab" id="tab0" aria-controls="tp0" aria-selected="true" tabindex="0" class="on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 12l9 4 9-4M3 17l9 4 9-4"/></svg><span>Modelo</span></button><button data-tab="8" role="tab" id="tab8" aria-controls="tp8" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg><span>Vista 3D</span></button><span class="grp" role="presentation">Analizar</span><button data-tab="2" role="tab" id="tab2" aria-controls="tp2" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v14M5 10l7 7 7-7M4 21h16"/></svg><span>Cálculo estático</span></button><button data-tab="3" role="tab" id="tab3" aria-controls="tp3" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c2-8 4-8 6 0s4 8 6 0 4-8 6 0"/></svg><span>Modal</span></button><button data-tab="4" role="tab" id="tab4" aria-controls="tp4" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M7 15l4-5 3 3 5-7"/></svg><span>Respuesta dinámica</span></button><button data-tab="5" role="tab" id="tab5" aria-controls="tp5" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h4l3-12 3 16 3-10 2 6h3"/></svg><span>Choque</span></button><button data-tab="6" role="tab" id="tab6" aria-controls="tp6" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20V4M3 20h18M6 17c2-9 5-11 8-11s4 4 7 9"/></svg><span>Choque modal (SRS)</span></button><span class="grp" role="presentation">Informar</span><button data-tab="7" role="tab" id="tab7" aria-controls="tp7" aria-selected="false" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/></svg><span>Informe</span></button></div>
 <div class="railfoot">kg · m · kg·m² · N/m · N · N·m<br>Ejes globales x y z<div class="ver" id="appver" title="Versión de la herramienta"></div></div></nav>
 <div class="stage">
 <div class="top">
@@ -184,11 +184,6 @@ details.md>summary{font-size:15px}
 <div class="cvbar"><label>Curva <select id="cvs"></select></label><button class="sc" id="cvnew">Nueva</button><button class="sc" id="cvdup">Duplicar</button><button class="sc" id="cvdel">Eliminar</button><button class="sc" id="cvexp">Exportar biblioteca</button><button class="sc" id="cvimp">Importar biblioteca</button><input type="file" id="cvfile" accept=".json" hidden></div>
 <div id="cvuse" class="mu"></div>
 
-<h2>Cómo se usan en el cálculo</h2>
-<p><b>Estático:</b> el taco sigue la curva de compresión (y la de tracción) y su rigidez radial se toma a la carga vertical que soporta. <b>Modal, respuesta forzada y choque:</b> la rigidez vertical es la tangente a la curva en el estado de operación, y las radiales se toman a esa misma carga; ambas se multiplican por el factor estático-dinámico de la tabla de suspensiones.</p>
-<p>Caso de carga que define el estado de operación: <select id="nlop"><option value="auto">Automático: primer caso con peso</option></select></p>
-<div id="cvop"></div>
-
 <h2>Editar curva</h2>
 <div class="nocalc" id="cvedit">
 <div class="cvbar"><label>Nombre <input class="cn" id="cvn" style="width:200px"></label><label>Interpolación <select id="cvm"><option value="pchip">PCHIP (monótona, recomendada)</option><option value="lin">Lineal por tramos</option><option value="spline">Spline cúbico natural</option><option value="poly">Polinomio ajustado (mínimos cuadrados)</option></select></label>
@@ -211,7 +206,7 @@ details.md>summary{font-size:15px}
 </div>
 
 <h2>Gráficas</h2>
-<p class="mu">Arrastra un punto para cambiar su fuerza (o rigidez); con Mayús también cambia la abscisa. Los cambios no afectan al cálculo hasta pulsar «Aceptar cambios». Los rombos marcan el estado de operación de los tacos que usan esta curva.</p>
+<p class="mu">Arrastra un punto para cambiar su fuerza (o rigidez); con Mayús también cambia la abscisa. Los cambios no afectan al cálculo hasta pulsar «Aceptar cambios». Cada gráfica tiene su botón «Copiar imagen». Para ver dónde trabaja cada taco (rombos) usa la pestaña «Tacos en el cálculo».</p>
 <div id="cvg1"></div><div id="cvg2"></div><div id="cvg3"></div>
 
 <h2>Figura para informe</h2>
@@ -320,6 +315,16 @@ details.md>summary{font-size:15px}
 <button class="sc" data-v3="img">Copiar imagen</button><button class="sc" data-v3="big">Ampliar</button></div>
 <div class="v3w"><canvas id="v3c"></canvas></div>
 <p class="mu">Arrastrar: girar · Mayús + arrastrar (o botón central o derecho): desplazar · Rueda: zoom (sobre el cursor) · Doble clic: ajustar la vista. Prismas translúcidos definidos por las dos esquinas opuestas de la tabla de masas; el círculo es el CdG de cada masa y la cruz con círculo, el CdG del sólido combinado. Suspensiones: cuadrado en el punto A y círculo en el punto B (negro: taco; verde discontinuo: taco con gap; naranja grueso: acoplamiento; gris discontinuo: desactivado). En la animación cada vértice se mueve con el desplazamiento del CdG de su sólido más el giro por la distancia a ese CdG (u + θ×r); el punto B de un componente suelo permanece fijo.</p></div></div></section>
+<section class="tp" id="tp9" role="tabpanel" aria-labelledby="tab9" hidden>
+<p><b>Estático:</b> el taco sigue la curva de compresión (y la de tracción) y su rigidez radial se toma a la carga vertical que soporta. <b>Modal, respuesta forzada y choque:</b> la rigidez vertical es la tangente a la curva en el estado de operación, y las radiales se toman a esa misma carga; ambas se multiplican por el factor estático-dinámico de la tabla de suspensiones. Los tacos lineales con las mismas rigideces se agrupan y se dibujan como rectas.</p>
+<p>Caso de carga que define el estado de operación (modal, respuesta y choque): <select id="nlop"><option value="auto">Automático: primer caso con peso</option></select></p>
+<h2>Grupos de tacos</h2>
+<div id="cvop"></div>
+<h2>Dónde trabaja un taco</h2>
+<div class="cvbar nocalc" id="usebar"><label>Taco <select id="usemt"></select></label><label>Condición de cálculo <select id="usecs"></select></label></div>
+<div id="usemsg"></div><div id="usetab"></div>
+<div id="ug1"></div><div id="ug2"></div><div id="ug3"></div>
+</section>
 </main>
 </div></div>
 <script>
@@ -545,7 +550,7 @@ function calc(){const R=$('res');drawComb();buildSel();buildShi();buildNlop();$(
    h+='<h4 class="gh">Tacos</h4>'+tab(['Nombre','A-B','δx mm','δy mm','δz mm','Fx kN','Fy kN','Fz kN',...(ex?['Estado']:[])],
     r.mounts.map((o,i)=>{const row=[mname(i),S.mount[i][0]+'-'+S.mount[i][1],...o.dg.map(x=>g(x*1e3,3)),...o.Fg.map(x=>g(x/1e3,3)),...(ex?[m.mt[i].off?'desactivado':(m.mt[i].gap||m.mt[i].nlg)?(o.st*m.mt[i].gsg>0?'CONTACTO +':o.st*m.mt[i].gsg<0?'CONTACTO −':'abierto'):'—']:[])];row.red=!!o.st;return row}));
    h+=nlWarn(m,r);if(S.points.length)h+='<h4 class="gh">Puntos'+($('ptd').checked?' (desplazamiento desde el montaje)':'')+'</h4>'+tab(['Nombre','Comp','ux mm','uy mm','uz mm'],S.points.map(p=>{const Q=$('ptd').checked?r.dq:r.q;const k=m.ids.indexOf(p[1]);if(k<0)throw Error('Punto "'+p[0]+'": el componente '+p[1]+' no es móvil');const c0=m.B[k].c,u=cr([3,4,5].map(i=>Q[6*k+i]),[p[2]-c0[0],p[3]-c0[1],p[4]-c0[2]]);return[p[0],p[1],...[0,1,2].map(i=>g((Q[6*k+i]+u[i])*1e3,3))]}));h+='</div>'});
-  R.innerHTML=h}catch(e){V3.err(e.message);R.innerHTML='<p class="err">'+e.message+'</p>';OPS=[];$('cvop').innerHTML=R.innerHTML;cvPlots();$('resmod').innerHTML=R.innerHTML;$('mres').innerHTML=R.innerHTML}}
+  R.innerHTML=h}catch(e){V3.err(e.message);R.innerHTML='<p class="err">'+e.message+'</p>';OPS=[];LASTM=null;useRender();$('cvop').innerHTML=R.innerHTML;cvPlots();$('resmod').innerHTML=R.innerHTML;$('mres').innerHTML=R.innerHTML}}
 
 let SEL=new Set(),selSig='',R2=null;
 const COL=['#2a7de1','#e8590c','#2f9e44','#ae3ec9','#c92a2a','#0c8599','#f59f00','#5c940d'];
@@ -765,14 +770,14 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='24.2',APP_DATE='15-11-2026';
+const APP_VER='24.3',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
-const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
+const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
  document.querySelectorAll('.tp').forEach((q,i)=>q.hidden=i!==k);
  document.querySelectorAll('#tabs button').forEach(q=>{const on=+q.dataset.tab===k;q.classList.toggle('on',on);q.setAttribute('aria-selected',on);q.tabIndex=on?0:-1;if(on&&foc)q.focus()});
  $('pgt').textContent=TT[k][0];$('pgd').textContent=TT[k][1];document.title=TT[k][0]+' · Suspensiones MDOF';
- host3Move(k);window.scrollTo(0,0);if(k===7)rpStatus();if(k===1)cvPlots();if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
+ host3Move(k);window.scrollTo(0,0);if(k===7)rpStatus();if(k===1)cvPlots();if(k===9)useRender();if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
 function host3Move(k){const d=$('v3d'),h=$(k===3?'v3hostM':'v3host3');if(d&&h&&d.parentNode!==h)h.appendChild(d)}
 $('tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(!b)return;goTab(+b.dataset.tab)};
 $('tabs').onkeydown=e=>{const bs=[...document.querySelectorAll('#tabs button')];let i=bs.indexOf(document.activeElement);if(i<0)return;
@@ -1257,6 +1262,7 @@ function nlOp(m){const sel=$('nlop').value;let cs=null;
 
 /* ---------- pestaña Curvas de tacos ---------- */
 let CW=null,CWI=-1,CWD=false,OPS=[],CDG=null;
+let LASTM=null,USEQ=-1,USECS='op';const g_=(x,d)=>Number(x).toFixed(d);
 const cvf=v=>String(+(+v).toPrecision(7)),CVT={comp:['δ (mm)','Fz (kN)'],ten:['δ (mm)','Fz (kN)'],kx:['Fz (kN)','kx (kN/mm)'],ky:['Fz (kN)','ky (kN/mm)']};
 function buildNlop(){const el=$('nlop');if(!el)return;const cur=el.value||'auto';
  el.innerHTML='<option value="auto">Automático: primer caso con peso</option>'+S.cases.map((c,i)=>`<option value="c${i}">${esc(c.n)}</option>`).join('')+'<option value="none">Sin carga (curva en 0)</option>';
@@ -1287,7 +1293,7 @@ function cvCheck(cv){const out=[],pc=(cv.comp||[]).filter(r=>isFinite(+r[0])&&is
  if(cv.tm==='own'&&(cv.ten||[]).length<2)out.push(['warn','Tracción «propia» sin puntos suficientes: se usa la de compresión.']);
  return out}
 /* gráficas */
-function cvPlot(o){const W=720,Hh=o.H||300,L=64,R=16,T=14,Bt=50,pw=W-L-R,ph=Hh-T-Bt,all=[...o.ser.flatMap(s=>s.p),...(o.dots||[]).map(d=>[d.x,d.y]),...(o.marks||[]).map(d=>[d.x,d.y])];
+function cvPlot(o){const W=720,Hh=o.H||300,L=64,R=16,T=o.title?(o.sub?50:34):14,Bt=50,pw=W-L-R,ph=Hh-T-Bt,all=[...o.ser.flatMap(s=>s.p),...(o.dots||[]).map(d=>[d.x,d.y]),...(o.marks||[]).map(d=>[d.x,d.y])];
  let b=o.fix?{...o.fix}:null;if(!b){let x0=Math.min(0,...all.map(p=>p[0])),x1=Math.max(...all.map(p=>p[0])),y0=Math.min(0,...all.map(p=>p[1])),y1=Math.max(...all.map(p=>p[1]));if(!(x1>x0))x1=x0+1;if(!(y1>y0))y1=y0+1;const my=(y1-y0)*.05;if(y0<0)y0-=my;y1+=my;b={x0,x1,y0,y1}}
  const sx=x=>L+(x-b.x0)/(b.x1-b.x0)*pw,sy=y=>T+ph-(y-b.y0)/(b.y1-b.y0)*ph,fx=nstep((b.x1-b.x0)/7),fy=nstep((b.y1-b.y0)/6);let s='';
  for(let v=Math.ceil(b.x0/fx)*fx;v<=b.x1+1e-9;v+=fx)s+=`<line x1="${sx(v)}" y1="${T}" x2="${sx(v)}" y2="${T+ph}" stroke="var(--bd)"/><text x="${sx(v)}" y="${T+ph+16}" text-anchor="middle" font-size="12" fill="var(--mu)">${+v.toPrecision(6)}</text>`;
@@ -1295,30 +1301,32 @@ function cvPlot(o){const W=720,Hh=o.H||300,L=64,R=16,T=14,Bt=50,pw=W-L-R,ph=Hh-T
  if(b.x0<0&&b.x1>0)s+=`<line x1="${sx(0)}" y1="${T}" x2="${sx(0)}" y2="${T+ph}" stroke="var(--mu)"/>`;if(b.y0<0&&b.y1>0)s+=`<line x1="${L}" y1="${sy(0)}" x2="${L+pw}" y2="${sy(0)}" stroke="var(--mu)"/>`;
  o.ser.forEach(se=>{if(se.p.length>1)s+=`<polyline fill="none" stroke="${se.c}" stroke-width="${se.w||2.2}"${se.dash?' stroke-dasharray="6 4"':''} points="${se.p.map(p=>sx(p[0]).toFixed(1)+','+sy(p[1]).toFixed(1)).join(' ')}"/>`});
  (o.dots||[]).forEach(d=>{s+=d.drag?`<circle data-dg="${d.drag[0]}" data-di="${d.drag[1]}" cx="${sx(d.x)}" cy="${sy(d.y)}" r="${d.r||5}" fill="${d.hol?'var(--bg)':d.c}" stroke="${d.c}" stroke-width="2" style="cursor:ns-resize"><title>Arrastrar</title></circle>`:`<circle cx="${sx(d.x)}" cy="${sy(d.y)}" r="${d.r||3}" fill="${d.hol?'var(--bg)':d.c}" stroke="${d.c}" stroke-width="1.5"/>`});
- (o.marks||[]).forEach(d=>{const x=sx(d.x),y=sy(d.y);s+=`<path d="M${x} ${y-8}L${x+7} ${y}L${x} ${y+8}L${x-7} ${y}Z" fill="${d.c}" stroke="var(--bg)" stroke-width="1.5" style="pointer-events:none"><title>${esc(d.t||'')}</title></path>`});
+ (o.marks||[]).forEach(d=>{const x=sx(d.x),y=sy(d.y),k=d.s||1;s+=`<path d="M${x} ${y-8*k}L${x+7*k} ${y}L${x} ${y+8*k}L${x-7*k} ${y}Z" fill="${d.c}" stroke="var(--bg)" stroke-width="1.5" style="pointer-events:none"><title>${esc(d.t||'')}</title></path>`});
  const lg=(o.leg||[]).map((l,i)=>`<g transform="translate(${L+10+i*150},${T+12})"><line x1="0" x2="20" y1="0" y2="0" stroke="${l.c}" stroke-width="2.4"${l.dash?' stroke-dasharray="5 3"':''}/><text x="26" y="4" font-size="12" fill="var(--fg)">${esc(l.t)}</text></g>`).join('');
- return `<div class="cvch"><div class="gh" style="margin:6px 0 0">${esc(o.title)}</div><svg viewBox="0 0 ${W} ${Hh}" style="width:100%;max-width:${W}px;display:block;touch-action:none" data-l="${L}" data-t="${T}" data-pw="${pw}" data-ph="${ph}" data-x0="${b.x0}" data-x1="${b.x1}" data-y0="${b.y0}" data-y1="${b.y1}" font-family="inherit"><rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="none" stroke="var(--bd)"/>${s}${lg}<text x="${L+pw/2}" y="${Hh-8}" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.xl)}</text><text transform="translate(15,${T+ph/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.yl)}</text></svg></div>`}
+ return `<div class="cvch"><button class="sc cvcp" data-cvcp="${esc((o.fn||o.title||'curva').replace(/[^\wáéíóúñÁÉÍÓÚÑ.-]+/g,'_'))}" title="Copiar la gráfica como imagen (si el navegador no lo permite, la descarga)">Copiar imagen</button><svg viewBox="0 0 ${W} ${Hh}" style="width:100%;max-width:${W}px;display:block;touch-action:none" data-l="${L}" data-t="${T}" data-pw="${pw}" data-ph="${ph}" data-x0="${b.x0}" data-x1="${b.x1}" data-y0="${b.y0}" data-y1="${b.y1}" font-family="inherit"><rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="none" stroke="var(--bd)"/>${s}${lg}${o.title?`<text x="${L+pw/2}" y="21" text-anchor="middle" font-size="15" font-weight="600" fill="var(--fg)">${esc(o.title)}</text>${o.sub?`<text x="${L+pw/2}" y="39" text-anchor="middle" font-size="12.5" fill="var(--mu)">${esc(o.sub)}</text>`:''}`:''}<text x="${L+pw/2}" y="${Hh-8}" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.xl)}</text><text transform="translate(15,${T+ph/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.yl)}</text></svg></div>`}
 function cvPlots(){if(!CW){['cvg1','cvg2','cvg3','cvfig'].forEach(i=>$(i).innerHTML='');$('cvmsg').innerHTML='';return}
  const msgs=cvCheck(CW);$('cvmsg').innerHTML=msgs.map(([k,t])=>`<p class="${k==='err'?'err':'mu'}">${k==='err'?'✖ ':k==='warn'?'⚠ ':'ℹ '}${esc(t)}</p>`).join('');
  cvFig();let c;try{c=compileCurve(CW)}catch(e){return}if(!c.ok)return;
- const nm=S.curves[CWI]?S.curves[CWI].name:'',ops=OPS.filter(o=>o.curve===nm),xc=c.comp.xmax,xt=c.own?c.ten.xmax:xc,xa=-xt,xb=xc*1.15,N=300,xs=[];for(let i=0;i<=N;i++)xs.push(xa+(xb-xa)*i/N);
+ cvGr(CW,c,S.curves[CWI]?S.curves[CWI].name:'',[],['cvg1','cvg2','cvg3'],{edit:1})}
+function cvGr(CW,c,nm,ops,ids,op){op=op||{};const ed=!!op.edit,sub='',SB=op.sub||'',
+ xc=c.comp.xmax,xt=c.own?c.ten.xmax:xc,xa=-xt,xb=xc*1.15,N=300,xs=[];for(let i=0;i<=N;i++)xs.push(xa+(xb-xa)*i/N);
  const pr=(arr,sg)=>arr.map(r=>[+r[0],+r[1]]).filter(r=>isFinite(r[0])&&isFinite(r[1]));
- const fixF=k=>CDG&&CDG.g===k?CDG.b:null;
+ const fixF=k=>ed&&CDG&&CDG.g===k?CDG.b:null;
  const tested=xs.filter(x=>x<=xc&&x>=-xt),ext=xs.filter(x=>x>=xc);
- const dC=(CW.comp||[]).map((r,i)=>({x:+r[0],y:+r[1],c:'#2a7de1',r:4.5,drag:i>0||+r[0]>0?['comp',i]:null})).filter(d=>isFinite(d.x)&&isFinite(d.y)),
-  dT=CW.tm==='own'?(CW.ten||[]).map((r,i)=>({x:-r[0],y:-r[1],c:'#e8590c',r:4.5,drag:['ten',i]})).filter(d=>isFinite(d.x)&&isFinite(d.y)):[];
- $('cvg1').innerHTML=cvPlot({title:'Fuerza vertical frente a deformación',xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'Fz (kN)',H:340,fix:fixF(1),
+ const dC=(CW.comp||[]).map((r,i)=>({x:+r[0],y:+r[1],c:'#2a7de1',r:ed?4.5:3.5,drag:ed&&(i>0||+r[0]>0)?['comp',i]:null})).filter(d=>isFinite(d.x)&&isFinite(d.y)&&!op.lin),
+  dT=CW.tm==='own'?(CW.ten||[]).map((r,i)=>({x:-r[0],y:-r[1],c:'#e8590c',r:ed?4.5:3.5,drag:ed?['ten',i]:null})).filter(d=>isFinite(d.x)&&isFinite(d.y)):[];
+ $(ids[0]).innerHTML=cvPlot({fn:nm+'_F',title:nm+' · Fuerza vertical frente a deformación',sub:SB,xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'Fz (kN)',H:340,fix:fixF(1),
   ser:[{p:tested.map(x=>[x,c.P(x)]),c:'#2a7de1'},{p:ext.map(x=>[x,c.P(x)]),c:'#2a7de1',dash:1,w:1.6}],dots:[...dC,...dT],
-  marks:ops.map(o=>({x:o.c,y:o.P,c:'#2f9e44',t:o.mount+': c = '+g(o.c,2)+' mm, Fz = '+g(o.P,2)+' kN'})),leg:[{c:'#2a7de1',t:'curva interpolada'},{c:'#2a7de1',dash:1,t:'extrapolación'}]});
- const dm=[];(c.comp.xmax>0?cvPrep(CW.comp):[]).forEach((r,i,A)=>{if(i)dm.push({x:(r[0]+A[i-1][0])/2,y:(r[1]-A[i-1][1])/(r[0]-A[i-1][0]),c:'#868e96',hol:1,r:3.5})});
- $('cvg2').innerHTML=cvPlot({title:'Rigidez vertical tangente (usada en modal, respuesta y choque)',xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'dFz/dδ (kN/mm)',H:280,fix:fixF(2),
+  marks:ops.map(o=>({x:o.c,y:o.P,c:o.sel?'#7048e8':'#2f9e44',s:o.sel?1.5:1,t:o.mount+': c = '+g(o.c,2)+' mm, Fz = '+g(o.P,2)+' kN'})),leg:[{c:'#2a7de1',t:'curva interpolada'},{c:'#2a7de1',dash:1,t:'extrapolación'}]});
+ const dm=[];(c.comp.xmax>0&&!op.lin?cvPrep(CW.comp):[]).forEach((r,i,A)=>{if(i)dm.push({x:(r[0]+A[i-1][0])/2,y:(r[1]-A[i-1][1])/(r[0]-A[i-1][0]),c:'#868e96',hol:1,r:3.5})});
+ $(ids[1]).innerHTML=cvPlot({fn:nm+'_K',title:nm+' · Rigidez vertical tangente',sub:SB,xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'dFz/dδ (kN/mm)',H:280,fix:fixF(2),
   ser:[{p:tested.map(x=>[x,Math.max(c.dP(x),c.kmin)]),c:'#2a7de1'},{p:ext.map(x=>[x,Math.max(c.dP(x),c.kmin)]),c:'#2a7de1',dash:1,w:1.6}],dots:dm,
-  marks:ops.map(o=>({x:o.c,y:o.kz,c:'#2f9e44',t:o.mount+': kz tangente = '+g(o.kz,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'tangente de la curva'},{c:'#868e96',t:'○ pendiente entre puntos'}]});
+  marks:ops.map(o=>({x:o.c,y:o.kz,c:o.sel?'#7048e8':'#2f9e44',s:o.sel?1.5:1,t:o.mount+': kz tangente = '+g(o.kz,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'tangente de la curva'},{c:'#868e96',t:'○ pendiente entre puntos'}]});
  const pm=Math.max(...(CW.comp||[]).map(r=>+r[1]).filter(isFinite),...(CW.kx||[]).map(r=>+r[0]).filter(isFinite),...(CW.ky||[]).map(r=>+r[0]).filter(isFinite),1),ps=[];for(let i=0;i<=200;i++)ps.push(pm*i/200);
- const rx=c.rad[0],ry=c.rad[1],drr=(t,col)=>(CW[t]||[]).map((r,i)=>({x:+r[0],y:+r[1],c:col,r:4.5,drag:[t,i]})).filter(d=>isFinite(d.x)&&isFinite(d.y));
- $('cvg3').innerHTML=cvPlot({title:'Rigidez radial frente a la carga vertical',xl:'Fz de compresión (kN)',yl:'k radial (kN/mm)',H:280,fix:fixF(3),
+ const rx=c.rad[0],ry=c.rad[1],drr=(t,col)=>(CW[t]||[]).map((r,i)=>({x:+r[0],y:+r[1],c:col,r:4.5,drag:ed?[t,i]:null})).filter(d=>isFinite(d.x)&&isFinite(d.y)&&!op.lin);
+ $(ids[2]).innerHTML=cvPlot({fn:nm+'_radial',title:nm+' · Rigidez radial frente a la carga vertical',sub:SB,xl:'Fz de compresión (kN)',yl:'k radial (kN/mm)',H:280,fix:fixF(3),
   ser:[...(rx?[{p:ps.map(P=>[P,rx(P)]),c:'#2a7de1'}]:[]),...(ry?[{p:ps.map(P=>[P,ry(P)]),c:'#e8590c'}]:[])],dots:[...drr('kx','#2a7de1'),...drr('ky','#e8590c')],
-  marks:ops.map(o=>({x:o.P,y:o.kx,c:'#2f9e44',t:o.mount+': kx = '+g(o.kx,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'kx'},{c:'#e8590c',t:'ky'}]});
+  marks:ops.map(o=>({x:o.P,y:o.kx,c:o.sel?'#7048e8':'#2f9e44',s:o.sel?1.5:1,t:o.mount+': kx = '+g(o.kx,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'kx'},{c:'#e8590c',t:'ky'}]});
  }
 /* ---------- figura de curva para informe (SVG autónomo, estilo publicación) ---------- */
 const FIGD={type:'F',col:'c',w:1000,h:620,title:1,ttxt:'',pts:1,ext:1,ten:1,op:1,grid:1,leg:1,dec:1,res:3};
@@ -1399,12 +1407,52 @@ document.addEventListener('click',async e=>{const id=e.target.id;if(!id||!id.sta
    say(await copyText(rows.map(r=>r.join('\t')).join('\n'))?'¡Copiados!':'No se pudo copiar')}
  }catch(er){say('Error: '+er.message)}});
 
-function drawOp(m){cvUse();const el=$('cvop');if(!el)return;
- if(!m||!m.nl||!m.nl.length){OPS=[];el.innerHTML='<p class="mu">Ninguna suspensión usa una curva no lineal. Elige una en la columna «Curva» de la tabla de suspensiones.</p>';cvPlots();return}
- OPS=m.nl.map(nl=>{const o=nl.op,f=nl.f;return{mount:mname(nl.qi),curve:nl.name,c:o.c,P:o.P,kz:o.kz,kx:o.kx,ky:o.ky,f,xmax:nl.cv.comp.xmax,qi:nl.qi}});
- el.innerHTML='<p>Estado de operación: <b>'+(m.op.cs?esc(m.op.cs.n):'sin carga')+'</b>.</p>'+tab(['Suspensión','Curva','Compresión c (mm)','Fz (kN)','kz tangente (kN/mm)','kx (kN/mm)','ky (kN/mm)','kz dinámica','kx dinámica','ky dinámica','Rango'],
-  OPS.map(o=>{const r=[o.mount,o.curve,g(o.c,2),g(o.P,2),g(o.kz,3),g(o.kx,3),g(o.ky,3),g(o.kz*o.f[2],3),g(o.kx*o.f[0],3),g(o.ky*o.f[1],3),o.c>o.xmax?'⚠ fuera del ensayo (extrapolado)':o.c<0?'tracción':'dentro'];r.red=o.c>o.xmax;return r}))+
-  '<p class="mu">Las rigideces dinámicas ya incluyen el factor estático-dinámico (fx, fy, fz) y son las de las matrices modal, de respuesta forzada y de choque.</p>';cvPlots()}
+function drawOp(m){cvUse();LASTM=m;
+ OPS=(m&&m.nl||[]).map(nl=>{const o=nl.op,f=nl.f;return{mount:mname(nl.qi),curve:nl.name,c:o.c,P:o.P,kz:o.kz,kx:o.kx,ky:o.ky,f,xmax:nl.cv.comp.xmax,qi:nl.qi}});
+ useRender();cvPlots()}
+/* ---- pestaña «Tacos en el cálculo» ---- */
+const fk=v=>(+v).toFixed(3).replace(/\.?0+$/,'');
+function useGroups(m){const G=new Map();
+ S.mount.forEach((r,q)=>{const o=m.mt[q];if(!o||o.off||o.cp)return;let key,title,lin=null;
+  if(o.nl){key='c|'+o.nl.name;title='Curva «'+o.nl.name+'»'}
+  else{lin=r.slice(8,11).map(Number);const f=r.slice(11,14).map(Number);key='l|'+lin.join('|')+'|'+f.join('|');title='Lineal: kx = '+fk(lin[0]/1e6)+', ky = '+fk(lin[1]/1e6)+', kz = '+fk(lin[2]/1e6)+' kN/mm'}
+  if(!G.has(key))G.set(key,{key,title,curve:o.nl?o.nl.name:null,lin,qs:[]});G.get(key).qs.push(q)});
+ return[...G.values()]}
+function useRender(){const sel=$('usemt');if(!sel)return;const m=LASTM,cb=$('usecs');
+ if(!m){sel.innerHTML='';cb.innerHTML='';$('usetab').innerHTML='';['ug1','ug2','ug3','usemsg'].forEach(i=>$(i).innerHTML='');if($('cvop'))$('cvop').innerHTML='';return}
+ const G=useGroups(m);
+ if(!G.length){sel.innerHTML='';$('usetab').innerHTML='<p class="mu">No hay suspensiones activas.</p>';['ug1','ug2','ug3','usemsg'].forEach(i=>$(i).innerHTML='');$('cvop').innerHTML='';return}
+ $('cvop').innerHTML=tab(['Grupo','Tipo','Tacos','Rigidez (kN/mm)'],G.map(g=>[esc(g.title.replace(/^Lineal: .*/,'Lineal')),g.curve?'No lineal':'Lineal',g.qs.map(q=>(q+1)+'. '+esc(S.mount[q][14]||'')).join(', '),g.curve?'según curva (kz tangente)':'kx = '+fk(g.lin[0]/1e6)+' · ky = '+fk(g.lin[1]/1e6)+' · kz = '+fk(g.lin[2]/1e6)]));
+ if(!G.some(g=>g.qs.includes(USEQ)))USEQ=G[0].qs[0];
+ sel.innerHTML=G.map(g=>'<optgroup label="'+esc(g.title)+'">'+g.qs.map(q=>'<option value="'+q+'">'+(q+1)+'. '+esc(S.mount[q][14]||'')+'</option>').join('')+'</optgroup>').join('');sel.value=USEQ;
+ const opn=m.op&&m.op.cs?m.op.cs.n:'sin carga';
+ cb.innerHTML='<option value="op">Estado de operación (modal, respuesta, choque): '+esc(opn)+'</option>'+S.cases.map((c,i)=>'<option value="c'+i+'">Estático: '+esc(c.n)+'</option>').join('')+'<option value="none">Sin carga</option>';
+ if(![...cb.options].some(o=>o.value===USECS))USECS='op';cb.value=USECS;
+ const g=G.find(x=>x.qs.includes(USEQ));let rc=null,cs=null,err='';
+ try{if(USECS==='op'){rc=m.op&&m.op.rc;cs=m.op&&m.op.cs}else if(USECS[0]==='c'){cs=S.cases[+USECS.slice(1)];rc=cs?runCase(m,cs):null;if(cs&&!rc)err='No se pudo calcular «'+cs.n+'» (sistema singular o sin convergencia)'}}catch(e){err=e.message}
+ $('usemsg').innerHTML=err?'<p class="err">✖ '+esc(err)+'</p>':'';
+ const rows=g.qs.map(q=>{const o=m.mt[q],d=rc?rc.mounts[q].d:[0,0,0];
+  if(o.nl){const e=nlEval(o.nl,d),f=o.nl.f;return{q,mount:mname(q),c:e.c,P:e.P,kz:e.kz,kx:e.kx,ky:e.ky,f,xmax:o.nl.cv.comp.xmax}}
+  const r=S.mount[q],f=r.slice(11,14).map(Number);return{q,mount:mname(q),c:-d[2]*1e3,P:rc?-rc.mounts[q].F[2]/1e3:0,kz:r[10]/1e6,kx:r[8]/1e6,ky:r[9]/1e6,f,xmax:Infinity}});
+ let cv,nm;
+ if(g.curve){const c0=cvFind(g.curve);if(!c0){$('usetab').innerHTML='';return}cv=c0;nm=g.curve}
+ else{const k=g.lin.map(v=>v/1e6),xm=Math.max(1,...rows.map(r=>Math.abs(r.c)))*1.25,pm=Math.max(1e-3,k[2]*xm);nm='Lineal kz = '+fk(k[2])+' kN/mm';
+  cv={name:nm,comp:[[0,0],[xm,k[2]*xm]],ten:[],tm:'mirror',met:'lin',deg:3,kext:null,rm:'lin',kx:[[0,k[0]],[pm,k[0]]],ky:[[0,k[1]],[pm,k[1]]]}}
+ let c;try{c=compileCurve(cv)}catch(e){c=null}
+ if(c&&c.ok){const sel1=rows.find(r=>r.q===USEQ);const ops=[sel1,...rows.filter(r=>r!==sel1)].map(r=>({...r,sel:r.q===USEQ}));
+  cvGr(cv,c,nm,ops,['ug1','ug2','ug3'],{lin:!g.curve,sub:'Caso: '+(cs?cs.n:'sin carga')+(USECS==='op'?' (estado de operación)':'')+' · rombo grande morado = '+S.mount[USEQ][14]})}
+ $('usetab').innerHTML=tab(['Taco','Compresión c (mm)','Fz (kN)','kz tangente (kN/mm)','kx (kN/mm)','ky (kN/mm)','kz dinámica','kx dinámica','ky dinámica','Rango'],
+  rows.map(o=>{const r=[(o.q===USEQ?'<b>':'')+esc(o.mount)+(o.q===USEQ?'</b>':''),g_(o.c,2),g_(o.P,2),g_(o.kz,3),g_(o.kx,3),g_(o.ky,3),g_(o.kz*o.f[2],3),g_(o.kx*o.f[0],3),g_(o.ky*o.f[1],3),o.c>o.xmax?'⚠ fuera del ensayo (extrapolado)':o.c<0?'tracción':'dentro'];r.red=o.c>o.xmax;return r}))+
+  '<p class="mu">Las rigideces dinámicas ya incluyen el factor estático-dinámico (fx, fy, fz). El taco elegido va marcado con un rombo grande morado; los demás de su grupo, con rombos verdes.</p>'}
+document.addEventListener('change',e=>{if(e.target.id==='usemt'){USEQ=+e.target.value;useRender()}else if(e.target.id==='usecs'){USECS=e.target.value;useRender()}});
+async function cvCopyGr(btn){const sv=btn.parentElement.querySelector('svg'),t0=btn.textContent;if(!sv)return;const vb=sv.viewBox.baseVal;
+ let x=new XMLSerializer().serializeToString(sv).replace(/var\(--bg\)/g,'#ffffff').replace(/var\(--fg\)/g,'#222222').replace(/var\(--bd\)/g,'#c9ced4').replace(/var\(--mu\)/g,'#555555').replace(/font-family="inherit"/,'font-family="Arial, Helvetica, sans-serif"');
+ x=x.replace(/^<svg([^>]*?) style="[^"]*"/,'<svg$1').replace(/^<svg /,`<svg width="${vb.width}" height="${vb.height}" `).replace(/^(<svg[^>]*>)/,'$1<rect width="100%" height="100%" fill="#fff"/>');
+ const say=t=>{btn.textContent=t;setTimeout(()=>btn.textContent=t0,1800)};
+ try{const bl=await figPng(x,Math.max(2,FIG.res||3));try{await navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);say('¡Copiada!')}
+  catch(er){const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=(btn.dataset.cvcp||'curva')+'.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000);say('Descargada')}}
+ catch(er){say('Error')}}
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-cvcp]');if(b)cvCopyGr(b)});
 /* eventos de edición */
 document.addEventListener('input',e=>{const d=e.target.dataset;if(!d)return;
  if(d.cv){const v=ev(e.target.value);if(v===v&&CW){CW[d.cv][+d.i][+d.j]=v;cvDirty(true);cvPlots()}return}
