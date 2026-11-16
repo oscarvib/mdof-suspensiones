@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="version" content="24.1 (2026-11-15)">
+<html lang="es"><head><meta charset="utf-8"><meta name="version" content="24.2 (2026-11-15)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f2538">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJnIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjMTc0MzVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGExYjJhIi8+PC9saW5lYXJHcmFkaWVudD4KPGxpbmVhckdyYWRpZW50IGlkPSJtIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjN2ZlMGVhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMmZhN2I2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iMTEyIiBmaWxsPSJ1cmwoI2cpIi8+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+CjxwYXRoIGQ9Ik03NCAyMDR2NTBNNDYgMTkwdjc4TTQ0MCAyMDR2NTBNNDY4IDE5MHY3OCIgc3Ryb2tlPSIjN2ZlMGVhIiBzdHJva2Utd2lkdGg9IjE0IiBvcGFjaXR5PSIuNiIvPgo8cmVjdCB4PSIxMTYiIHk9IjE3MCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMTgiIHJ4PSIyMiIgZmlsbD0idXJsKCNtKSIgc3Ryb2tlPSIjZTZmYmZkIiBzdHJva2Utd2lkdGg9IjEwIi8+CjxjaXJjbGUgY3g9IjI1NiIgY3k9IjIyOSIgcj0iMjIiIHN0cm9rZT0iIzBhMWIyYSIgc3Ryb2tlLXdpZHRoPSI5Ii8+PHBhdGggZD0iTTI1NiAxOTd2NjRNMjI0IDIyOWg2NCIgc3Ryb2tlPSIjMGExYjJhIiBzdHJva2Utd2lkdGg9IjkiLz4KPHBhdGggZD0iTTE3MCAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyTTM0MiAyODh2MTRsLTI0IDIwIDQ4IDIyLTQ4IDIyIDQ4IDIyLTI0IDE4djEyIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMTMiLz4KPHBhdGggZD0iTTkyIDQ0MGgzMjgiIHN0cm9rZT0iIzdmZTBlYSIgc3Ryb2tlLXdpZHRoPSIxNiIvPgo8L2c+PC9zdmc+Cg=="><link rel="apple-touch-icon" href="icon-192.png">
@@ -213,6 +213,19 @@ details.md>summary{font-size:15px}
 <h2>Gráficas</h2>
 <p class="mu">Arrastra un punto para cambiar su fuerza (o rigidez); con Mayús también cambia la abscisa. Los cambios no afectan al cálculo hasta pulsar «Aceptar cambios». Los rombos marcan el estado de operación de los tacos que usan esta curva.</p>
 <div id="cvg1"></div><div id="cvg2"></div><div id="cvg3"></div>
+
+<h2>Figura para informe</h2>
+<p class="mu">Figura de la curva abierta en estilo de publicación: fondo blanco, ejes con unidades y colores fijos, sea cual sea el tema de la pantalla. Cópiala como imagen para pegarla en Word o descárgala como PNG o SVG (vectorial, editable). El informe usa este mismo estilo.</p>
+<div class="nocalc" id="cvfigbox">
+<div class="cvbar"><label>Figura <select id="fg_type"><option value="F">Fuerza – deformación</option><option value="K">Rigidez tangente</option><option value="FK">Fuerza y rigidez (dos paneles)</option><option value="R">Rigidez radial</option></select></label>
+<label>Colores <select id="fg_col"><option value="c">Color</option><option value="bn">Blanco y negro</option></select></label>
+<label>Ancho <input class="sm" id="fg_w" value="1000"> × alto <input class="sm" id="fg_h" value="620"> px</label>
+<label>Resolución PNG <select id="fg_res"><option value="1">×1</option><option value="2">×2</option><option value="3">×3</option><option value="4">×4</option></select></label></div>
+<div class="cvbar"><label class="opt oi"><input type="checkbox" id="fg_title"> Título</label><input class="cn" id="fg_ttxt" style="width:260px" placeholder="Título (vacío: automático)">
+<label class="opt oi"><input type="checkbox" id="fg_pts"> Puntos de ensayo</label><label class="opt oi"><input type="checkbox" id="fg_ten"> Tracción</label><label class="opt oi"><input type="checkbox" id="fg_ext"> Extrapolación</label><label class="opt oi"><input type="checkbox" id="fg_op"> Punto de trabajo</label>
+<label class="opt oi"><input type="checkbox" id="fg_grid"> Cuadrícula</label><label class="opt oi"><input type="checkbox" id="fg_leg"> Leyenda</label><label class="opt oi"><input type="checkbox" id="fg_dec"> Coma decimal</label></div>
+<div class="cvbar"><button id="fg_copy">Copiar imagen</button><button class="sc" id="fg_png">Descargar PNG</button><button class="sc" id="fg_svg">Descargar SVG</button><button class="sc" id="fg_tsv">Copiar datos (Excel)</button></div>
+<div id="cvfig"></div></div>
 </section>
 <section class="tp" id="tp2" role="tabpanel" aria-labelledby="tab2" hidden>
 <p class="mu">Los puntos adicionales se definen en la pestaña Modelo.</p>
@@ -752,7 +765,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='24.1',APP_DATE='15-11-2026';
+const APP_VER='24.2',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.']];
 function goTab(k,foc){
@@ -984,10 +997,9 @@ function cvReport(){const used=[...new Set(S.mount.filter(r=>r[21]&&r[16]==='tac
  const mn={pchip:'PCHIP (monótona)',lin:'lineal por tramos',spline:'spline cúbico natural',poly:'polinomio ajustado (grado '+'#)'};
  let h='<h3>Curvas de tacos no lineales</h3><p class="par">Estático: el taco sigue la curva de compresión (y la de tracción) y su rigidez radial se toma a la carga vertical. Modal, respuesta forzada y choque: rigidez vertical = tangente a la curva en el estado de operación ('+(OPS.length&&$('cvop').querySelector('b')?esc($('cvop').querySelector('b').textContent):'')+') × factor estático-dinámico; rigideces radiales a esa carga × factor.</p>';
  used.forEach(cv=>{let c;try{c=compileCurve(cv)}catch(e){return}const xc=c.comp.xmax,xt=c.own?c.ten.xmax:xc,N=240,xs=[];for(let i=0;i<=N;i++)xs.push(-xt+(xc*1.1+xt)*i/N);
-  const ops=OPS.filter(o=>o.curve===cv.name),svg=cvPlot({title:'Fuerza vertical frente a deformación',xl:'Deformación δ (mm):  ← tracción · compresión →',yl:'Fz (kN)',H:300,ser:[{p:xs.filter(x=>x<=xc).map(x=>[x,c.P(x)]),c:'#2a7de1'},{p:xs.filter(x=>x>=xc).map(x=>[x,c.P(x)]),c:'#2a7de1',dash:1,w:1.6}],
-   dots:(cv.comp||[]).map(r=>({x:+r[0],y:+r[1],c:'#2a7de1',r:3})),marks:ops.map(o=>({x:o.c,y:o.P,c:'#2f9e44'})),leg:[{c:'#2a7de1',t:'curva interpolada'},{c:'#2a7de1',dash:1,t:'extrapolación'}]});
+  const rf=t=>repFig(cv,{type:t,title:0,w:900,h:t==='F'?560:440}).replace(/ width="\d+" height="\d+"/,' style="width:100%;max-width:720px;height:auto"'),svg=rf('F')+rf('K');
   h+='<h4>'+esc(cv.name)+'</h4><p class="par">Interpolación: '+(cv.met==='poly'?'polinomio ajustado (grado '+(cv.deg||3)+')':mn[cv.met||'pchip'])+'. Tracción: '+(c.own?'curva propia':'igual que la de compresión')+'. Rigidez tras el último punto: '+(cv.kext>0?esc(cv.kext)+' kN/mm':'tangente final')+'.</p>'+
-   rt(['δ (mm)','Fz (kN)'],cv.comp)+(c.own?'<h4>Tracción</h4>'+rt(['δ (mm)','Fz (kN)'],cv.ten):'')+((cv.kx||[]).length?'<h4>Rigidez radial X</h4>'+rt(['Fz (kN)','kx (kN/mm)'],cv.kx):'')+((cv.ky||[]).length?'<h4>Rigidez radial Y</h4>'+rt(['Fz (kN)','ky (kN/mm)'],cv.ky):'')+fixSvg(svg)});
+   rt(['δ (mm)','Fz (kN)'],cv.comp)+(c.own?'<h4>Tracción</h4>'+rt(['δ (mm)','Fz (kN)'],cv.ten):'')+((cv.kx||[]).length?'<h4>Rigidez radial X</h4>'+rt(['Fz (kN)','kx (kN/mm)'],cv.kx):'')+((cv.ky||[]).length?'<h4>Rigidez radial Y</h4>'+rt(['Fz (kN)','ky (kN/mm)'],cv.ky):'')+svg});
  if(OPS.length)h+='<h4>Estado de operación de los tacos</h4>'+rt(['Suspensión','Curva','c (mm)','Fz (kN)','kz tangente (kN/mm)','kx (kN/mm)','ky (kN/mm)'],OPS.map(o=>[o.mount,o.curve,+o.c.toFixed(2),+o.P.toFixed(2),+o.kz.toFixed(3),+o.kx.toFixed(3),+o.ky.toFixed(3)]));
  return h}
 function buildReport(){
@@ -1286,9 +1298,9 @@ function cvPlot(o){const W=720,Hh=o.H||300,L=64,R=16,T=14,Bt=50,pw=W-L-R,ph=Hh-T
  (o.marks||[]).forEach(d=>{const x=sx(d.x),y=sy(d.y);s+=`<path d="M${x} ${y-8}L${x+7} ${y}L${x} ${y+8}L${x-7} ${y}Z" fill="${d.c}" stroke="var(--bg)" stroke-width="1.5" style="pointer-events:none"><title>${esc(d.t||'')}</title></path>`});
  const lg=(o.leg||[]).map((l,i)=>`<g transform="translate(${L+10+i*150},${T+12})"><line x1="0" x2="20" y1="0" y2="0" stroke="${l.c}" stroke-width="2.4"${l.dash?' stroke-dasharray="5 3"':''}/><text x="26" y="4" font-size="12" fill="var(--fg)">${esc(l.t)}</text></g>`).join('');
  return `<div class="cvch"><div class="gh" style="margin:6px 0 0">${esc(o.title)}</div><svg viewBox="0 0 ${W} ${Hh}" style="width:100%;max-width:${W}px;display:block;touch-action:none" data-l="${L}" data-t="${T}" data-pw="${pw}" data-ph="${ph}" data-x0="${b.x0}" data-x1="${b.x1}" data-y0="${b.y0}" data-y1="${b.y1}" font-family="inherit"><rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="none" stroke="var(--bd)"/>${s}${lg}<text x="${L+pw/2}" y="${Hh-8}" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.xl)}</text><text transform="translate(15,${T+ph/2}) rotate(-90)" text-anchor="middle" font-size="13" fill="var(--fg)">${esc(o.yl)}</text></svg></div>`}
-function cvPlots(){if(!CW){['cvg1','cvg2','cvg3'].forEach(i=>$(i).innerHTML='');$('cvmsg').innerHTML='';return}
+function cvPlots(){if(!CW){['cvg1','cvg2','cvg3','cvfig'].forEach(i=>$(i).innerHTML='');$('cvmsg').innerHTML='';return}
  const msgs=cvCheck(CW);$('cvmsg').innerHTML=msgs.map(([k,t])=>`<p class="${k==='err'?'err':'mu'}">${k==='err'?'✖ ':k==='warn'?'⚠ ':'ℹ '}${esc(t)}</p>`).join('');
- let c;try{c=compileCurve(CW)}catch(e){return}if(!c.ok)return;
+ cvFig();let c;try{c=compileCurve(CW)}catch(e){return}if(!c.ok)return;
  const nm=S.curves[CWI]?S.curves[CWI].name:'',ops=OPS.filter(o=>o.curve===nm),xc=c.comp.xmax,xt=c.own?c.ten.xmax:xc,xa=-xt,xb=xc*1.15,N=300,xs=[];for(let i=0;i<=N;i++)xs.push(xa+(xb-xa)*i/N);
  const pr=(arr,sg)=>arr.map(r=>[+r[0],+r[1]]).filter(r=>isFinite(r[0])&&isFinite(r[1]));
  const fixF=k=>CDG&&CDG.g===k?CDG.b:null;
@@ -1308,6 +1320,85 @@ function cvPlots(){if(!CW){['cvg1','cvg2','cvg3'].forEach(i=>$(i).innerHTML='');
   ser:[...(rx?[{p:ps.map(P=>[P,rx(P)]),c:'#2a7de1'}]:[]),...(ry?[{p:ps.map(P=>[P,ry(P)]),c:'#e8590c'}]:[])],dots:[...drr('kx','#2a7de1'),...drr('ky','#e8590c')],
   marks:ops.map(o=>({x:o.P,y:o.kx,c:'#2f9e44',t:o.mount+': kx = '+g(o.kx,3)+' kN/mm'})),leg:[{c:'#2a7de1',t:'kx'},{c:'#e8590c',t:'ky'}]});
  }
+/* ---------- figura de curva para informe (SVG autónomo, estilo publicación) ---------- */
+const FIGD={type:'F',col:'c',w:1000,h:620,title:1,ttxt:'',pts:1,ext:1,ten:1,op:1,grid:1,leg:1,dec:1,res:3};
+let FIG=Object.assign({},FIGD);
+try{const t=localStorage.getItem('mdofFig');if(t)FIG=Object.assign({},FIGD,JSON.parse(t))}catch(e){}
+function repFig(cv,o){o=Object.assign({},FIG,o||{});let c;try{c=compileCurve(cv)}catch(e){return ''}if(!c.ok)return '';
+ let W=Math.max(300,Math.min(3000,+o.w||1000)),Hh=Math.max(240,Math.min(3000,+o.h||620)),fs=Math.round(Math.max(11,W/62)),bn=o.col==='bn',
+  CB=bn?'#111':'#1f5fbf',CO=bn?'#555':'#d9480f',CG=bn?'#111':'#2b8a3e',GR='#d7dbe0',AX='#222',
+  nm=cv.name,ops=OPS.filter(a=>a.curve===nm),xc=c.comp.xmax,xt=c.own?c.ten.xmax:xc,tens=o.ten&&(c.own||true),
+  fm=(v,dec)=>{let t=(+v).toFixed(dec);if(dec>0)t=t.replace(/\.?0+$/,'');if(t==='-0')t='0';return o.dec?t.replace('.',','):t},
+  dd=st=>st>=1?0:Math.min(6,Math.ceil(-Math.log10(st)+1e-9));
+ let uid=0,svg='';const T0=o.title?Math.round(fs*2.6):Math.round(fs*.8);
+ if(o.title){const tx=(o.ttxt||'').trim()||'Curva fuerza-deformación del taco '+nm;svg+=`<text x="${W/2}" y="${Math.round(fs*1.7)}" text-anchor="middle" font-size="${Math.round(fs*1.3)}" font-weight="bold" fill="${AX}">${esc(tx)}</text>`}
+ const panel=P=>{const id='fc'+(uid++),{x,y,w,h,ser,dots,marks,xr}=P;
+  const all=[...ser.flatMap(s=>s.p),...dots.map(d=>[d.x,d.y]),...marks.map(d=>[d.x,d.y])].filter(p=>isFinite(p[0])&&isFinite(p[1]));
+  let y0=Math.min(0,...all.map(p=>p[1])),y1=Math.max(...all.map(p=>p[1]));if(!(y1>y0))y1=y0+1;const sy=nstep((y1-y0)/6);y0=Math.floor(y0/sy+1e-9)*sy;y1=Math.ceil(y1/sy-1e-9)*sy;
+  const sx=nstep((xr[1]-xr[0])/8),X=v=>x+w*(v-xr[0])/(xr[1]-xr[0]),Y=v=>y+h-h*(v-y0)/(y1-y0),dy=dd(sy),dx=dd(sx);let s='';
+  s+=`<defs><clipPath id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs>`;
+  for(let v=Math.ceil(y0/sy-1e-9)*sy;v<=y1+sy*1e-6;v+=sy){const yy=Y(v);if(o.grid)s+=`<line x1="${x}" x2="${x+w}" y1="${yy}" y2="${yy}" stroke="${GR}" stroke-width="1"/>`;s+=`<line x1="${x-6}" x2="${x}" y1="${yy}" y2="${yy}" stroke="${AX}" stroke-width="1.2"/><text x="${x-10}" y="${yy+fs*.35}" text-anchor="end" font-size="${fs}" fill="${AX}">${fm(v,dy)}</text>`}
+  for(let v=Math.ceil(xr[0]/sx-1e-9)*sx;v<=xr[1]+sx*1e-6;v+=sx){const xx=X(v);if(o.grid)s+=`<line x1="${xx}" x2="${xx}" y1="${y}" y2="${y+h}" stroke="${GR}" stroke-width="1"/>`;s+=`<line x1="${xx}" x2="${xx}" y1="${y+h}" y2="${y+h+6}" stroke="${AX}" stroke-width="1.2"/>`;if(P.xlab!==null)s+=`<text x="${xx}" y="${y+h+6+fs*1.15}" text-anchor="middle" font-size="${fs}" fill="${AX}">${fm(v,dx)}</text>`}
+  if(xr[0]<0&&xr[1]>0)s+=`<line x1="${X(0)}" x2="${X(0)}" y1="${y}" y2="${y+h}" stroke="#777" stroke-width="1.2"/>`;
+  if(y0<0&&y1>0)s+=`<line x1="${x}" x2="${x+w}" y1="${Y(0)}" y2="${Y(0)}" stroke="#777" stroke-width="1.2"/>`;
+  s+=`<g clip-path="url(#${id})">`;
+  ser.forEach(a=>{s+=`<polyline fill="none" stroke="${a.c}" stroke-width="${a.w||2.4}" stroke-linejoin="round" stroke-linecap="round"${a.dash?` stroke-dasharray="${a.dash}"`:''} points="${a.p.map(p=>X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)).join(' ')}"/>`});
+  dots.forEach(d=>{s+=`<circle cx="${X(d.x).toFixed(1)}" cy="${Y(d.y).toFixed(1)}" r="${fs*.3}" fill="${d.hol?'#fff':d.c}" stroke="${d.c}" stroke-width="1.6"/>`});
+  s+='</g>';
+  marks.forEach(m=>{const cx=X(m.x),cy=Y(m.y),r=fs*.55;s+=`<path d="M${cx} ${cy-r}L${cx+r} ${cy}L${cx} ${cy+r}L${cx-r} ${cy}Z" fill="${m.c}" stroke="#fff" stroke-width="1.2"/>`;
+   if(m.t)s+=`<text x="${cx+r+3}" y="${cy-r-2}" font-size="${Math.round(fs*.85)}" font-weight="bold" fill="${m.c}">${esc(m.t)}</text>`});
+  s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${AX}" stroke-width="1.4"/>`;
+  s+=`<text transform="translate(${x-fs*3.9},${y+h/2}) rotate(-90)" text-anchor="middle" font-size="${Math.round(fs*1.05)}" fill="${AX}">${esc(P.ylab)}</text>`;
+  if(P.xlab!==null)s+=`<text x="${x+w/2}" y="${y+h+fs*3.2}" text-anchor="middle" font-size="${Math.round(fs*1.05)}" fill="${AX}">${esc(P.xlab)}</text>`;
+  if(o.leg&&P.leg&&P.leg.length){const lw=Math.max(...P.leg.map(l=>l.t.length))*fs*.56+fs*3.4,lh=P.leg.length*fs*1.55+fs*.6,lx=x+fs*.9,ly=y+fs*.9;
+   s+=`<rect x="${lx}" y="${ly}" width="${lw}" height="${lh}" fill="#fff" fill-opacity=".92" stroke="#aab0b8" stroke-width="1"/>`;
+   P.leg.forEach((l,i)=>{const yy=ly+fs*1.3+i*fs*1.55;if(l.k==='dot')s+=`<circle cx="${lx+fs*1.1}" cy="${yy-fs*.3}" r="${fs*.3}" fill="${l.h?'#fff':l.c}" stroke="${l.c}" stroke-width="1.6"/>`;else if(l.k==='dia'){const cx=lx+fs*1.1,cy=yy-fs*.3,r=fs*.5;s+=`<path d="M${cx} ${cy-r}L${cx+r} ${cy}L${cx} ${cy+r}L${cx-r} ${cy}Z" fill="${l.c}"/>`}else s+=`<line x1="${lx+fs*.3}" x2="${lx+fs*1.9}" y1="${yy-fs*.3}" y2="${yy-fs*.3}" stroke="${l.c}" stroke-width="2.4"${l.dash?` stroke-dasharray="${l.dash}"`:''}/>`;
+    s+=`<text x="${lx+fs*2.3}" y="${yy}" font-size="${Math.round(fs*.95)}" fill="${AX}">${esc(l.t)}</text>`})}
+  return s};
+ const LM=Math.round(fs*5.6),RM=Math.round(fs*1.6),BM=Math.round(fs*4.4),pw=W-LM-RM,xr=[tens?-xt*1.04:0,xc*1.14];
+ const part=(f,a,b,n=160)=>{const r=[];for(let i=0;i<=n;i++){const v=a+(b-a)*i/n;r.push([v,f(v)])}return r};
+ const opM=(fx,fy,lab)=>{if(!o.op)return[];const seen=new Set();return ops.filter(a=>{const k=fx(a).toFixed(3)+'|'+fy(a).toFixed(3);if(seen.has(k))return false;seen.add(k);return true}).map((a,i)=>({x:fx(a),y:fy(a),c:CG,t:MANY?null:String(i+1)}))};
+ const opL=!o.op?[]:(()=>{const seen=new Set(),r=[];ops.forEach(a=>{const k=a.c.toFixed(3)+'|'+a.P.toFixed(3);if(seen.has(k))return;seen.add(k);r.push(`${r.length+1}: δ = ${fm(a.c,2)} mm · Fz = ${fm(a.P,2)} kN · kz = ${fm(a.kz,3)} kN/mm`+(a.mount?' ('+esc(String(a.mount))+')':''))});return r})(),MANY=opL.length>6,NH=opL.length?Math.round(fs*1.5*(MANY?1:opL.length)+fs*.8):0;
+ const legF=[{t:'Compresión (interpolada)',c:CB},...(tens?[{t:c.own?'Tracción (curva propia)':'Tracción (simétrica)',c:CO}]:[]),...(o.ext?[{t:'Extrapolación',c:CB,dash:'7 5'}]:[]),...(o.pts?[{t:'Puntos de ensayo',c:CB,k:'dot',h:1}]:[]),...(o.op&&ops.length?[{t:'Punto de trabajo',c:CG,k:'dia'}]:[])];
+ const sets=(f)=>{const s=[{p:part(f,0,xc),c:CB}];if(tens)s.push({p:part(f,-xt,0),c:CO});if(o.ext)s.push({p:part(f,xc,xc*1.14,40),c:CB,dash:'7 5'});return s};
+ const dotsF=o.pts?[...(cv.comp||[]).map(r=>({x:+r[0],y:+r[1],c:CB,hol:1})),...(c.own&&tens?(cv.ten||[]).map(r=>({x:-r[0],y:-r[1],c:CO,hol:1})):[])].filter(d=>isFinite(d.x)&&isFinite(d.y)):[];
+ const dK=v=>Math.max(c.dP(v),c.kmin),XL='Deformación δ (mm)   ← tracción · compresión →';
+ const pF={xr,ser:sets(v=>c.P(v)),dots:dotsF,marks:opM(a=>a.c,a=>a.P,a=>'δ = '+fm(a.c,2)+' mm; Fz = '+fm(a.P,2)+' kN'),ylab:'Fuerza vertical Fz (kN)',xlab:XL,leg:legF};
+ const pK={xr,ser:sets(dK),dots:[],marks:opM(a=>a.c,a=>a.kz,a=>'kz = '+fm(a.kz,3)+' kN/mm'),ylab:'Rigidez tangente (kN/mm)',xlab:XL,leg:o.type==='FK'?[]:legF.filter(l=>l.k!=='dot')};
+ let body='';
+ if(o.type==='R'){const rx=c.rad[0],ry=c.rad[1];if(!rx&&!ry)return '<p class="mu">Esta curva no tiene rigidez radial definida.</p>';
+  const pm=Math.max(...(cv.comp||[]).map(r=>+r[1]).filter(isFinite),...(cv.kx||[]).map(r=>+r[0]).filter(isFinite),...(cv.ky||[]).map(r=>+r[0]).filter(isFinite),1),ps=[];for(let i=0;i<=200;i++)ps.push(pm*i/200);
+  const dr=(t,col)=>o.pts?(cv[t]||[]).map(r=>({x:+r[0],y:+r[1],c:col,hol:1})).filter(d=>isFinite(d.x)&&isFinite(d.y)):[];
+  body=panel({x:LM,y:T0,w:pw,h:Hh-T0-BM,xr:[0,pm*1.04],ser:[...(rx?[{p:ps.map(P=>[P,rx(P)]),c:CB}]:[]),...(ry?[{p:ps.map(P=>[P,ry(P)]),c:CO,dash:bn?'7 5':null}]:[])],dots:[...dr('kx',CB),...dr('ky',CO)],
+   marks:opM(a=>a.P,a=>a.kx,a=>'kx = '+fm(a.kx,3)+' kN/mm'),ylab:'Rigidez radial (kN/mm)',xlab:'Fuerza vertical de compresión Fz (kN)',leg:[...(rx?[{t:'kx',c:CB}]:[]),...(ry?[{t:'ky',c:CO,dash:bn?'7 5':null}]:[]),...(o.pts?[{t:'Puntos de ensayo',c:CB,k:'dot',h:1}]:[])]})}
+ else if(o.type==='K')body=panel(Object.assign({x:LM,y:T0,w:pw,h:Hh-T0-BM},pK));
+ else if(o.type==='FK'){const hh=Hh-T0-BM-Math.round(fs*1.2),h1=Math.round(hh*.56),h2=hh-h1;body=panel(Object.assign({x:LM,y:T0,w:pw,h:h1},pF,{xlab:null}))+panel(Object.assign({x:LM,y:T0+h1+Math.round(fs*1.2),w:pw,h:h2},pK))}
+ else body=panel(Object.assign({x:LM,y:T0,w:pw,h:Hh-T0-BM},pF));
+ if(MANY){const ol=ops.filter(a=>isFinite(a.c)),mn=f=>Math.min(...ol.map(f)),mx=f=>Math.max(...ol.map(f));opL.length=0;opL.push(`${ol.length} puntos de trabajo: δ = ${fm(mn(a=>a.c),2)} a ${fm(mx(a=>a.c),2)} mm · Fz = ${fm(mn(a=>a.P),2)} a ${fm(mx(a=>a.P),2)} kN`)}
+ opL.forEach((t,i)=>{body+=`<text x="${LM}" y="${Hh+Math.round(fs*.5)+i*Math.round(fs*1.5)+Math.round(fs*.9)}" font-size="${Math.round(fs*.9)}" fill="${CG}">◆ ${t}</text>`});
+ Hh+=NH;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" font-family="Arial, Helvetica, sans-serif"><rect width="${W}" height="${Hh}" fill="#fff"/>${svg}${body}</svg>`}
+function figPng(svg,scale){return new Promise((res,rej)=>{const m=/viewBox="0 0 (\d+) (\d+)"/.exec(svg),W=+m[1],H=+m[2],img=new Image();
+ img.onload=()=>{const c=document.createElement('canvas');c.width=W*scale;c.height=H*scale;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);c.toBlob(b=>b?res(b):rej(Error('no se pudo crear la imagen')),'image/png')};
+ img.onerror=()=>rej(Error('no se pudo dibujar la figura'));img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)})}
+function figRead(){const g=i=>$('fg_'+i);if(!g('type'))return;FIG={type:g('type').value,col:g('col').value,w:+g('w').value||1000,h:+g('h').value||620,title:+g('title').checked,ttxt:g('ttxt').value,pts:+g('pts').checked,ext:+g('ext').checked,ten:+g('ten').checked,op:+g('op').checked,grid:+g('grid').checked,leg:+g('leg').checked,dec:+g('dec').checked,res:+g('res').value||3};
+ try{localStorage.setItem('mdofFig',JSON.stringify(FIG))}catch(e){}}
+function figForm(){const g=i=>$('fg_'+i);if(!g('type'))return;g('type').value=FIG.type;g('col').value=FIG.col;g('w').value=FIG.w;g('h').value=FIG.h;g('ttxt').value=FIG.ttxt;g('res').value=FIG.res;['title','pts','ext','ten','op','grid','leg','dec'].forEach(k=>g(k).checked=!!FIG[k])}
+function cvFig(){const el=$('cvfig');if(!el)return;if(!CW){el.innerHTML='';return}const s=repFig(CW);
+ el.innerHTML=s?s.replace(/ width="\d+" height="\d+"/,' style="width:100%;max-width:'+Math.min(1000,+FIG.w||1000)+'px;height:auto;display:block;border:1px solid var(--bd);border-radius:6px;background:#fff"'):'<p class="mu">Define al menos dos puntos de compresión para ver la figura.</p>'}
+const figName=ext=>((CW&&CW.name)||'curva').replace(/[^\w.-]+/g,'_')+'_'+FIG.type+'.'+ext;
+document.addEventListener('input',e=>{if(e.target.id&&e.target.id.startsWith('fg_')){figRead();cvFig()}});
+document.addEventListener('change',e=>{if(e.target.id&&e.target.id.startsWith('fg_')){figRead();cvFig()}});
+document.addEventListener('click',async e=>{const id=e.target.id;if(!id||!id.startsWith('fg_')||!CW)return;const b=e.target,old=b.textContent,say=t=>{b.textContent=t;setTimeout(()=>b.textContent=old,2200)};
+ const dl=(blob,name)=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000)};
+ try{const s=repFig(CW);if(!s)return say('Sin datos');
+  if(id==='fg_svg'){dl(new Blob([s],{type:'image/svg+xml'}),figName('svg'));say('Descargado')}
+  else if(id==='fg_png'){dl(await figPng(s,FIG.res),figName('png'));say('Descargado')}
+  else if(id==='fg_copy'){const bl=await figPng(s,FIG.res);try{await navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);say('¡Copiada!')}catch(er){dl(bl,figName('png'));say('Descargada (el navegador no permite copiar)')}}
+  else if(id==='fg_tsv'){const f=v=>$('dcm').checked?String(v).replace('.',','):String(v),rows=[['δ (mm)','Fz (kN)'],...(CW.comp||[]).map(r=>[f(r[0]),f(r[1])])];if(CW.tm==='own'&&(CW.ten||[]).length>1){rows.push([],['Tracción δ (mm)','Fz (kN)'],...CW.ten.map(r=>[f(r[0]),f(r[1])]))}
+   say(await copyText(rows.map(r=>r.join('\t')).join('\n'))?'¡Copiados!':'No se pudo copiar')}
+ }catch(er){say('Error: '+er.message)}});
+
 function drawOp(m){cvUse();const el=$('cvop');if(!el)return;
  if(!m||!m.nl||!m.nl.length){OPS=[];el.innerHTML='<p class="mu">Ninguna suspensión usa una curva no lineal. Elige una en la columna «Curva» de la tabla de suspensiones.</p>';cvPlots();return}
  OPS=m.nl.map(nl=>{const o=nl.op,f=nl.f;return{mount:mname(nl.qi),curve:nl.name,c:o.c,P:o.P,kz:o.kz,kx:o.kx,ky:o.ky,f,xmax:nl.cv.comp.xmax,qi:nl.qi}});
@@ -1359,7 +1450,7 @@ document.addEventListener('pointermove',e=>{if(!CDG||!CW)return;const sv=$(CDG.i
  document.querySelectorAll('#cvt_'+CDG.t+' input').forEach(inp=>{if(+inp.dataset.i===CDG.i)inp.value=cvf(row[+inp.dataset.j])});cvPlots()});
 const cvUp=()=>{if(!CDG)return;const t=CDG.t;CDG=null;CW[t].sort((a,b)=>a[0]-b[0]);cvTables();cvPlots()};
 document.addEventListener('pointerup',cvUp);document.addEventListener('pointercancel',cvUp);
-function cvInit(){CWI=0;CW=S.curves[0]?cvClone(S.curves[0]):null;cvList();cvForm();cvTables();cvDirty(false);cvUse();buildNlop();cvPlots()}
+function cvInit(){figForm();CWI=0;CW=S.curves[0]?cvClone(S.curves[0]):null;cvList();cvForm();cvTables();cvDirty(false);cvUse();buildNlop();cvPlots()}
 const rngW=(w,tx)=>{if(!w.length)return '';w.sort((a,b)=>b.c/b.x-a.c/a.x);const t=w[0];return '<p class="err">⚠ '+tx+': '+w.length+' suspensión(es) fuera del rango ensayado de su curva (se extrapola con la rigidez final). La peor, '+esc(t.n)+': '+g(t.c,1)+' mm frente a '+g(t.x,1)+' mm ensayados.'+(w.length>1?' Resto: '+w.slice(1,5).map(a=>esc(a.n)+' '+g(a.c,1)+' mm').join(', ')+(w.length>5?'…':'')+'.':'')+'</p>'};
 function nlWarn(m,r){return rngW(m.nl.map(nl=>({n:mname(nl.qi),c:nlEval(nl,r.mounts[nl.qi].d).c,x:nl.cv.comp.xmax})).filter(a=>a.c>a.x),'Estático')}
 function cvRefresh(){CWD=false;cvList();CWI=Math.min(Math.max(CWI,0),S.curves.length-1);CW=S.curves[CWI]?cvClone(S.curves[CWI]):null;cvDirty(false);cvForm();cvTables();cvUse();cvPlots()}
