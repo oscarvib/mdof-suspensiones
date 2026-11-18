@@ -26,7 +26,7 @@ body{margin:0;background:var(--page);color:var(--fg);font:15px/1.5 var(--fb)}
 .sub a:hover{background:rgba(255,255,255,.08);color:#fff}
 .sub a.cur{color:#fff;opacity:1;background:rgba(127,224,234,.14);box-shadow:inset 2px 0 0 var(--railhi)}
 .sub .sbt{display:flex;gap:6px;padding:2px 4px 6px}.sub .sbt a{padding:2px 8px;font-size:12px;border:1px solid rgba(255,255,255,.22);overflow:visible}
-.card,.tp h3{scroll-margin-top:72px}
+.card,.tp h3{scroll-margin-top:72px}.svh{display:none!important}
 #tabs button{display:flex;align-items:center;gap:11px;width:100%;min-height:42px;text-align:left;background:none;color:var(--railfg);border:0;border-radius:9px;margin:0;padding:8px 12px;font:500 15.5px var(--fd);cursor:pointer}
 #tabs button svg{flex:none;opacity:.85}
 #tabs button:hover{background:rgba(255,255,255,.08);color:#fff}
@@ -831,14 +831,14 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='26.0',APP_DATE='15-11-2026';
+const APP_VER='26.1',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
  document.querySelectorAll('.tp').forEach((q,i)=>q.hidden=i!==k);
  document.querySelectorAll('#tabs button').forEach(q=>{const on=+q.dataset.tab===k;q.classList.toggle('on',on);q.setAttribute('aria-selected',on);q.tabIndex=on?0:-1;if(on&&foc)q.focus()});
  $('pgt').textContent=TT[k][0];$('pgd').textContent=TT[k][1];document.title=TT[k][0]+' · Suspensiones MDOF';
- host3Move(k);window.scrollTo(0,0);if(k===4)syncForced();if(k===7)rpStatus();if(k===1)cvPlots();if(k===9)useRender();if(typeof buildSub==='function')buildSub(true);if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
+ host3Move(k);window.scrollTo(0,0);if(k===4)syncForced();if(k===7)rpStatus();if(k===1)cvPlots();if(k===9)useRender();if(typeof buildSub==='function'){VIEW=null;clearView();buildSub(true)}if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
 function host3Move(k){const d=$('v3d'),h=$(k===3?'v3hostM':'v3host3');if(d&&h&&d.parentNode!==h)h.appendChild(d)}
 $('tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(!b||e.target.closest('.sub'))return;goTab(+b.dataset.tab)};
 /* ---------- subárbol de la barra lateral: secciones de la pestaña activa ---------- */
@@ -855,20 +855,34 @@ function buildSub(force){const b=document.querySelector('#tabs button.on');if(!b
  SUBSIG=sig;SUB=it;document.querySelectorAll('#tabs .sub').forEach(x=>x.remove());
  if(it.length<2)return;
  const d=document.createElement('div');d.className='sub';
- d.innerHTML='<div class="sbt"><a href="#" data-fold="1" title="Plegar todas las secciones de esta pestaña">Plegar todo</a><a href="#" data-fold="0" title="Desplegar todas las secciones">Desplegar</a></div>'+it.map((x,i)=>`<a href="#" data-si="${i}" class="l${x.l}" title="${esc(x.t)}">${esc(x.t)}</a>`).join('');
- b.after(d);subSpy()}
-function subSpy(){const d=document.querySelector('#tabs .sub');if(!d||!SUB.length)return;let c=-1;
+ d.innerHTML='<div class="sbt"><a href="#" data-fold="1" title="Plegar todas las secciones de esta pestaña">Plegar todo</a><a href="#" data-fold="0" title="Desplegar todas las secciones">Desplegar</a></div>'+'<a href="#" data-all="1" class="l1" title="Mostrar todas las secciones de la pestaña seguidas">Ver todo</a>'+it.map((x,i)=>`<a href="#" data-si="${i}" class="l${x.l}" title="${esc(x.t)}">${esc(x.t)}</a>`).join('');
+ b.after(d);applyView();subSpy()}
+let VIEW=null;
+function clearView(){document.querySelectorAll('.svh').forEach(e=>e.classList.remove('svh'))}
+function markView(i){const d=document.querySelector('#tabs .sub');if(!d)return;d.querySelectorAll('a[data-si],a[data-all]').forEach(a=>a.classList.toggle('cur',i===null?a.dataset.all!==undefined:a.dataset.si!==undefined&&+a.dataset.si===i))}
+function openCard(c){if(!c)return;if(c.tagName==='DETAILS')c.open=true;else{c.classList.remove('shut');const bt=c.querySelector(':scope>header>button.cc');if(bt)bt.setAttribute('aria-expanded','true')}}
+function applyView(){clearView();if(!document.querySelector('#tabs .sub'))return;
+ if(!VIEW){markView(null);return}
+ const i=SUB.findIndex(x=>x.t===VIEW.t&&x.l===VIEW.l);if(i<0){VIEW=null;markView(null);return}
+ const x=SUB[i];let card=x.el;while(card.parentElement&&!card.parentElement.classList.contains('tp'))card=card.parentElement;const tp=card.parentElement;
+ [...tp.children].forEach(c=>{if(c!==card)c.classList.add('svh')});
+ for(let a=x.el;a&&a!==tp;a=a.parentElement)if(a.classList&&(a.classList.contains('card')||a.tagName==='DETAILS'))openCard(a);
+ if(x.l===2){let u=x.el,par=null,peers=[];
+  while(u!==card&&u.parentElement){const p=u.parentElement;peers=[...p.children].filter(c=>c===u||c.matches('h3')||c.querySelector('h3'));if(peers.length>=2){par=p;break}u=p}
+  if(par){const nx=peers[peers.indexOf(u)+1]||null;let on=false;[...par.children].forEach(c=>{if(c===u)on=true;else if(c===nx)on=false;if(!on)c.classList.add('svh')});
+   for(let q=par;q!==card&&q.parentElement;q=q.parentElement){[...q.parentElement.children].forEach(c=>{if(c!==q&&c.tagName!=='HEADER')c.classList.add('svh')})}}}
+ markView(i)}
+function subSpy(){if(VIEW)return;const d=document.querySelector('#tabs .sub');if(!d||!SUB.length)return;let c=-1;
  SUB.forEach((x,i)=>{if(x.el.isConnected&&x.el.getClientRects().length&&x.el.getBoundingClientRect().top<=170)c=i});
  d.querySelectorAll('a[data-si]').forEach(a=>{const on=+a.dataset.si===c;a.classList.toggle('cur',on);
   if(on){const r=document.querySelector('.rail'),ar=a.getBoundingClientRect(),rr=r.getBoundingClientRect();if(ar.bottom>rr.bottom-40)r.scrollTop+=ar.bottom-rr.bottom+60;else if(ar.top<rr.top+60)r.scrollTop-=rr.top-ar.top+60}})}
 $('tabs').addEventListener('click',e=>{const a=e.target.closest('.sub a');if(!a)return;e.preventDefault();
  if(a.dataset.fold!==undefined){const sh=a.dataset.fold==='1',tp=document.querySelectorAll('.tp')[+document.querySelector('#tabs button.on').dataset.tab];
   tp.querySelectorAll(':scope>.card').forEach(c=>{if(c.tagName==='DETAILS')c.open=!sh;else{c.classList.toggle('shut',sh);const bt=c.querySelector(':scope>header>button.cc');if(bt)bt.setAttribute('aria-expanded',!sh)}});return}
- const x=SUB[+a.dataset.si];if(!x)return;const c=x.el.closest('.card');
- if(c){if(c.tagName==='DETAILS')c.open=true;else{c.classList.remove('shut');const bt=c.querySelector(':scope>header>button.cc');if(bt)bt.setAttribute('aria-expanded','true')}}
- x.el.scrollIntoView({block:'start'});x.el.querySelector&&0;try{x.el.setAttribute('tabindex','-1');x.el.focus({preventScroll:true})}catch(er){}});
+ if(a.dataset.all!==undefined){VIEW=null;applyView();window.scrollTo(0,0);subSpy();return}
+ const x=SUB[+a.dataset.si];if(!x)return;VIEW={t:x.t,l:x.l};applyView();window.scrollTo(0,0)});
 let SPT=0;window.addEventListener('scroll',()=>{if(SPT)return;SPT=requestAnimationFrame(()=>{SPT=0;subSpy()})},{passive:true});
-let SMT=null;new MutationObserver(()=>{clearTimeout(SMT);SMT=setTimeout(()=>{buildSub();subSpy()},300)}).observe(document.querySelector('main'),{childList:true,subtree:true});
+let SMT=null;new MutationObserver(()=>{clearTimeout(SMT);SMT=setTimeout(()=>{buildSub();applyView();subSpy()},300)}).observe(document.querySelector('main'),{childList:true,subtree:true});
 buildSub(true);
 
 $('tabs').onkeydown=e=>{const bs=[...document.querySelectorAll('#tabs button')];let i=bs.indexOf(document.activeElement);if(i<0)return;
