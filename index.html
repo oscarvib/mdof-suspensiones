@@ -259,7 +259,7 @@ details.md>summary{font-size:15px}
 <p><span id="hselw" class="nocalc" hidden>Armónico <select id="hsel"></select></span> Magnitud <select id="qty"><option value="v">Velocidad (mm/s)</option><option value="d">Desplazamiento (µm)</option><option value="a">Aceleración (m/s²)</option></select> <label class="opt oi"><input type="checkbox" id="lg" checked> escala log</label></p>
 <div id="charts"></div>
 <h2>Excitabilidad de los modos</h2>
-<p class="mu">Para el armónico elegido se suman vectorialmente las fuerzas (con su fase) y se proyectan sobre cada modo. <b>Fuerza modal</b> = φᵀF con φ normalizado a masa unidad. <b>Coherencia</b> = |φᵀ ΣF| / Σ|φᵀF de cada fila|: 100 % si todas las filas suman y 0 % si se anulan entre sí. <b>Energía cinética en resonancia</b> = ½·(|φᵀF| / (2ζω))², la que el modo alcanzaría si el armónico coincidiese con su frecuencia; se reparte en parte <b>de traslación</b> y parte <b>de giro</b> con la forma del modo, y sirve para comparar modos entre sí y ver si un modo de giro se excita a base de desplazamientos.</p>
+<p class="mu">Para el armónico elegido se suman vectorialmente las fuerzas (con su fase) y se proyectan sobre cada modo. <b>Fuerza modal</b> = φᵀF con φ normalizado a masa unidad. <b>Participación</b> = |φᵀF|² / Σ|φᵀF|² de todos los modos: qué parte de la fuerza (ponderada por la masa) va a cada modo; suma 100 % entre todos los modos. <b>Coherencia entre filas</b> (solo con varias filas del armónico) = |φᵀ ΣF| / Σ|φᵀF de cada fila|: 100 % si las filas suman en ese modo y 0 % si se anulan. <b>Energía cinética en resonancia</b> = ½·(|φᵀF| / (2ζω))², la que el modo alcanzaría si el armónico coincidiese con su frecuencia; se reparte en parte <b>de traslación</b> y parte <b>de giro</b> con la forma del modo, y sirve para comparar modos entre sí y ver si un modo de giro se excita a base de desplazamientos.</p>
 <div class="cvbar nocalc"><label>Armónico <select id="exh"></select></label><label>ζ de comparación (%) <input class="sm" id="exz" placeholder="el del modelo (β)"></label><span class="mu">Vacío: se usa el ζ de cada modo según β (2 % si β = 0).</span></div>
 <div id="excm"></div>
 
@@ -613,9 +613,9 @@ function drawEx(){const el=$('excm');if(!R2||!R2.ex){el.innerHTML='';return}
    Cp=E.Cm.map(r=>r.reduce((s,x,j)=>s+x*phi[j],0)),cm=phi.reduce((s,x,k)=>s+x*Cp[k],0),zm=w>0?cm/(2*w):0,z=zf!==null?zf:(zm>1e-6?zm:0.02),
    Mp=E.M.map(r=>r.reduce((s,x,j)=>s+x*phi[j],0)),kt=phi.reduce((s,x,k)=>s+(k%6<3?x*Mp[k]:0),0),tt=phi.reduce((s,x,k)=>s+x*Mp[k],0),pt=tt>0?kt/tt:0,
    Ek=w>0?.5*(G/(2*z*w))**2:0;return{i,f,rr:60*f/ho,G,coh:sc>0?G/sc:0,zm,Ek,pt,o}});
- const mx=Math.max(...rowsT.map(r=>r.Ek),1e-300);
- h+='<h3 class="gh">Excitabilidad de los modos · armónico '+ho+'</h3>'+tab(['#','Tipo','f (Hz)','rpm de resonancia','Fuerza modal (N·kg^-½)','Coherencia','ζ del modelo','Energía cinética en resonancia (J)','Traslación','Giro','Índice (% del máximo)'],
-  rowsT.map(r=>{const inr=r.rr>=E.r0&&r.rr<=E.r1,row=[r.i+1,esc(S.mlab[r.i]||mlSug(r.o.pct)),g(r.f,2),g(r.rr,0)+(inr?' ✔':''),sg(r.G),g(100*r.coh,0)+' %',g(100*r.zm,2)+' %',sg(r.Ek),g(100*r.pt,0)+' %',g(100*(1-r.pt),0)+' %',g(100*r.Ek/mx,0)+' %'];if(inr)row.bold=true;return row}))+
+ const mx=Math.max(...rowsT.map(r=>r.Ek),1e-300),gt=rowsT.reduce((s,r)=>s+r.G*r.G,0)||1;
+ h+='<h3 class="gh">Excitabilidad de los modos · armónico '+ho+'</h3>'+tab(['#','Tipo','f (Hz)','rpm de resonancia','Fuerza modal (N·kg^-½)','Participación de la fuerza','Coherencia entre filas','ζ del modelo','Energía cinética en resonancia (J)','Traslación','Giro','Índice (% del máximo)'],
+  rowsT.map(r=>{const inr=r.rr>=E.r0&&r.rr<=E.r1,row=[r.i+1,esc(S.mlab[r.i]||mlSug(r.o.pct)),g(r.f,2),g(r.rr,0)+(inr?' ✔':''),sg(r.G),g(100*r.G*r.G/gt,1)+' %',rs.length>1?g(100*r.coh,0)+' %':'—',g(100*r.zm,2)+' %',sg(r.Ek),g(100*r.pt,0)+' %',g(100*(1-r.pt),0)+' %',g(100*r.Ek/mx,0)+' %'];if(inr)row.bold=true;return row}))+
   '<p class="mu">✔ (fila en negrita): la resonancia cae dentro del rango de rpm calculado ('+g(E.r0,0)+'–'+g(E.r1,0)+'). El índice compara modos a igual armónico y amortiguamiento; no es una amplitud real, sino la energía que cada modo recibiría con esas fuerzas.</p>';
  el.innerHTML=h}
 const nstep=v=>{const e=10**Math.floor(Math.log10(v)),f=v/e;return e*(f<1.5?1:f<3.5?2:f<7.5?5:10)};
@@ -810,7 +810,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='25.0',APP_DATE='15-11-2026';
+const APP_VER='25.1',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
