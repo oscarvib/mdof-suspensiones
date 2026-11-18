@@ -256,7 +256,7 @@ details.md>summary{font-size:15px}
 <div class="w"><table id="t_exc"></table></div><button data-add="exc">+ fila</button>
 <p>rpm mín <input id="r0" value="300"> rpm máx <input id="r1" value="1800"> pasos <input id="rn" value="300"> orden por defecto (filas sin orden) <input id="ord" value="1"> <button id="brun">Calcular respuesta</button></p>
 <div id="sel"></div>
-<p><span id="hselw" class="nocalc" hidden>Armónico <select id="hsel"></select></span> Magnitud <select id="qty"><option value="v">Velocidad (mm/s)</option><option value="d">Desplazamiento (µm)</option><option value="a">Aceleración (m/s²)</option></select> <label class="opt oi"><input type="checkbox" id="lg" checked> escala log</label></p>
+<p><span id="hselw" class="nocalc" hidden>Armónico <select id="hsel"></select></span> Magnitud <select id="qty"><option value="v">Velocidad (mm/s)</option><option value="d">Desplazamiento (µm)</option><option value="a">Aceleración (m/s²)</option></select> <label class="opt oi"><input type="checkbox" id="lg" checked> escala log</label> <label class="opt oi" title="Banda verde: rango de trabajo; banda naranja: margen ± (los de la pestaña Modal, diagrama de Campbell)"><input type="checkbox" id="rngc" checked> rango de trabajo (el del Campbell)</label></p>
 <div id="charts"></div>
 <h2>Excitabilidad de los modos</h2>
 <p class="mu">Para el armónico elegido se suman vectorialmente las fuerzas (con su fase) y se proyectan sobre cada modo. <b>Fuerza modal</b> = φᵀF con φ normalizado a masa unidad. <b>Participación</b> = |φᵀF|² / Σ|φᵀF|² de todos los modos: qué parte de la fuerza (ponderada por la masa) va a cada modo; suma 100 % entre todos los modos. <b>Coherencia entre filas</b> (solo con varias filas del armónico) = |φᵀ ΣF| / Σ|φᵀF de cada fila|: 100 % si las filas suman en ese modo y 0 % si se anulan. <b>Energía cinética en resonancia</b> = ½·(|φᵀF| / (2ζω))², la que el modo alcanzaría si el armónico coincidiese con su frecuencia; se reparte en parte <b>de traslación</b> y parte <b>de giro</b> con la forma del modo, y sirve para comparar modos entre sí y ver si un modo de giro se excita a base de desplazamientos.</p>
@@ -565,7 +565,8 @@ function buildSel(){const el=$('sel'),sg=S.dpts.map(p=>p[0]).join('|');if(!el||s
  el.innerHTML='Puntos a mostrar: '+S.dpts.map((p,i)=>`<label class="opt oi" style="margin-top:4px"><input type="checkbox" data-sel="${i}"${SEL.has(i)?' checked':''}> ${p[0]}</label>`).join('')}
 document.addEventListener('input',e=>{const d=e.target.dataset;
  if(d.sel!==undefined){e.target.checked?SEL.add(+d.sel):SEL.delete(+d.sel);drawChart()}
- else if(e.target.id==='qty'||e.target.id==='lg'||e.target.id==='hsel')drawChart();else if(e.target.id==='exh'||e.target.id==='exz')drawEx()});
+ else if(e.target.id==='qty'||e.target.id==='lg'||e.target.id==='hsel'||e.target.id==='rngc'||e.target.id==='cr0'||e.target.id==='cr1'||e.target.id==='cmg'){if(R2)drawChart()}
+ else if(e.target.id==='exh'||e.target.id==='exz')drawEx()});
 $('brun').onclick=()=>runForced();
 function runForced(){try{normExc();
  const m=build(),r0=ev($('r0').value),r1=ev($('r1').value),np=Math.max(2,Math.round(ev($('rn').value))),od=ev($('ord').value),n=m.n;
@@ -638,21 +639,24 @@ function chartSVG(o){const W=800,H=380,L=96,R=22,T=14,Bt=70,pw=W-L-R,ph=H-T-Bt,{
  const X=v=>L+pw*(v-x0)/(x1-x0),xst=nstep((x1-x0)/6),xt=[];for(let v=Math.ceil(x0/xst-1e-9)*xst;v<=x1+xst*1e-6;v+=xst)xt.push(+v.toPrecision(12));
  const yl=v=>lg?(v>=0.1&&v<1e5?v.toFixed(1):v.toExponential(0)):v.toFixed(dec),dash='stroke="var(--bd)" stroke-dasharray="4 4"';
  let s='';
+ if(o.rng){const{a,b,lo:rl,hi:rh}=o.rng,cl=v=>Math.min(Math.max(v,x0),x1),bd=(u,w,c)=>{if(cl(w)>cl(u))s+=`<rect x="${X(cl(u))}" y="${T}" width="${X(cl(w))-X(cl(u))}" height="${ph}" fill="${c}"/>`};bd(rl,rh,'rgba(245,159,0,.10)');bd(a,b,'rgba(46,160,67,.14)');o.rng.post=()=>[a,b].forEach(v=>{if(v>=x0&&v<=x1)s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T+ph}" stroke="var(--fg)" stroke-width="1.5"/><text transform="translate(${X(v)-4},${T+ph-6}) rotate(-90)" fill="var(--fg)" font-size="15" font-weight="600">${v.toFixed(0)} rpm</text>`})}
  ticks.forEach(v=>{s+=`<line x1="${L}" x2="${L+pw}" y1="${Y(v)}" y2="${Y(v)}" ${dash}/><text x="${L-10}" y="${Y(v)+4}" text-anchor="end" fill="var(--mu)" font-size="16">${yl(v)}</text>`});
  xt.forEach(v=>{s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${T+ph}" ${dash}/><text x="${X(v)}" y="${T+ph+24}" text-anchor="middle" fill="var(--mu)" font-size="16">${xst>=1?v.toFixed(0):v.toFixed(1)}</text>`});
  if(!lg&&lo<0&&hi>0)s+=`<line x1="${L}" x2="${L+pw}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--mu)"/>`;
  s+=`<text x="${L+pw/2}" y="${H-10}" text-anchor="middle" fill="var(--fg)" font-size="18">${o.xlab}</text><text transform="translate(22,${T+ph/2}) rotate(-90)" text-anchor="middle" fill="var(--fg)" font-size="18">${o.ylab}</text>`;
  (o.hl||[]).forEach(h=>{s+=`<line x1="${L}" x2="${L+pw}" y1="${Y(h.v)}" y2="${Y(h.v)}" stroke="${h.c}" stroke-width="1.6" stroke-dasharray="8 5"/>`});
  ser.forEach(a=>{s+=`<polyline fill="none" stroke="${a.c}" stroke-width="2" stroke-linejoin="round" points="${a.v.map((v,i)=>isFinite(v)?X(xs[i]).toFixed(1)+','+Y(v).toFixed(1):'').filter(Boolean).join(' ')}"/>`});
+ if(o.rng&&o.rng.post)o.rng.post();
  s+=`<rect x="${L}" y="${T}" width="${pw}" height="${ph}" fill="none" stroke="var(--mu)"/>`+legSVG(o.leg,o.lpos||'tr',L,T,pw,ph);
  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:900px;display:block">${s}</svg>`}
 function drawChart(){const el=$('charts');if(!R2){el.innerHTML='';return}
  const q=$('qty').value,lg=$('lg').checked,sc=w=>q==='d'?1e6:q==='v'?w*1e3:w*w,un={d:'µm',v:'mm/s',a:'m/s²'}[q],nm={d:'Desplazamiento',v:'Velocidad',a:'Aceleración'}[q],
   idx=R2.names.map((_,i)=>i).filter(i=>SEL.has(i)),hv=$('hsel').value||'tot',one=R2.res.length<2||hv!=='tot'?R2.res.find(r=>String(r.o)===hv)||R2.res[0]:null;
  const vals=(i,ax)=>one?one.out[i][ax].map((a,s)=>a*sc(one.W[s])):R2.rpm.map((_,s)=>Math.sqrt(R2.res.reduce((t,r)=>{const v=r.out[i][ax][s]*sc(r.W[s]);return t+v*v},0)));
+ const rng=()=>{if(!$('rngc').checked)return null;const a=ev($('cr0').value),b=ev($('cr1').value),mg=ev($('cmg').value)/100;return a>=0&&b>a&&mg>=0?{a,b,lo:a*(1-mg),hi:b*(1+mg)}:null};
  let h='';
  ['x','y','z'].forEach(ax=>{const ser=idx.map(i=>({c:COL[i%8],v:vals(i,ax)})),
-  svg=chartSVG({xs:R2.rpm,ser,lg,leg:idx.map(i=>({n:R2.names[i],c:COL[i%8]})),ylab:`${nm} en ${ax} (${un})`,xlab:'Velocidad de giro (rpm)'});
+  svg=chartSVG({xs:R2.rpm,ser,lg,rng:rng(),leg:idx.map(i=>({n:R2.names[i],c:COL[i%8]})),ylab:`${nm} en ${ax} (${un})`,xlab:'Velocidad de giro (rpm)'});
   if(svg)h+=`<h4 class="gh">Eje ${ax}</h4>`+svg});
  el.innerHTML=(one?(R2.res.length>1?'<p class="mu">Armónico '+one.o+'.</p>':''):'<p class="mu">Total de los armónicos: raíz de la suma de los cuadrados de las amplitudes de cada armónico.</p>')+h}
 
@@ -743,7 +747,7 @@ function plotT(t,ser,un,nm0,hl){const nm=nm0||(un==='mm'?'Deformación':'Acelera
  return svg}
 
 /* ---------- archivo: menú, abrir y guardar (en el equipo) ---------- */
-const PIDS=['shst','ovon','ova','ovT','mgp','cons','r0','r1','rn','ord','exz','sa1','sa2','sa3','sT','ma','mT','sTt','sdt','gapm','gapd','shi','nlop','shnl','cr0','cr1','cmg','cord','cy','ptd','mx1','mx2','mx3','mz','mcb','msm','msh','msa','msd','rpt','rpn','rp0','rp1','rp2','rp3','rp4','rp5'];
+const PIDS=['shst','ovon','ova','ovT','mgp','cons','r0','r1','rn','ord','exz','rngc','sa1','sa2','sa3','sT','ma','mT','sTt','sdt','gapm','gapd','shi','nlop','shnl','cr0','cr1','cmg','cord','cy','ptd','mx1','mx2','mx3','mz','mcb','msm','msh','msa','msd','rpt','rpn','rp0','rp1','rp2','rp3','rp4','rp5'];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const FT=[{description:'Cálculo MDOF (*.mdof.json)',accept:{'application/json':['.json']}}];
 let FH=null,CURP='',DLN='',DEF=null,SNAP='';
@@ -810,7 +814,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='25.1',APP_DATE='15-11-2026';
+const APP_VER='25.2',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
