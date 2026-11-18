@@ -244,7 +244,7 @@ details.md>summary{font-size:15px}
 <p>Frecuencias naturales y modos con la rigidez dinámica de cada suspensión (rigidez × factor dinámico/estático).</p>
 <div class="mgrid"><div><div id="resmod" class="card pad"></div></div><div id="v3hostM"></div></div>
 <h3 class="gh">Diagrama de Campbell</h3>
-<p>rpm mín <input class="sm" id="cr0" value="300"> rpm máx <input class="sm" id="cr1" value="1800"> margen ± <input class="sm" id="cmg" value="10"> % &nbsp; órdenes (multiplicadores separados por comas) <input class="cn" id="cord" value="1, 2, 3, 6" style="width:170px"> &nbsp; f máx del gráfico (Hz, vacío = automático) <input class="sm" id="cy" value=""></p>
+<p>rpm mín <input class="sm" id="cr0" value="300"> rpm máx <input class="sm" id="cr1" value="1800"> margen ± <input class="sm" id="cmg" value="10"> % &nbsp; rango de cálculo: rpm mín <input class="sm" id="r0b" value="300"> rpm máx <input class="sm" id="r1b" value="1800"> &nbsp; órdenes (multiplicadores separados por comas) <input class="cn" id="cord" value="1, 2, 3, 6" style="width:170px"> &nbsp; f máx del gráfico (Hz, vacío = automático) <input class="sm" id="cy" value=""></p>
 <div id="camp"></div><div id="campt"></div>
 </section>
 <section class="tp" id="tp4" role="tabpanel" aria-labelledby="tab4" hidden>
@@ -254,7 +254,8 @@ details.md>summary{font-size:15px}
 <div class="cp"><button class="sc" data-cp="t">Copiar tabla</button></div><div class="w"><table id="t_dpts"></table></div><button data-add="dpts">+ punto</button>
 <h3 class="gh">Excitación (N, N·m; punto de aplicación en coordenadas globales)</h3>
 <div class="w"><table id="t_exc"></table></div><button data-add="exc">+ fila</button>
-<p>rpm mín <input id="r0" value="300" title="Es el mismo valor que el rpm mín del diagrama de Campbell (Modal)"> rpm máx <input id="r1" value="1800" title="Es el mismo valor que el rpm máx del diagrama de Campbell (Modal)"> <span class="mu">(rango de operación del Campbell: se comparten)</span> pasos <input id="rn" value="300"> orden por defecto (filas sin orden) <input id="ord" value="1"> <button id="brun">Calcular respuesta</button></p>
+<p><b>Rango de operación de la máquina:</b> rpm mín <input class="sm" id="cr0b" value="300"> rpm máx <input class="sm" id="cr1b" value="1800"> margen ± <input class="sm" id="cmgb" value="10"> % <span class="mu">(bandas verde y naranja de las figuras; son los mismos valores que en el diagrama de Campbell)</span></p>
+<p><b>Rango de cálculo:</b> rpm mín <input id="r0" value="300"> rpm máx <input id="r1" value="1800"> <span class="mu">(también en el Campbell)</span> pasos <input id="rn" value="300"> orden por defecto (filas sin orden) <input id="ord" value="1"> <button id="brun">Calcular respuesta</button></p>
 <div id="sel"></div>
 <p><span class="nocalc">Curvas por <select id="hsel"></select> Valor <select id="vsel"><option value="p">Amplitud (pico)</option><option value="r">RMS</option></select></span> Magnitud <select id="qty"><option value="v">Velocidad (mm/s)</option><option value="d">Desplazamiento (µm)</option><option value="a">Aceleración (m/s²)</option></select> <label class="opt oi"><input type="checkbox" id="lg" checked> escala log</label> <label class="opt oi" title="Banda verde: rango de trabajo; banda naranja: margen ± (los de la pestaña Modal, diagrama de Campbell)"><input type="checkbox" id="rngc" checked> rango de trabajo (el del Campbell)</label></p>
 <div id="charts"></div>
@@ -563,10 +564,9 @@ const COL=['#2a7de1','#e8590c','#2f9e44','#ae3ec9','#c92a2a','#0c8599','#f59f00'
 function buildSel(){const el=$('sel'),sg=S.dpts.map(p=>p[0]).join('|');if(!el||sg===selSig)return;
  if(!selSig||S.dpts.length!==selSig.split('|').length)SEL=new Set(S.dpts.map((_,i)=>i));selSig=sg;
  el.innerHTML='Puntos a mostrar: '+S.dpts.map((p,i)=>`<label class="opt oi" style="margin-top:4px"><input type="checkbox" data-sel="${i}"${SEL.has(i)?' checked':''}> ${p[0]}</label>`).join('')}
-document.addEventListener('input',e=>{const lk={cr0:'r0',cr1:'r1',r0:'cr0',r1:'cr1'}[e.target.id];if(lk)$(lk).value=e.target.value});
 document.addEventListener('input',e=>{const d=e.target.dataset;
  if(d.sel!==undefined){e.target.checked?SEL.add(+d.sel):SEL.delete(+d.sel);drawChart()}
- else if(e.target.id==='qty'||e.target.id==='lg'||e.target.id==='hsel'||e.target.id==='vsel'||e.target.id==='rngc'||e.target.id==='cr0'||e.target.id==='cr1'||e.target.id==='cmg'){if(R2)drawChart()}
+ else if(e.target.id==='qty'||e.target.id==='lg'||e.target.id==='hsel'||e.target.id==='vsel'||e.target.id==='rngc'||/^(cr0|cr1|cmg)b?$/.test(e.target.id)){if(R2)drawChart()}
  else if(e.target.id==='exh'||e.target.id==='exz')drawEx()});
 $('brun').onclick=()=>runForced();
 function runForced(){try{normExc();
@@ -751,6 +751,8 @@ function plotT(t,ser,un,nm0,hl){const nm=nm0||(un==='mm'?'Deformación':'Acelera
  return svg}
 
 /* ---------- archivo: menú, abrir y guardar (en el equipo) ---------- */
+const MIR=[['cr0','cr0b'],['cr1','cr1b'],['cmg','cmgb'],['r0','r0b'],['r1','r1b']];
+document.addEventListener('input',e=>{const id=e.target.id;for(const [a,b] of MIR){if(id===a)$(b).value=e.target.value;else if(id===b)$(a).value=e.target.value}},true);
 const PIDS=['shst','ovon','ova','ovT','mgp','cons','r0','r1','rn','ord','exz','rngc','vsel','sa1','sa2','sa3','sT','ma','mT','sTt','sdt','gapm','gapd','shi','nlop','shnl','cr0','cr1','cmg','cord','cy','ptd','mx1','mx2','mx3','mz','mcb','msm','msh','msa','msd','rpt','rpn','rp0','rp1','rp2','rp3','rp4','rp5'];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const FT=[{description:'Cálculo MDOF (*.mdof.json)',accept:{'application/json':['.json']}}];
@@ -758,7 +760,7 @@ let FH=null,CURP='',DLN='',DEF=null,SNAP='';
 const nameOf=n=>String(n).replace(/(\.mdof)?\.json$/i,'');
 function getState(){const o={S:JSON.parse(JSON.stringify(S))};PIDS.forEach(i=>o[i]=$(i).type==='checkbox'?($(i).checked?'1':'0'):$(i).value);return o}
 function setState(o){Object.keys(S).forEach(k=>{if(k!=='curves'&&o.S[k])S[k]=JSON.parse(JSON.stringify(o.S[k]))});if(!o.S.mlab)S.mlab={};if(o.S.curves)mergeCurves(o.S.curves);buildShi();buildNlop();
- PIDS.forEach(i=>{const e=$(i);if(o[i]!==undefined){if(e.type==='checkbox')e.checked=o[i]==='1';else e.value=o[i]}});$('r0').value=$('cr0').value;$('r1').value=$('cr1').value;['mass','mount','loads','points','dpts','exc','srs'].forEach(draw);drawCases();drawCf();
+ PIDS.forEach(i=>{const e=$(i);if(o[i]!==undefined){if(e.type==='checkbox')e.checked=o[i]==='1';else e.value=o[i]}});MIR.forEach(([a,b])=>{$(b).value=$(a).value});['mass','mount','loads','points','dpts','exc','srs'].forEach(draw);drawCases();drawCf();
  R2=null;R3=null;selSig='';['charts','shk','shc','sel','excm'].forEach(i=>$(i).innerHTML='');cvRefresh();calc()}
 const dirty=()=>JSON.stringify(getState())!==SNAP;
 function updTitle(){$('ttl').textContent='📄 '+(CURP||'Sin título')+(DEF&&dirty()?' *':'')}
@@ -818,7 +820,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='25.4',APP_DATE='15-11-2026';
+const APP_VER='25.5',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
@@ -864,7 +866,7 @@ let MODF=[];
 function drawCamp(){const el=$('camp'),tb=$('campt');try{
  const a=ev($('cr0').value),b=ev($('cr1').value),mg=ev($('cmg').value)/100,ords=$('cord').value.split(/[\s,;]+/).filter(Boolean).map(ev).filter(v=>v>0);
  if(!(a>=0&&b>a&&mg>=0)){el.innerHTML='<p class="err">Rango de rpm o margen no válidos</p>';tb.innerHTML='';return}
- const lo=a*(1-mg),hi=b*(1+mg),xm=hi*1.1,fm=MODF.length?Math.max(...MODF):0;
+ const rc0=ev($('r0').value),rc1=ev($('r1').value),lo=a*(1-mg),hi=b*(1+mg),xm=Math.max(hi*1.1,rc1>0?rc1:0),fm=MODF.length?Math.max(...MODF):0;
  let ym=ev($('cy').value);if(!(ym>0))ym=Math.max(fm*1.2,10);
  const W=900,H=430,L=72,R=135,T=20,Bt=52,X=r=>L+(W-L-R)*r/xm,Y=f=>H-Bt-(H-T-Bt)*f/ym;
  const ns=v=>{const e=10**Math.floor(Math.log10(v/5)),f=v/5/e;return e*(f<1.5?1:f<3.5?2:f<7.5?5:10)};
@@ -877,6 +879,8 @@ function drawCamp(){const el=$('camp'),tb=$('campt');try{
  const md=MODF.map((f,i)=>({f,i})).filter(o=>o.f>0&&o.f<=ym);let prev=-1e9;
  md.sort((p,q)=>q.f-p.f).forEach(o=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(o.f)}" y2="${Y(o.f)}" stroke="var(--ac)" stroke-width="1.2" stroke-dasharray="5 3"/>`;
   const ly=Math.max(Y(o.f)+4,prev+11);prev=ly;s+=`<text x="${W-R+5}" y="${ly}" fill="var(--ac)" font-size="15">${o.i+1}: ${g(o.f,1)} Hz</text>`});
+ // rango de cálculo (si es distinto del de operación)
+ [rc0,rc1].forEach(v=>{if(v>0&&v<=xm&&Math.abs(v-a)>1e-9&&Math.abs(v-b)>1e-9)s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${H-Bt}" stroke="var(--mu)" stroke-width="1.2" stroke-dasharray="2 4"/><text transform="translate(${X(v)-4},${T+6}) rotate(-90)" text-anchor="end" fill="var(--mu)" font-size="13">cálculo ${g(v,0)} rpm</text>`});
  // líneas verticales de rpm
  [[a,0],[b,0]].forEach(([v,d])=>{s+=`<line x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${H-Bt}" stroke="${d?'#e8890c':'var(--fg)'}" stroke-width="1.5"${d?' stroke-dasharray="6 4"':''}/>`+
   `<text transform="translate(${X(v)-4},${H-Bt-6}) rotate(-90)" fill="${d?'#e8890c':'var(--fg)'}" font-size="15" font-weight="600">${g(v,0)} rpm</text>`});
