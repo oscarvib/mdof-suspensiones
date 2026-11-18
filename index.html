@@ -255,7 +255,7 @@ details.md>summary{font-size:15px}
 <h3 class="gh">Excitación (N, N·m; punto de aplicación en coordenadas globales)</h3>
 <div class="w"><table id="t_exc"></table></div><button data-add="exc">+ fila</button>
 <p><b>Rango de operación de la máquina:</b> rpm mín <input class="sm" id="cr0b" value="300"> rpm máx <input class="sm" id="cr1b" value="1800"> margen ± <input class="sm" id="cmgb" value="10"> % <span class="mu">(bandas verde y naranja de las figuras; son los mismos valores que en el diagrama de Campbell)</span></p>
-<p><b>Rango de cálculo:</b> rpm mín <input id="r0" value="300"> rpm máx <input id="r1" value="1800"> <span class="mu">(también en el Campbell)</span> pasos <input id="rn" value="300"> orden por defecto (filas sin orden) <input id="ord" value="1"> <button id="brun">Calcular respuesta</button></p>
+<p><b>Rango de cálculo:</b> rpm mín <input id="r0" value="300"> rpm máx <input id="r1" value="1800"> <span class="mu">(también en el Campbell)</span> pasos <input id="rn" value="300"> orden por defecto (filas sin orden) <input id="ord" value="1"> <button id="brun">Recalcular</button> <span class="mu">(se actualiza sola al cambiar datos)</span></p>
 <div id="sel"></div>
 <p><span class="nocalc">Curvas por <select id="hsel"></select> Valor <select id="vsel"><option value="p">Amplitud (pico)</option><option value="r">RMS</option></select></span> Magnitud <select id="qty"><option value="v">Velocidad (mm/s)</option><option value="d">Desplazamiento (µm)</option><option value="a">Aceleración (m/s²)</option></select> <label class="opt oi"><input type="checkbox" id="lg" checked> escala log</label> <label class="opt oi" title="Banda verde: rango de trabajo; banda naranja: margen ± (los de la pestaña Modal, diagrama de Campbell)"><input type="checkbox" id="rngc" checked> rango de trabajo (el del Campbell)</label></p>
 <div id="charts"></div>
@@ -622,6 +622,10 @@ function drawEx(){const el=$('excm');if(!R2||!R2.ex){el.innerHTML='';return}
   rowsT.map(r=>{const inr=r.rr>=E.r0&&r.rr<=E.r1,row=[r.i+1,esc(S.mlab[r.i]||mlSug(r.o.pct)),g(r.f,2),g(r.rr,0)+(inr?' ✔':''),sg(r.G),g(100*r.G*r.G/gt,1)+' %',rs.length>1?g(100*r.coh,0)+' %':'—',g(100*r.zm,2)+' %',sg(r.Ek),g(100*r.pt,0)+' %',g(100*(1-r.pt),0)+' %',g(100*r.Ek/mx,0)+' %'];if(inr)row.bold=true;return row}))+
   '<p class="mu">✔ (fila en negrita): la resonancia cae dentro del rango de rpm calculado ('+g(E.r0,0)+'–'+g(E.r1,0)+'). El índice compara modos a igual armónico y amortiguamiento; no es una amplitud real, sino la energía que cada modo recibiría con esas fuerzas.</p>';
  el.innerHTML=h}
+/* la respuesta forzada se mantiene al día mientras su pestaña está visible */
+let FRT=null;
+function syncForced(){clearTimeout(FRT);if($('tp4').hidden){R2=null;['charts','excm'].forEach(i=>{$(i).innerHTML=''});return}FRT=setTimeout(()=>runForced(),200)}
+const calc0=calc;calc=function(){const r=calc0.apply(this,arguments);syncForced();return r};
 const nstep=v=>{const e=10**Math.floor(Math.log10(v)),f=v/e;return e*(f<1.5?1:f<3.5?2:f<7.5?5:10)};
 function legSVG(it,pos,L,T,pw,ph){if(!it||!it.length)return '';const fs=15,rh=22,w=Math.max(...it.map(a=>a.n.length))*8.2+44,h=it.length*rh+10,
  x0=pos==='tl'||pos==='bl'?L+10:L+pw-w-10,y0=pos==='bl'||pos==='br'?T+ph-h-10:T+10;
@@ -820,14 +824,14 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='25.6',APP_DATE='15-11-2026';
+const APP_VER='25.7',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
  document.querySelectorAll('.tp').forEach((q,i)=>q.hidden=i!==k);
  document.querySelectorAll('#tabs button').forEach(q=>{const on=+q.dataset.tab===k;q.classList.toggle('on',on);q.setAttribute('aria-selected',on);q.tabIndex=on?0:-1;if(on&&foc)q.focus()});
  $('pgt').textContent=TT[k][0];$('pgd').textContent=TT[k][1];document.title=TT[k][0]+' · Suspensiones MDOF';
- host3Move(k);window.scrollTo(0,0);if(k===7)rpStatus();if(k===1)cvPlots();if(k===9)useRender();if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
+ host3Move(k);window.scrollTo(0,0);if(k===4)syncForced();if(k===7)rpStatus();if(k===1)cvPlots();if(k===9)useRender();if(k===3||k===8)setTimeout(()=>{try{V3.redraw&&V3.redraw()}catch(e){}window.dispatchEvent(new Event('resize'))},0)}
 function host3Move(k){const d=$('v3d'),h=$(k===3?'v3hostM':'v3host3');if(d&&h&&d.parentNode!==h)h.appendChild(d)}
 $('tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(!b)return;goTab(+b.dataset.tab)};
 $('tabs').onkeydown=e=>{const bs=[...document.querySelectorAll('#tabs button')];let i=bs.indexOf(document.activeElement);if(i<0)return;
