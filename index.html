@@ -831,8 +831,8 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='26.1',APP_DATE='15-11-2026';
-$('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small>';
+const APP_VER='26.2',APP_DATE='15-11-2026';
+$('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
  document.querySelectorAll('.tp').forEach((q,i)=>q.hidden=i!==k);
@@ -1609,7 +1609,16 @@ function cvInit(){figForm();CWI=0;CW=S.curves[0]?cvClone(S.curves[0]):null;cvLis
 const rngW=(w,tx)=>{if(!w.length)return '';w.sort((a,b)=>b.c/b.x-a.c/a.x);const t=w[0];return '<p class="err">⚠ '+tx+': '+w.length+' suspensión(es) fuera del rango ensayado de su curva (se extrapola con la rigidez final). La peor, '+esc(t.n)+': '+g(t.c,1)+' mm frente a '+g(t.x,1)+' mm ensayados.'+(w.length>1?' Resto: '+w.slice(1,5).map(a=>esc(a.n)+' '+g(a.c,1)+' mm').join(', ')+(w.length>5?'…':'')+'.':'')+'</p>'};
 function nlWarn(m,r){return rngW(m.nl.map(nl=>({n:mname(nl.qi),c:nlEval(nl,r.mounts[nl.qi].d).c,x:nl.cv.comp.xmax})).filter(a=>a.c>a.x),'Estático')}
 function cvRefresh(){CWD=false;cvList();CWI=Math.min(Math.max(CWI,0),S.curves.length-1);CW=S.curves[CWI]?cvClone(S.curves[CWI]):null;cvDirty(false);cvForm();cvTables();cvUse();cvPlots()}
-if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* estado sin conexión: se muestra en la barra lateral */
+function offStatus(){const el=$('offst');if(!el)return;
+ if(location.protocol==='file:'){el.textContent='✔ Archivo local: funciona sin conexión';el.title='Esta copia no necesita internet';return}
+ if(!('serviceWorker' in navigator)||!/^https?:/.test(location.protocol)){el.textContent='⚠ Sin soporte sin conexión';return}
+ navigator.serviceWorker.getRegistration().then(async r=>{
+  const ok=r&&r.active&&(await caches.match('index.html',{ignoreSearch:true}));
+  el.textContent=ok?'✔ Guardada para uso sin conexión':'⚠ Aún no guardada para uso sin conexión: ábrela una vez con internet';
+  el.title=ok?'Se abre aunque no haya internet; con internet se actualiza sola':'Abre esta dirección con conexión y espera unos segundos'}).catch(()=>{el.textContent='⚠ No se pudo comprobar el uso sin conexión'})}
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(()=>navigator.serviceWorker.ready).then(()=>setTimeout(offStatus,800)).catch(()=>offStatus()));
+else window.addEventListener('load',offStatus);
 S.mount.forEach((r,i)=>r.push('Taco '+(i+1),5e-4,'taco'));S.loads.forEach(l=>l.push(0,0,0));S.points=[['Escape',1,-1.2,0.4,0.5]];S.exc=[[1,100,100,100,0,0,0,-0.45,0,0,null,0]];S.srs=srsTable(15,0.011,0.05);S.cf=[[1,1,1,1,.5,1],[.4,.4,.5,.4,.2,.5],[.2,.2,.5,.2,.1,.5],[1,.5,1,1,.25,1],[.4,.2,.5,.4,.1,.5],[.2,.2,.5,.2,.1,.5]];S.dpts=[['Soporte motor',1,-1.1,0.5,-0.05],['Escape',1,-1.2,0.4,0.5]];
 ['mass','mount','loads','points','dpts','exc','srs'].forEach(draw);drawCases();drawCf();cvInit();calc();DEF=getState();SNAP=JSON.stringify(DEF);updTitle();
 </script></body></html>
