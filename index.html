@@ -831,7 +831,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='26.2',APP_DATE='15-11-2026';
+const APP_VER='26.3',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
@@ -1617,6 +1617,11 @@ function offStatus(){const el=$('offst');if(!el)return;
   const ok=r&&r.active&&(await caches.match('index.html',{ignoreSearch:true}));
   el.textContent=ok?'✔ Guardada para uso sin conexión':'⚠ Aún no guardada para uso sin conexión: ábrela una vez con internet';
   el.title=ok?'Se abre aunque no haya internet; con internet se actualiza sola':'Abre esta dirección con conexión y espera unos segundos'}).catch(()=>{el.textContent='⚠ No se pudo comprobar el uso sin conexión'})}
+function updBanner(){if($('updb'))return;const d=document.createElement('div');d.id='updb';d.setAttribute('role','status');
+ d.style.cssText='position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:90;background:#0f2538;color:#fff;padding:10px 16px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.3);font:600 14px var(--fd,system-ui);display:flex;gap:12px;align-items:center';
+ d.innerHTML='Hay una versión nueva de la herramienta <button type="button" id="updgo" style="background:#7fe0ea;color:#0f2538;border:0;border-radius:7px;padding:6px 12px;font:600 14px inherit;cursor:pointer">Actualizar</button><button type="button" id="updno" aria-label="Cerrar" style="background:none;border:0;color:#fff;font-size:18px;cursor:pointer">×</button>';
+ document.body.appendChild(d);$('updgo').onclick=()=>{if(typeof DIRTY!=='undefined'&&DIRTY&&!confirm('Hay cambios sin guardar en el modelo. ¿Actualizar igualmente?'))return;location.reload()};$('updno').onclick=()=>d.remove()}
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.t==='upd')updBanner()});try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(x){}}
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(()=>navigator.serviceWorker.ready).then(()=>setTimeout(offStatus,800)).catch(()=>offStatus()));
 else window.addEventListener('load',offStatus);
 S.mount.forEach((r,i)=>r.push('Taco '+(i+1),5e-4,'taco'));S.loads.forEach(l=>l.push(0,0,0));S.points=[['Escape',1,-1.2,0.4,0.5]];S.exc=[[1,100,100,100,0,0,0,-0.45,0,0,null,0]];S.srs=srsTable(15,0.011,0.05);S.cf=[[1,1,1,1,.5,1],[.4,.4,.5,.4,.2,.5],[.2,.2,.5,.2,.1,.5],[1,.5,1,1,.25,1],[.4,.2,.5,.4,.1,.5],[.2,.2,.5,.2,.1,.5]];S.dpts=[['Soporte motor',1,-1.1,0.5,-0.05],['Escape',1,-1.2,0.4,0.5]];
