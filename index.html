@@ -831,7 +831,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='26.3',APP_DATE='15-11-2026';
+const APP_VER='26.4',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
@@ -1014,13 +1014,14 @@ function msCalc(m,md){const el=$('mres');try{
  const d=d0.map(v=>v/nd);let gnote='';
  {const gsel=$('mgp').value;
   if(gsel&&$('gapm').value==='closed')gnote='<p class="mu">La opción «cerrar tacos con gap» no se aplica porque en la pestaña de suspensiones ya están todos cerrados.</p>';
-  else if(gsel){const sel=m.mt.map(o=>!!(o.gap&&Math.abs(o.R[o.gap.d].reduce((t2,v2,i)=>t2+v2*d[i],0))>1e-9&&(gsel==='p'?o.gap.gpU!==null:o.gap.gnU!==null)));
+  else if(gsel){const gd=o=>o.gap?{ax:o.gap.d,pU:o.gap.gpU,nU:o.gap.gnU}:(o.nlg&&o.nl&&o.nl.gu?{ax:2,pU:o.nl.gu.gp,nU:o.nl.gu.gn}:null),
+    sel=m.mt.map(o=>{const g0=gd(o);return !!(g0&&Math.abs(o.R[g0.ax].reduce((t2,v2,i)=>t2+v2*d[i],0))>1e-9&&(gsel==='p'?g0.pU!==null:g0.nU!==null))});
    if(sel.some(Boolean)){const Kd=m.Kd.map(r=>r.slice()),Cm=m.Cm.map(r=>r.slice()),mt=m.mt.slice();
-    sel.forEach((v,q)=>{if(!v)return;const o=m.mt[q],gg=o.gap,J=o.J[gg.d],kd=gg.k*gg.f;
-     for(let i=0;i<n;i++)if(J[i])for(let j=0;j<n;j++)if(J[j]){Kd[i][j]+=kd*J[i]*J[j];Cm[i][j]+=kd*gg.b*J[i]*J[j]}
-     const k=o.k.slice();k[gg.d]=gg.k;mt[q]=Object.assign({},o,{k})});
+    sel.forEach((v,q)=>{if(!v)return;const o=m.mt[q],gg=o.gap,ax=gg?gg.d:2,J=o.J[ax],kk=gg?gg.k:Math.max(o.nl.cv.dP(0),o.nl.cv.kmin)*1e6,ff=gg?gg.f:o.nl.f[2],bb=gg?gg.b:o.nl.be,kd=kk*ff;
+     for(let i=0;i<n;i++)if(J[i])for(let j=0;j<n;j++)if(J[j]){Kd[i][j]+=kd*J[i]*J[j];Cm[i][j]+=kd*bb*J[i]*J[j]}
+     const k=o.k.slice();k[ax]=kk;mt[q]=Object.assign({},o,{k})});
     m=Object.assign({},m,{Kd,Cm,mt});md=modal(m);
-    gnote='<p class="mu">Tacos con gap cerrados en este cálculo (lado '+(gsel==='p'?'+':'−')+', rigidez completa): <b>'+sel.map((v,q)=>v?esc(mname(q)):'').filter(Boolean).join(', ')+'</b>. Las frecuencias y los modos de esta pestaña incluyen su rigidez.</p>'}
+    gnote='<p class="mu">Tacos con gap cerrados en este cálculo (lado '+(gsel==='p'?'+':'−')+', rigidez completa; en los tacos con curva, la tangente al inicio del contacto): <b>'+sel.map((v,q)=>v?esc(mname(q)):'').filter(Boolean).join(', ')+'</b>. Las frecuencias y los modos de esta pestaña incluyen su rigidez.</p>'}
    else gnote='<p class="mu">Ningún taco con gap tiene su eje en la dirección del choque y valor en ese lado: no se cierra ninguno.</p>'}}
  const r=Array(n).fill(0);m.B.forEach((b,k)=>{for(let i=0;i<3;i++)r[6*k+i]=d[i]});
  const Mr=m.M.map(row=>row.reduce((s,v,j)=>s+v*r[j],0)),mtot=r.reduce((s,v,i)=>s+v*Mr[i],0),G=9.81;
