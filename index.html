@@ -833,7 +833,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='26.6',APP_DATE='15-11-2026';
+const APP_VER='26.7',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.']];
 function goTab(k,foc){
@@ -1244,7 +1244,10 @@ const V3=(()=>{
   cx.fillStyle=BG;cx.fillRect(0,0,W,H);cx.font='12px Arial, sans-serif';
   const C=cam3(),S0=Math.min(W,H)/(1.8*geo.R)*cam.z,f=fac(),cen=geo.cen;
   const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
-  const Wd=(k,p)=>{const d=disp(k,p);return[p[0]+sc*f*d[0],p[1]+sc*f*d[1],p[2]+sc*f*d[2]]},
+  /* movimiento de sólido rígido: traslación del CdG + giro finito (Rodrigues) del ángulo escalado; así los cuerpos no se dilatan al girar */
+  const rotk=(k,v)=>{if(k<0||!fld||!f)return v;const t=fld.slice(6*k+3,6*k+6).map(x=>x*sc*f),al=Math.hypot(...t);if(!(al>1e-12))return v;const n=t.map(x=>x/al),cs=Math.cos(al),sn=Math.sin(al),nv=n[0]*v[0]+n[1]*v[1]+n[2]*v[2],c2=cr(n,v);
+    return[v[0]*cs+c2[0]*sn+n[0]*nv*(1-cs),v[1]*cs+c2[1]*sn+n[1]*nv*(1-cs),v[2]*cs+c2[2]*sn+n[2]*nv*(1-cs)]},
+   Wd=(k,p)=>{if(k<0||!fld||!f)return[p[0],p[1],p[2]];const c=M.B[k].c,u=fld.slice(6*k,6*k+3),r=rotk(k,[p[0]-c[0],p[1]-c[1],p[2]-c[2]]);return[c[0]+sc*f*u[0]+r[0],c[1]+sc*f*u[1]+r[1],c[2]+sc*f*u[2]+r[2]]},
    Pq=w=>{const q=[w[0]-cen[0],w[1]-cen[1],w[2]-cen[2]];return{x:W/2+cam.px+dot(q,C.r)*S0,y:H/2+cam.py-dot(q,C.u)*S0,d:dot(q,C.c)}},P=(k,p)=>Pq(Wd(k,p)),
    add3=(a,b,s)=>[a[0]+s*b[0],a[1]+s*b[1],a[2]+s*b[2]],
    bas=a=>{const t=Math.abs(a[0])<.9?[1,0,0]:[0,1,0];let u=cr(a,t);const n=Math.hypot(...u);u=u.map(v=>v/n);return[u,cr(a,u)]},
@@ -1264,17 +1267,18 @@ const V3=(()=>{
    if(opt('v3b'))geo.boxes.forEach(b=>{if(b.cyl){cyl(Wd(b.k,b.v[0]),Wd(b.k,b.v[1]),b.cyl.R,b.cyl.Ri,b.c,fc);return}
     const V=b.v.map(p=>P(b.k,p));[[0,1,3,2],[4,5,7,6],[0,1,5,4],[2,3,7,6],[0,2,6,4],[1,3,7,5]].forEach(ix=>{fc.push({d:ix.reduce((s,i)=>s+V[i].d,0)/4,V:ix.map(i=>V[i]),c:b.c,fa:.2,sa:.85,sw:1.3})})});
    /* acoplamientos (brida - cuerpo - brida) y stoppers (tope de goma frente a placa) */
-   if(opt('v3s'))geo.mt.forEach(t=>{if(t.ty==='off')return;const wa=Wd(t.ka,t.A),wb=Wd(t.kb,t.B),L=Math.hypot(wb[0]-wa[0],wb[1]-wa[1],wb[2]-wa[2]);if(!(L>1e-9))return;const a=[(wb[0]-wa[0])/L,(wb[1]-wa[1])/L,(wb[2]-wa[2])/L];
-    if(t.ty==='acopl'){const rb=Math.min(.03*geo.R,.3*L),rf=1.8*rb,tf=Math.min(.12*L,rb);cyl(wa,wb,rb,0,'#e8590c',fc,{fa:.3});cyl(wa,add3(wa,a,tf),rf,0,'#e8590c',fc,{fa:.4});cyl(add3(wb,a,-tf),wb,rf,0,'#e8590c',fc,{fa:.4})}
-    else if(t.gap){const rs=Math.min(.022*geo.R,.5*L);cyl(wa,add3(wa,a,Math.min(.4*L,2*rs)),rs,0,'#2f9e44',fc,{fa:.55});cyl(add3(wb,a,-Math.min(.12*L,.5*rs)),wb,1.7*rs,0,'#5c7a4d',fc,{fa:.35})}});
+   if(opt('v3s'))geo.mt.forEach(t=>{if(t.ty==='off')return;const wa=Wd(t.ka,t.A),wb=Wd(t.kb,t.B),L0=Math.hypot(t.B[0]-t.A[0],t.B[1]-t.A[1],t.B[2]-t.A[2]);if(!(L0>1e-9))return;const a0=[(t.B[0]-t.A[0])/L0,(t.B[1]-t.A[1])/L0,(t.B[2]-t.A[2])/L0],aa=rotk(t.ka,a0),ab=rotk(t.kb,a0);
+    /* las bridas y el tope son parte rígida de su sólido: giran con él y no cambian de tamaño */
+    if(t.ty==='acopl'){const rb=Math.min(.03*geo.R,.3*L0),rf=1.8*rb,tf=Math.min(.12*L0,rb),ia=add3(wa,aa,tf),ib=add3(wb,ab,-tf);cyl(ia,ib,rb,0,'#e8590c',fc,{fa:.3});cyl(wa,ia,rf,0,'#e8590c',fc,{fa:.4});cyl(ib,wb,rf,0,'#e8590c',fc,{fa:.4})}
+    else if(t.gap){const rs=Math.min(.022*geo.R,.5*L0);cyl(wa,add3(wa,aa,Math.min(.4*L0,2*rs)),rs,0,'#2f9e44',fc,{fa:.55});cyl(add3(wb,ab,-Math.min(.12*L0,.5*rs)),wb,1.7*rs,0,'#5c7a4d',fc,{fa:.35})}});
    fc.sort((a,b)=>a.d-b.d);fc.forEach(q=>{cx.beginPath();q.V.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y));cx.closePath();if(q.fa){cx.fillStyle=rgba(q.c,q.fa);cx.fill()}cx.strokeStyle=rgba(q.c,q.sa);cx.lineWidth=q.sw;cx.stroke()})}
   if(opt('v3s')){geo.mt.forEach(t=>{const a=P(t.ka,t.A),b=P(t.kb,t.B),col=t.ty==='off'?'#868e96':t.ty==='acopl'?'#e8590c':t.gap?'#2f9e44':'#1c1c1e',cc=t.ty==='off'?MU:col===('#1c1c1e')?FG:col;
-    const wa=Wd(t.ka,t.A),wb=Wd(t.kb,t.B),L=Math.hypot(wb[0]-wa[0],wb[1]-wa[1],wb[2]-wa[2]);
+    const wa=Wd(t.ka,t.A),wb=Wd(t.kb,t.B),L=Math.hypot(wb[0]-wa[0],wb[1]-wa[1],wb[2]-wa[2]),L0=Math.hypot(t.B[0]-t.A[0],t.B[1]-t.A[1],t.B[2]-t.A[2]);
     if(t.ty==='off')line(a,b,cc,2.4,[5,4]);
     else if(t.ty==='acopl')line(a,b,cc,1,[2,3]);
     else if(t.gap)line(a,b,cc,1.4,[6,4]);
     else if(L>1e-9){/* muelle helicoidal: tramos rectos en los extremos y espiras en el centro */
-     const ax=[(wb[0]-wa[0])/L,(wb[1]-wa[1])/L,(wb[2]-wa[2])/L],[u,v]=bas(ax),rho=Math.min(.03*geo.R,.2*L),NT=6,NS=24*NT;cx.beginPath();
+     const ax=[(wb[0]-wa[0])/L,(wb[1]-wa[1])/L,(wb[2]-wa[2])/L],[u,v]=bas(ax),rho=Math.min(.03*geo.R,.2*L0),NT=6,NS=24*NT;cx.beginPath();
      for(let i=0;i<=NS;i++){const s=i/NS,e=.12,ph=s<e?0:s>1-e?2*Math.PI*NT:2*Math.PI*NT*(s-e)/(1-2*e),r2=(s<e||s>1-e)?0:rho,w=add3(add3(add3(wa,ax,L*s),u,r2*Math.cos(ph)),v,r2*Math.sin(ph)),q=Pq(w);i?cx.lineTo(q.x,q.y):cx.moveTo(q.x,q.y)}
      cx.strokeStyle=cc;cx.lineWidth=1.8;cx.setLineDash([]);cx.stroke()}
     else line(a,b,cc,2.4);
@@ -1289,7 +1293,7 @@ const V3=(()=>{
     if(opt('v3l')){cx.font='bold 12px Arial, sans-serif';cx.fillStyle=FG;cx.fillText('CdG '+q.nm,p.x+11,p.y+16);cx.font='12px Arial, sans-serif'}})}
   if($('v3k').value!==''){const cs=S.cases[+$('v3k').value];
    if(cs){const it=[],ln=[];
-    const an=(k,p)=>{const d=disp(k,p);return[p[0]+sc*f*d[0],p[1]+sc*f*d[1],p[2]+sc*f*d[2]]},Q=w=>{const q=[w[0]-cen[0],w[1]-cen[1],w[2]-cen[2]];return{x:W/2+cam.px+dot(q,C.r)*S0,y:H/2+cam.py-dot(q,C.u)*S0}};
+    const an=(k,p)=>Wd(k,p),Q=w=>{const q=[w[0]-cen[0],w[1]-cen[1],w[2]-cen[2]];return{x:W/2+cam.px+dot(q,C.r)*S0,y:H/2+cam.py-dot(q,C.u)*S0}};
     cs.items.forEach(([nm,fc,tk,ap])=>{if(ap===0)return;const l=S.loads.find(x=>x[0]===nm);if(!l)return;
      if(l[1]==='peso'){const ph=l[12]*Math.PI/180,th=l[13]*Math.PI/180;M.B.forEach((b,k)=>{const w=9.81*b.m*fc;it.push({nm:nm+' · '+(b.name||b.id),k,a:b.c,v:[-w*Math.sin(th),w*Math.sin(ph)*Math.cos(th),-w*Math.cos(ph)*Math.cos(th)],t:'F',c:FG})})}
      else if(l[1]==='acel'){M.B.forEach((b,k)=>it.push({nm:nm+' · '+(b.name||b.id),k,a:b.c,v:[l[14]*fc,l[15]*fc,l[16]*fc],t:'A',c:'#f08c00'}))}
