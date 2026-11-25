@@ -3,7 +3,7 @@
    o con un proxy que devuelve errores) y, si hay conexión, descarga la versión nueva en segundo plano:
    la página avisa con «Hay una versión nueva» y se actualiza al pulsar.
    Al publicar una versión nueva, cambia V (y el número de versión del HTML). */
-const V='26.7',CACHE='mdof-'+V,FILES=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon.svg'];
+const V='27.0',CACHE='mdof-'+V,FILES=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon.svg'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>Promise.all(FILES.map(f=>c.add(new Request(f,{cache:'reload'})).catch(()=>null)))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('mdof-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 const say=async m=>{for(const c of await self.clients.matchAll({includeUncontrolled:true}))c.postMessage(m)};
