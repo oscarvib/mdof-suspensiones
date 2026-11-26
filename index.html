@@ -42,6 +42,7 @@ body{margin:0;background:var(--page);color:var(--fg);font:15px/1.5 var(--fb)}
 .seg{display:inline-flex;border:1px solid var(--bd2);border-radius:9px;overflow:hidden;background:var(--card)}
 .seg button{background:none;color:var(--mu);border:0;border-radius:0;margin:0;padding:6px 12px;min-height:34px;font:500 14px var(--fd)}
 .seg button[aria-pressed=true]{background:var(--ac);color:#fff}
+.seg button[aria-pressed=true]:hover{background:var(--ac);color:#fff}
 .seg button+button{border-left:1px solid var(--bd2)}
 .dcmlab{display:inline-flex;align-items:center;gap:8px;color:var(--mu);font-size:14px;cursor:pointer}
 main{overflow-x:clip;max-width:1560px;margin:0 auto;padding:22px 28px 64px}
@@ -132,6 +133,7 @@ input[type=checkbox],td input[type=checkbox]{width:20px;height:20px;min-height:0
 details.md>summary{font-size:15px}
 .card.pad{padding:16px 20px}.card:empty{display:none}
 .card.pad>h2:first-child{margin-bottom:6px}
+.fc{border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--card)}.fh{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}.fh .n{min-width:150px}.ff{display:flex;flex-wrap:wrap;gap:8px 14px;margin:10px 0}.fl{display:flex;flex-direction:column;gap:3px;color:var(--mu);font-size:13px}.fl input{width:92px}.fs{margin:6px 0;color:var(--fg)}.fq{display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0}.fq label{display:inline-flex;align-items:center;gap:6px;color:var(--fg)}.nsd{margin:10px 0}.nsd>summary{cursor:pointer;color:var(--ac);font-weight:600}.fc.empty{text-align:left}
 .cvbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:8px 0}.cvbar button{margin:0}.cvbar label{display:inline-flex;align-items:center;gap:8px;color:var(--mu)}
 .cvgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px 22px;margin-top:6px}.cvgrid .w{max-height:340px}.cvgrid td input{width:100px}
 .cvch{margin:6px 0 14px;position:relative}.cvcp{position:absolute;right:2px;top:2px;padding:2px 9px;font-size:12px;z-index:2}.cvch svg circle[data-dg]{touch-action:none}
@@ -339,24 +341,32 @@ details.md>summary{font-size:15px}
 <div id="ug1"></div><div id="ug2"></div><div id="ug3"></div>
 </section>
 <section class="tp" id="tp10" role="tabpanel" aria-labelledby="tab10" hidden>
-<h2>Polines: movilidad de la estructura bajo los tacos</h2>
-<p>Cada polín (o panel entre refuerzos) se define con una <b>movilidad</b> Y(f) = v/F en el punto donde se apoya el taco. Después se asigna a cada taco en la columna «Polín» de la tabla de suspensiones (vacío = suelo rígido).</p>
-<p class="mu"><b>chapa a×b×h:</b> placa fina simplemente apoyada en su contorno (los refuerzos) de dimensiones a×b y espesor h, excitada en el punto (x, y) del taco medido desde una esquina. Se suman sus modos hasta varias veces la frecuencia calculada (y el resto como flexibilidad residual); por encima del solape modal la movilidad tiende a la de la placa infinita Y∞ = 1/(8·√(D·μ)), con D = E·h³/(12·(1−ν²)) y μ = ρ·h. <b>rigidez + masa:</b> un grado de libertad: rigidez k hasta la frecuencia natural f₀ = √(k/m)/(2π) y masa dinámica m por encima. η es el factor de pérdidas.</p>
-<div class="cp"><button class="sc" data-cp="t">Copiar tabla</button></div><div class="w"><table id="t_found"></table></div><button data-add="found">+ polín</button>
-<div id="fsum"></div>
-<h2>Ruido estructural en el polín</h2>
-<p>Con la excitación de la pestaña «Respuesta dinámica», la fuerza que transmite cada taco al polín y la velocidad que produce: v = Y·F, en nivel de velocidad (dB re 5·10⁻⁸ m/s, valor RMS = pico/√2). Solo se acopla la dirección del eje z local del taco; x e y siguen con suelo rígido.</p>
-<p>Acoplamiento con el cálculo: <select id="fcp"><option value="s">polín flexible en serie con cada taco (también modifica la respuesta dinámica)</option><option value="r">suelo rígido y movilidad en postproceso (fuerza con polín rígido × movilidad)</option></select></p>
-<div class="cvbar nocalc"><label>Armónico <select id="fhs"></select></label><label>Gráfica <select id="fmt"><option value="sum">suma energética y media</option><option value="all">cada taco</option></select></label><label>rpm de la tabla <input id="frp" placeholder="punto central" size="8"></label></div>
-<div id="fres"></div>
-<h2>Barrido en frecuencia: carga a todas las frecuencias</h2>
-<p>Cada fila de la tabla de excitación (pestaña «Respuesta dinámica»; fuerzas en N y momentos en N·m, con su punto y su fase) se aplica con la <b>misma amplitud a todas las frecuencias</b> entre f mín y f máx. Es una función de respuesta en frecuencia (el orden de cada fila se ignora; las filas se suman con su fase). Resultado: vibración del centro de gravedad de todos los sólidos y de los puntos dinámicos, y velocidad en cada polín. Para ver bien los picos, usa suficientes puntos para la anchura de las resonancias.</p>
-<div class="cvbar"><label>f mín (Hz) <input id="sf0" value="2" size="5"></label><label>f máx (Hz) <input id="sf1" value="500" size="5"></label><label>Puntos <input id="sfn" value="600" size="5"></label><label><input type="checkbox" id="slx"> eje de frecuencia logarítmico (puntos espaciados en log)</label></div>
-<div class="cvbar nocalc"><label>Magnitud <select id="sq"><option value="v">velocidad</option><option value="a">aceleración</option><option value="d">desplazamiento</option></select></label><label>Eje <select id="sax"><option value="0">x</option><option value="1">y</option><option value="2" selected>z</option><option value="3">giro x</option><option value="4">giro y</option><option value="5">giro z</option><option value="6">módulo (x, y, z)</option></select></label><label><input type="checkbox" id="slg" checked> escala logarítmica</label><label>Polines <select id="spm"><option value="grp">por polín (suma de sus tacos)</option><option value="all">cada taco</option></select></label></div>
+<h2>1. Polines</h2>
+<p>Un polín es la chapa o estructura sobre la que apoyan los tacos. Define cada uno, marca los tacos que apoyan en él y mira abajo cuánta vibración le llega.</p>
+<div id="fcards"></div>
+<button data-add="found">+ polín</button>
+<details class="nsd"><summary>Cómo se calcula la movilidad del polín</summary>
+<p class="mu"><b>Chapa a×b×h:</b> placa fina simplemente apoyada en su contorno (los refuerzos), con dimensiones a×b y espesor h, excitada en el punto (x, y) del taco medido desde una esquina. Se suman sus modos hasta varias veces la frecuencia calculada (y el resto como flexibilidad residual); por encima del solape modal la movilidad tiende a la de la placa infinita, Y∞ = 1/(8·√(D·μ)), con D = E·h³/(12·(1−ν²)) y μ = ρ·h.</p>
+<p class="mu"><b>Rigidez + masa:</b> un grado de libertad: rigidez k hasta la frecuencia natural f₀ = √(k/m)/(2π) y masa dinámica m por encima. η es el factor de pérdidas.</p>
+<p class="mu">La velocidad del polín es v = Y·F, con F la fuerza que transmite cada taco. Solo se acopla la dirección del eje z local del taco; x e y siguen con suelo rígido. Niveles en dB re 5·10⁻⁸ m/s, valor RMS (pico/√2).</p></details>
+<h2>2. Resultados</h2>
+<div class="seg" id="nsvb" role="group" aria-label="Qué quieres ver"><button type="button" class="sc" data-nsv="sw" aria-pressed="true">Barrido en frecuencia</button><button type="button" class="sc" data-nsv="rpm" aria-pressed="false">Con las rpm de la máquina</button><button type="button" class="sc" data-nsv="mob" aria-pressed="false">Movilidad de los polines</button></div>
+<p class="mu" id="nsh"></p>
+<div id="nv0">
+<div class="cvbar"><label>f mín (Hz) <input id="sf0" value="2" size="5"></label><label>f máx (Hz) <input id="sf1" value="500" size="5"></label><label>Puntos <input id="sfn" value="600" size="5"></label><label><input type="checkbox" id="slx"> eje de frecuencia logarítmico</label></div>
+<div class="cvbar nocalc"><label>Eje <select id="sax"><option value="0">x</option><option value="1">y</option><option value="2" selected>z</option><option value="3">giro x</option><option value="4">giro y</option><option value="5">giro z</option><option value="6">módulo (x, y, z)</option></select></label></div>
+<details class="nsd nocalc"><summary>Más opciones de las gráficas</summary><div class="cvbar"><label>Magnitud de la gráfica de sólidos <select id="sq"><option value="v">velocidad</option><option value="a">aceleración</option><option value="d">desplazamiento</option></select></label><label><input type="checkbox" id="slg" checked> escala logarítmica en esa gráfica</label><label>Polines <select id="spm"><option value="grp">una curva por polín</option><option value="all">una curva por taco</option></select></label></div></details>
 <div id="swres"></div>
-<h2>Movilidad de los polines</h2>
+</div>
+<div id="nv1" hidden>
+<div class="cvbar nocalc"><label>Armónico <select id="fhs"></select></label><label>Gráfica <select id="fmt"><option value="sum">suma de los tacos y media</option><option value="all">cada taco</option></select></label><label>rpm de la tabla <input id="frp" placeholder="punto central" size="8"></label></div>
+<div id="fres"></div>
+</div>
+<div id="nv2" hidden>
 <div class="cvbar nocalc"><label>Frecuencia máxima (Hz) <input id="ffx" value="1000" size="6"></label><label><input type="checkbox" id="mlx"> eje de frecuencia logarítmico</label></div>
 <div id="fmob"></div>
+</div>
+<details class="nsd"><summary>Opciones avanzadas</summary><p>Cómo se acopla el polín con el cálculo: <select id="fcp"><option value="s">polín flexible en serie con cada taco (modifica la respuesta dinámica)</option><option value="r">suelo rígido y movilidad en postproceso (fuerza con polín rígido × movilidad)</option></select></p></details>
 </section>
 </main>
 </div></div>
@@ -408,11 +418,11 @@ document.addEventListener('drop',e=>{if(!DGI)return;const tr=e.target.closest&&e
  if(to!==from){const row=S[t].splice(from,1)[0];S[t].splice(to,0,row);draw(t);calc()}});
 document.addEventListener('dragend',()=>{dgClear();DGI=null});
 function normExc(){S.exc.forEach(r=>{while(r.length<12)r.push(r.length===10?null:0)})}
-function draw(t){if(t==='found')normFound();if(t==='exc')normExc();if(t==='mount')normMount();if(t==='mass')normMass();const od=DO[t]||H[t].map((_,j)=>j);
+function draw(t){if(t==='found'){normFound();drawFoundCards();updFoundSums();if($('t_mount'))draw('mount');return}if(t==='exc')normExc();if(t==='mount')normMount();if(t==='mass')normMass();const od=DO[t]||H[t].map((_,j)=>j);
  $('t_'+t).innerHTML='<tr>'+(DRG.includes(t)?'<th></th>':'')+(t==='mount'?'<th>n.º</th>':'')+od.map(j=>'<th>'+H[t][j]+'</th>').join('')+'<th></th></tr>'+
  S[t].map((r,i)=>'<tr>'+(DRG.includes(t)?`<td><span class="dg" draggable="true" data-dg="${t}" data-i="${i}" title="Arrastra para cambiar el orden">⠿</span></td>`:'')+(t==='mount'?`<td class="rn">${i+1}</td>`:'')+od.map(j=>`<td>${cell(t,i,j,r[j])}</td>`).join('')+`<td><button class="x" data-del="${t}" data-i="${i}">×</button></td></tr>`).join('');
  if(t==='mount')markMount();
- if(t==='found'&&$('t_mount'))draw('mount');
+
 }
 document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.nocalc'))return;const d=e.target.dataset;
  if(d&&d.t){const st=(d.t==='loads'&&d.j<2)||(d.t==='mount'&&(d.j==14||d.j==16||d.j==17||d.j==21||d.j==22||d.j==24))||(d.t==='found'&&d.j<2)||(d.t==='mass'&&(d.j==9||d.j==10||d.j==20))||((d.t==='points'||d.t==='dpts')&&d.j==0);const v=st?e.target.value:(((d.t==='mount'&&(d.j==18||d.j==19))||(d.t==='mass'&&d.j>=14)||(d.t==='exc'&&d.j==10))&&e.target.value.trim()==='')?null:ev(e.target.value);if(v===v){const old=S[d.t][d.i][d.j];S[d.t][d.i][d.j]=v;if(d.t==='mount'&&d.j==17){applyAxis(S.mount[d.i]);draw('mount')}if(d.t==='mount'&&(d.j==21||d.j==16))draw('mount');if(d.t==='mount'&&(d.j==22||d.j==23)&&AXI(S.mount[d.i][17])>=0){applyAxis(S.mount[d.i]);draw('mount')}
@@ -424,7 +434,7 @@ document.addEventListener('input',e=>{if(e.target.closest&&e.target.closest('.no
  else if(d&&d.c!==undefined){const c=S.cases[d.c];if(d.k===undefined)c.n=e.target.value;else if(d.f==='0')c.items[d.k][0]=e.target.value;else if(d.f==='2')c.items[d.k][2]=e.target.checked?1:0;else if(d.f==='3')c.items[d.k][3]=e.target.checked?1:0;else{const v=ev(e.target.value);if(v===v)c.items[d.k][1]=v}}
  calc();});
 document.addEventListener('click',e=>{const d=e.target.dataset;
- if(d.add){S[d.add].push(NEW[d.add].slice());draw(d.add);calc()}
+ if(d.add){const nr=NEW[d.add].slice();if(d.add==='found'){let k=S.found.length+1;while(S.found.some(f=>f[0]==='Polín '+k))k++;nr[0]='Polín '+k}S[d.add].push(nr);draw(d.add);calc()}
  if(d.del){const rm=d.del==='loads'?S.loads[d.i][0]:null;S[d.del].splice(d.i,1);draw(d.del);
   if(rm!==null&&!S.loads.some(l=>l[0]===rm)){S.cases.forEach(c=>{c.items=c.items.filter(it=>it[0]!==rm)});drawCases()}calc()}
 if(d.tgc!==undefined){const c=S.cases[+d.tgc];CLS.has(c)?CLS.delete(c):CLS.add(c);drawCases()}
@@ -662,7 +672,7 @@ function drawEx(){const el=$('excm');if(!R2||!R2.ex){el.innerHTML='';return}
  el.innerHTML=h}
 /* la respuesta forzada se mantiene al día mientras su pestaña está visible */
 let FRT=null;
-function syncForced(){clearTimeout(FRT);if($('tp4').hidden&&$('tp10').hidden){R2=null;['charts','excm','fres','fmob','fsum','swres'].forEach(i=>{$(i).innerHTML=''});return}FRT=setTimeout(()=>{runForced();if(!$('tp10').hidden)runSweep()},200)}
+function syncForced(){clearTimeout(FRT);if($('tp4').hidden&&$('tp10').hidden){R2=null;['charts','excm','fres','fmob','swres'].forEach(i=>{$(i).innerHTML=''});return}updFoundSums();FRT=setTimeout(()=>{const v4=!$('tp4').hidden,v10=!$('tp10').hidden;if(v4||(v10&&NSV==='rpm'))runForced();if(v10){if(NSV==='sw')runSweep();else if(NSV==='mob')try{drawFmob()}catch(er){$('fmob').innerHTML='<p class="err">'+er.message+'</p>'}}},200)}
 const calc0=calc;calc=function(){const r=calc0.apply(this,arguments);syncForced();return r};
 const nstep=v=>{const e=10**Math.floor(Math.log10(v)),f=v/e;return e*(f<1.5?1:f<3.5?2:f<7.5?5:10)};
 function legSVG(it,pos,L,T,pw,ph){if(!it||!it.length)return '';const fs=15,rh=22,w=Math.max(...it.map(a=>a.n.length))*8.2+44,h=it.length*rh+10,
@@ -709,6 +719,34 @@ function drawChart(){const el=$('charts');if(!R2){el.innerHTML='';return}
  el.innerHTML='<p class="mu">'+esc(selTxt('hsel'))+' · '+(kr<1?'valor RMS (pico/√2 de cada armónico)':'amplitud (pico)')+'.'+(one?'':' El total es la raíz de la suma de los cuadrados de cada armónico (señal con varias frecuencias).')+'</p>'+h}
 
 /* ---------- polines: movilidad de la estructura bajo los tacos ---------- */
+
+/* ---------- tarjetas de polines ---------- */
+const FOPEN=new Set();let NSV='sw';
+function drawFoundCards(){const el=$('fcards');if(!el)return;normFound();
+ if(!S.found.length){el.innerHTML='<div class="fc empty"><p>Todavía no hay ningún polín.</p><button data-nfa="plate">Crear un polín de chapa de acero</button> <button class="sc" data-nfa="sdof">Crear un polín de rigidez + masa</button></div>';return}
+ const elig=S.mount.map((r,q)=>q).filter(q=>S.mount[q][16]!=='acopl'&&S.mount[q][16]!=='off');
+ el.innerHTML=S.found.map((r,i)=>{const sd=r[1]==='sdof',f=(j,lab,w)=>`<label class="fl">${lab}<input value="${r[j]==null?'':r[j]}" data-t="found" data-i="${i}" data-j="${j}" inputmode="decimal"></label>`;
+  const nasg=S.mount.filter(m=>m[24]===r[0]).length;
+  return `<div class="fc"><div class="fh"><input class="n" value="${esc(r[0])}" data-t="found" data-i="${i}" data-j="0" aria-label="Nombre del polín">${cell('found',i,1,r[1])}<button class="x" data-del="found" data-i="${i}" title="Eliminar este polín" aria-label="Eliminar este polín">×</button></div>
+  <div class="ff">${sd?f(11,'Rigidez k (N/m)')+f(12,'Masa dinámica m (kg)')+f(8,'Pérdidas η'):f(2,'a (m)')+f(3,'b (m)')+f(4,'Espesor h (mm)')+f(9,'Punto del taco x (m)')+f(10,'Punto del taco y (m)')+f(8,'Pérdidas η')}</div>
+  ${sd?'':`<details class="nsd"><summary>Material (acero por defecto)</summary><div class="ff">${f(5,'E (GPa)')+f(6,'Densidad ρ (kg/m³)')+f(7,'Poisson ν')}</div></details>`}
+  <div class="fs" id="fs${i}"></div>
+  <div class="cvbar"><b id="fas${i}">Tacos apoyados: ${nasg}</b><button class="sc" data-fa="all" data-i="${i}">Todos los tacos</button><button class="sc" data-fa="none" data-i="${i}">Ninguno</button></div>
+  <details class="nsd nocalc" data-fo="${i}"${FOPEN.has(i)?' open':''}><summary>Elegir los tacos uno a uno</summary>
+   <div class="fq">${elig.map(q=>{const cur=S.mount[q][24],ot=cur&&cur!==r[0];return `<label><input type="checkbox" data-fq="${q}" data-i="${i}"${cur===r[0]?' checked':''}> ${esc(mname(q).replace(/ \[orient\.\]/,''))}${ot?' <span class="mu">(ahora en '+esc(cur)+')</span>':''}</label>`}).join('')}</div></details></div>`}).join('')}
+function updFoundSums(){S.found.forEach((r,i)=>{const e=$('fs'+i);if(!e)return;let t;
+  try{const F=fdPrep(r);t=F.model==='sdof'?'Frecuencia natural f₀ = <b>'+g(F.f0,1)+' Hz</b>: rigidez por debajo, masa por encima.':'Primera frecuencia propia <b>'+g(F.f1,1)+' Hz</b>'+(isFinite(F.fM)?' · los modos se solapan desde unos <b>'+g(F.fM,0)+' Hz</b>':'')+' · movilidad de la placa infinita <b>'+g(20*Math.log10(F.Yinf),1)+' dB</b> (re 1 m/s/N)'}
+  catch(er){t='<span class="err">'+esc(er.message)+'</span>'}e.innerHTML=t;
+  const n=S.mount.filter(m=>m[24]===r[0]).length,sm=$('fas'+i);if(sm)sm.textContent='Tacos apoyados: '+n+(n?'':' (ninguno todavía)')})}
+function setNsv(v){NSV=v;document.querySelectorAll('#nsvb button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.nsv===v));
+ ['sw','rpm','mob'].forEach((k,i)=>{$('nv'+i).hidden=k!==v});
+ $('nsh').textContent={sw:'Aplica la excitación de «Respuesta dinámica» con la misma amplitud a todas las frecuencias y muestra cómo vibran los sólidos y los polines.',rpm:'Calcula la vibración de los polines a los armónicos de la máquina entre las rpm de «Respuesta dinámica».',mob:'Cuánto se mueve cada polín por unidad de fuerza. Sirve para comprobar el modelo del polín.'}[v];syncForced()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-nsv],[data-nfa],[data-fa]');if(!b)return;
+ if(b.dataset.nsv){setNsv(b.dataset.nsv);return}
+ if(b.dataset.nfa){const r=NEW.found.slice();r[0]='Polín 1';if(b.dataset.nfa==='sdof'){r[1]='sdof'}S.found.push(r);draw('found');calc();return}
+ if(b.dataset.fa){const i=+b.dataset.i,nm=S.found[i][0];FOPEN.add(i);S.mount.forEach((m,q)=>{if(m[16]==='acopl'||m[16]==='off')return;if(b.dataset.fa==='all')m[24]=nm;else if(m[24]===nm)m[24]=''});draw('found');calc()}});
+document.addEventListener('input',e=>{const t=e.target;if(!(t.dataset&&t.dataset.fq!==undefined))return;const q=+t.dataset.fq,i=+t.dataset.i,nm=S.found[i][0];FOPEN.add(i);
+ if(t.checked)S.mount[q][24]=nm;else if(S.mount[q][24]===nm)S.mount[q][24]='';draw('found');calc()});
 function fdPrep(r){const o={name:r[0],model:r[1]==='sdof'?'sdof':'chapa',eta:+r[8]},pos=(v,t)=>{if(!(+v>0))throw Error('Polín «'+r[0]+'»: '+t+' debe ser mayor que 0');return +v};
  if(!(o.eta>=0&&o.eta<1))throw Error('Polín «'+r[0]+'»: el factor de pérdidas η debe estar entre 0 y 1');
  if(o.model==='sdof'){o.k=pos(r[11],'la rigidez k');o.m=pos(r[12],'la masa dinámica m');o.f0=Math.sqrt(o.k/o.m)/(2*Math.PI);o.ens=()=>{};return o}
@@ -731,8 +769,8 @@ function foundMounts(m){const out=[];if(!S.found.length)return out;normFound();c
   const kd=o.k[2]*o.f[2];if(!(kd>0))return;if(!fc[nm])fc[nm]=fdPrep(S.found[fi]);const J=o.J[2],nz=[];for(let i=0;i<J.length;i++)if(J[i])nz.push([i,J[i]]);
   out.push({q,F:fc[nm],kd,be:S.mount[q][15]||0,nz})});return out}
 const REFV=5e-8,dBv=v=>20*Math.log10(Math.max(v,1e-30)/REFV);
-function drawFmob(){const el=$('fmob'),sm=$('fsum');if(!el)return;normFound();
- if(!S.found.length){el.innerHTML='<p class="mu">Define al menos un polín en la tabla de arriba.</p>';sm.innerHTML='';return}
+function drawFmob(){const el=$('fmob');if(!el)return;normFound();
+ if(!S.found.length){el.innerHTML='<p class="mu">Crea al menos un polín arriba.</p>';return}
  const fmx=ev($('ffx').value);if(!(fmx>0))throw Error('Frecuencia máxima no válida');
  const used={};S.mount.forEach(r=>{if(r[24])used[r[24]]=(used[r[24]]||0)+1});
  const rows=[],ser=[],hl=[],leg=[],N=1500,xs=[],mlx=$('mlx').checked;for(let i=1;i<=N;i++)xs.push(mlx?fmx*1e-3*(1e3)**(i/N):fmx*i/N);
@@ -741,10 +779,9 @@ function drawFmob(){const el=$('fmob'),sm=$('fsum');if(!el)return;normFound();
   ser.push({c,v});leg.push({n:r[0],c});
   if(F.model==='chapa'){hl.push({v:20*Math.log10(F.Yinf),c});rows.push([esc(r[0]),'chapa '+g(F.a,3)+'×'+g(F.b,3)+' m, '+g(F.h*1e3,1)+' mm',g(F.f1,1),g(F.nd,4),isFinite(F.fM)?g(F.fM,0):'—',g(20*Math.log10(F.Yinf),1),used[r[0]]||0])}
   else rows.push([esc(r[0]),'rigidez '+(F.k/1e6).toPrecision(3)+' MN/m + masa '+F.m+' kg','f₀ = '+g(F.f0,1),'—','—','—',used[r[0]]||0])});
- sm.innerHTML='<h3 class="gh">Resumen de los polines</h3>'+tab(['Polín','Modelo','f₁ placa / f₀ (Hz)','Densidad modal (modos/Hz)','f con solape modal 1 (Hz)','Y∞ (dB re 1 m/s/N)','Tacos asignados'],rows)+'<p class="mu">Por encima de la frecuencia con solape modal 1 los modos se solapan y la movilidad media ya es la de la placa infinita (línea discontinua de la gráfica); por debajo manda la respuesta modal.</p>';
  el.innerHTML=ser.length?chartSVG({lx:mlx,xs,ser,lg:false,tight:true,hl,leg,lpos:'bl',ylab:'|Y| (dB re 1 m/s/N)',xlab:'Frecuencia (Hz)'}):''}
 function drawFnd(){const el=$('fres');if(!el)return;if(!R2){el.innerHTML='';return}
- if(!R2.fm||!R2.fm.length){el.innerHTML='<p class="mu">Ningún taco con rigidez vertical activa tiene un polín asignado. Elige el polín en la columna «Polín» de la tabla de suspensiones.</p>';return}
+ if(!R2.fm||!R2.fm.length){el.innerHTML='<p class="mu">Ningún taco está apoyado en un polín: marca los tacos en la tarjeta de cada polín (arriba), o elige el polín en la columna «Polín» de la tabla de suspensiones.</p>';return}
  const hv=$('fhs').value||'tot',sel=hv==='tot'?R2.res:[R2.res.find(r=>'h'+r.o===hv)||R2.res[0]],K=R2.fm.length,ns=R2.rpm.length,
   vr=(k,s)=>Math.sqrt(sel.reduce((t,r)=>{const v=r.fnd[k].v[s]/Math.SQRT2;return t+v*v},0)),fr=(k,s)=>Math.sqrt(sel.reduce((t,r)=>{const v=r.fnd[k].F[s]/Math.SQRT2;return t+v*v},0)),
   sumS=s=>{let t=0;for(let k=0;k<K;k++)t+=vr(k,s)**2;return t},LS=v=>10*Math.log10(Math.max(v,1e-60)/REFV**2);
@@ -807,7 +844,7 @@ function drawSweep(){const el=$('swres');if(!el||!SW)return;
    if(pm==='all')SW.fm.forEach((a,k)=>{const c=COL[(k+3)%8];sj.push({c,d:'7 4',w:2.4,v:SW.fo[k].v.map(v=>dBv(v/Math.SQRT2))});lj.push({n:mname(a.q)+' (polín)',c,d:'7 4'})});
    else names.forEach((fn,i)=>{const c=COL[(i+4)%8],ks=SW.fm.map((a,k)=>a.fn===fn?k:-1).filter(k=>k>=0);sj.push({c,d:'7 4',w:2.4,v:SW.f.map((_,jj)=>10*Math.log10(Math.max(ks.reduce((t,k)=>t+(SW.fo[k].v[jj]/Math.SQRT2)**2,0),1e-60)/REFV**2))});lj.push({n:fn+' (polín)',c,d:'7 4'})})}
   h+='<h3 class="gh">Sólidos (línea continua) y polines (discontinua) en el mismo gráfico</h3>'+chartSVG({lx:SW.lx,xs:SW.f,ser:sj,lg:false,tight:true,leg:lj,lpos:'tr',ylab:'Nivel de velocidad (dB re 5·10⁻⁸ m/s)',xlab:'Frecuencia (Hz)'})+'<p class="mu">Sólidos: velocidad del centro de gravedad en el eje elegido ('+(ax===6?'módulo de x, y, z':ax<3?'eje '+'xyz'[ax]:'eje z, porque los giros no tienen velocidad lineal')+'). Polines: velocidad en el punto del taco. Los dos son valor RMS (pico/√2) en la misma referencia.</p>'}
- h+='<p class="mu">Carga de amplitud constante a todas las frecuencias · '+(kr<1?'valor RMS':'amplitud (pico)')+' · acoplamiento: '+(SW.cpl?'polín en serie con cada taco':'suelo rígido')+'.</p><h3 class="gh">Vibración de los sólidos (en su centro de gravedad)</h3>'+
+ h+='<details class="nsd"><summary>Gráficas por separado y máximos de cada taco</summary><p class="mu">Carga de amplitud constante a todas las frecuencias · '+(kr<1?'valor RMS':'amplitud (pico)')+' · acoplamiento: '+(SW.cpl?'polín en serie con cada taco':'suelo rígido')+'.</p><h3 class="gh">Vibración de los sólidos (en su centro de gravedad)</h3>'+
   chartSVG({lx:SW.lx,xs:SW.f,ser,lg,leg,lpos:'tr',ylab:nm+' ('+un+')',xlab:'Frecuencia (Hz)'});
  if(SW.fm.length){const L=v=>10*Math.log10(Math.max(v,1e-60)/REFV**2),pm=$('spm').value,sq=a=>a.map(v=>(v/Math.SQRT2)**2);
   const ps=[],pl=[];
@@ -818,6 +855,7 @@ function drawSweep(){const el=$('swres');if(!el||!SW)return;
   h+='<h3 class="gh">Vibración en los polines (nivel de velocidad en el punto de cada taco)</h3>'+chartSVG({lx:SW.lx,xs:SW.f,ser:ps,lg:false,tight:true,leg:pl,lpos:'tr',ylab:'Nivel de velocidad (dB re 5·10⁻⁸ m/s)',xlab:'Frecuencia (Hz)'})+
    '<h3 class="gh">Máximo de cada taco en el barrido</h3>'+tab(['Taco','Polín','Frecuencia del máximo (Hz)','Nivel máximo (dB re 5e-8 m/s)'],rows)}
  else h+='<p class="mu">Ningún taco con rigidez vertical activa tiene un polín asignado: no hay velocidad de polín que mostrar.</p>';
+ h+='</details>';if(!SW.fm.length)h='<div class="fc"><p>Ningún taco está apoyado en un polín: marca los tacos en la tarjeta de cada polín (arriba) para ver su vibración.</p></div>'+h;
  el.innerHTML=h}
 document.addEventListener('input',e=>{if(['sq','sax','slg','spm'].includes(e.target.id))drawSweep()});
 
@@ -977,7 +1015,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='27.3',APP_DATE='15-11-2026';
+const APP_VER='27.4',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.'],['Ruido estructural (polín)','Movilidad de la estructura bajo los tacos y nivel de velocidad transmitido al polín.']];
 function goTab(k,foc){
@@ -1811,5 +1849,5 @@ if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){navigator.s
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(()=>navigator.serviceWorker.ready).then(()=>setTimeout(offStatus,800)).catch(()=>offStatus()));
 else window.addEventListener('load',offStatus);
 S.mount.forEach((r,i)=>r.push('Taco '+(i+1),5e-4,'taco'));S.loads.forEach(l=>l.push(0,0,0));S.points=[['Escape',1,-1.2,0.4,0.5]];S.exc=[[1,100,100,100,0,0,0,-0.45,0,0,null,0]];S.srs=srsTable(15,0.011,0.05);S.cf=[[1,1,1,1,.5,1],[.4,.4,.5,.4,.2,.5],[.2,.2,.5,.2,.1,.5],[1,.5,1,1,.25,1],[.4,.2,.5,.4,.1,.5],[.2,.2,.5,.2,.1,.5]];S.dpts=[['Soporte motor',1,-1.1,0.5,-0.05],['Escape',1,-1.2,0.4,0.5]];
-['found','mass','mount','loads','points','dpts','exc','srs'].forEach(draw);drawCases();drawCf();cvInit();calc();DEF=getState();SNAP=JSON.stringify(DEF);updTitle();
+['found','mass','mount','loads','points','dpts','exc','srs'].forEach(draw);drawCases();drawCf();cvInit();setNsv('sw');calc();DEF=getState();SNAP=JSON.stringify(DEF);updTitle();
 </script></body></html>
