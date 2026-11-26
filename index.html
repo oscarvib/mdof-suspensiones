@@ -847,19 +847,19 @@ function drawSweep(){const el=$('swres');if(!el||!SW)return;
   h+='<h3 class="gh">Sólidos (línea continua) y polines (discontinua) en el mismo gráfico</h3>'+chartSVG({lx:SW.lx,xs:SW.f,ser:sj,lg:false,tight:true,leg:lj,lpos:'tr',ylab:'Nivel de velocidad (dB re 5·10⁻⁸ m/s)',xlab:'Frecuencia (Hz)'})+'<p class="mu">Sólidos: velocidad del centro de gravedad en el eje elegido ('+(ax===6?'módulo de x, y, z':ax<3?'eje '+'xyz'[ax]:'eje z, porque los giros no tienen velocidad lineal')+'). Polines: velocidad en el punto del taco. Los dos son valor RMS (pico/√2) en la misma referencia.</p>'}
  {/* atenuación del sistema elástico */
   const so=$('saO'),sd=$('saD'),o0=so.value,d0=sd.value,names=SW.sol.map(x=>x.name);
-  so.innerHTML=names.map((n,i)=>`<option value="s${i}">${esc(n)}</option>`).join('');
+  so.innerHTML=names.map((n,i)=>`<option value="s${i}">${esc(n)}</option>`).join('')+(SW.fm.length?'<option value="ap">Puntos de apoyo de los tacos (con giros)</option>':'');
   sd.innerHTML=names.map((n,i)=>`<option value="s${i}">${esc(n)}</option>`).join('')+(SW.fm.length?'<option value="pol">Polines (suma de los tacos)</option>':'');
   so.value=[...so.options].some(o=>o.value===o0)?o0:'s0';sd.value=(sd.dataset.u&&[...sd.options].some(o=>o.value===d0))?d0:(SW.fm.length?'pol':'s'+Math.min(1,names.length-1));
   const vs=sI=>{const s2=SW.sol[sI],a=(ax>=3&&ax<6?s2.c[2]:cmp(s2.c));return a.map((u,j)=>u*2*Math.PI*SW.f[j]/Math.SQRT2)},
    polv=()=>SW.f.map((_,j)=>Math.sqrt(SW.fm.reduce((t,_a,k)=>t+(SW.fo[k].v[j]/Math.SQRT2)**2,0))),
-   src=vs(+so.value.slice(1)),dst=sd.value==='pol'?polv():vs(+sd.value.slice(1)),A=[],AL=[];
+   apv=n=>SW.f.map((f,j)=>Math.sqrt(SW.fo.reduce((t,o)=>t+(o.d[j]*2*Math.PI*f/Math.SQRT2)**2,0)/n)),src=so.value==='ap'?apv(sd.value==='pol'?1:SW.fm.length):vs(+so.value.slice(1)),dst=sd.value==='pol'?polv():vs(+sd.value.slice(1)),A=[],AL=[];
   const dB=(a,b)=>20*Math.log10(Math.max(a,1e-30)/Math.max(b,1e-30));
   A.push({c:'var(--fg)',w:2.6,v:src.map((v,j)=>dB(v,dst[j]))});AL.push({n:so.selectedOptions[0].text+' → '+sd.selectedOptions[0].text,c:'var(--fg)'});
   if(SW.fm.length){const pm=$('spm').value,nm2=[...new Set(SW.fm.map(a=>a.fn))],wd=SW.f.map(f=>2*Math.PI*f/Math.SQRT2);
    if(pm==='all')SW.fm.forEach((a,k)=>{const c=COL[(k+3)%8];A.push({c,d:'7 4',v:SW.fo[k].d.map((d,j)=>dB(d*wd[j],SW.fo[k].v[j]/Math.SQRT2))});AL.push({n:mname(a.q)+': punto del motor → polín',c,d:'7 4'})});
    else nm2.forEach((fn,i)=>{const c=COL[(i+4)%8],ks=SW.fm.map((a,k)=>a.fn===fn?k:-1).filter(k=>k>=0);A.push({c,d:'7 4',v:SW.f.map((_,j)=>10*Math.log10(Math.max(ks.reduce((t,k)=>t+(SW.fo[k].d[j]*wd[j])**2,0),1e-60)/Math.max(ks.reduce((t,k)=>t+(SW.fo[k].v[j]/Math.SQRT2)**2,0),1e-60)))});AL.push({n:fn+': punto del motor → polín',c,d:'7 4'})})}
   h+='<h3 class="gh">Atenuación del sistema elástico</h3>'+chartSVG({lx:SW.lx,xs:SW.f,ser:A,lg:false,tight:true,leg:AL,lpos:'tr',ylab:'Atenuación (dB, velocidad)',xlab:'Frecuencia (Hz)'})+
-   '<p class="mu">Diferencia de niveles de velocidad (positivo = atenuación). La línea continua es entre los dos puntos que elijas arriba ('+(ax===6?'módulo de x, y, z':ax<3?'eje '+'xyz'[ax]:'eje z')+'); las discontinuas, la que produce cada polín entre el punto del motor donde apoya el taco y el polín. No depende de la amplitud de la carga, solo de cómo se reparte la vibración.</p>';
+   '<p class="mu">'+(so.value==='ap'?'Origen = velocidad en los puntos donde apoyan los tacos (incluye los giros del sólido; suma energética si el destino son los polines, media si es un sólido). ':'Con pares o giros importantes elige el origen «Puntos de apoyo de los tacos». ')+'Diferencia de niveles de velocidad (positivo = atenuación). La línea continua es entre los dos puntos que elijas arriba ('+(ax===6?'módulo de x, y, z':ax<3?'eje '+'xyz'[ax]:'eje z')+'); las discontinuas, la que produce cada polín entre el punto del motor donde apoya el taco y el polín. No depende de la amplitud de la carga, solo de cómo se reparte la vibración.</p>';
   /* tabla por bandas de octava (energía integrada) */
   const f=SW.f,df=f.map((_,j)=>j===0?f[1]-f[0]:j===f.length-1?f[j]-f[j-1]:(f[j+1]-f[j-1])/2),rows=[];
   for(let k=-7;k<=6;k++){const c=1000*2**k,lo=c/Math.SQRT2,hi=c*Math.SQRT2;let es=0,ed=0,n=0;f.forEach((fq,j)=>{if(fq>=lo&&fq<hi){es+=src[j]**2*df[j];ed+=dst[j]**2*df[j];n++}});if(n<2)continue;
@@ -1036,7 +1036,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='27.5',APP_DATE='15-11-2026';
+const APP_VER='27.6',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.'],['Ruido estructural (polín)','Movilidad de la estructura bajo los tacos y nivel de velocidad transmitido al polín.']];
 function goTab(k,foc){
