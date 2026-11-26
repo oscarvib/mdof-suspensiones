@@ -349,6 +349,11 @@ details.md>summary{font-size:15px}
 <p>Acoplamiento con el cálculo: <select id="fcp"><option value="s">polín flexible en serie con cada taco (también modifica la respuesta dinámica)</option><option value="r">suelo rígido y movilidad en postproceso (fuerza con polín rígido × movilidad)</option></select></p>
 <div class="cvbar nocalc"><label>Armónico <select id="fhs"></select></label><label>Gráfica <select id="fmt"><option value="sum">suma energética y media</option><option value="all">cada taco</option></select></label><label>rpm de la tabla <input id="frp" placeholder="punto central" size="8"></label></div>
 <div id="fres"></div>
+<h2>Barrido en frecuencia: carga a todas las frecuencias</h2>
+<p>Cada fila de la tabla de excitación (pestaña «Respuesta dinámica»; fuerzas en N y momentos en N·m, con su punto y su fase) se aplica con la <b>misma amplitud a todas las frecuencias</b> entre f mín y f máx. Es una función de respuesta en frecuencia (el orden de cada fila se ignora; las filas se suman con su fase). Resultado: vibración del centro de gravedad de todos los sólidos y de los puntos dinámicos, y velocidad en cada polín. Para ver bien los picos, usa suficientes puntos para la anchura de las resonancias.</p>
+<div class="cvbar"><label>f mín (Hz) <input id="sf0" value="2" size="5"></label><label>f máx (Hz) <input id="sf1" value="500" size="5"></label><label>Puntos <input id="sfn" value="600" size="5"></label></div>
+<div class="cvbar nocalc"><label>Magnitud <select id="sq"><option value="v">velocidad</option><option value="a">aceleración</option><option value="d">desplazamiento</option></select></label><label>Eje <select id="sax"><option value="0">x</option><option value="1">y</option><option value="2" selected>z</option><option value="3">giro x</option><option value="4">giro y</option><option value="5">giro z</option></select></label><label><input type="checkbox" id="slg" checked> escala logarítmica</label><label>Polines <select id="spm"><option value="grp">por polín (suma de sus tacos)</option><option value="all">cada taco</option></select></label></div>
+<div id="swres"></div>
 <h2>Movilidad de los polines</h2>
 <div class="cvbar nocalc"><label>Frecuencia máxima (Hz) <input id="ffx" value="1000" size="6"></label></div>
 <div id="fmob"></div>
@@ -618,15 +623,7 @@ function runForced(){try{normExc();
  const solveSet=(o,rr)=>{const Fre=Array(n).fill(0),Fim=Array(n).fill(0);
   rr.forEach(r=>{for(let i=0;i<n;i++){Fre[i]+=r.Fv[i]*Math.cos(r.ph);Fim[i]+=r.Fv[i]*Math.sin(r.ph)}});
   const W=[],out=pts.map(()=>({x:[],y:[],z:[]})),fnd=FM.map(a=>({q:a.q,v:[],F:[]}));
-  rpm.forEach(rp=>{const w=2*Math.PI*o*rp/60,A=Z(2*n,2*n);
-   for(let i=0;i<n;i++)for(let j=0;j<n;j++){const a=m.Kd[i][j]-w*w*m.M[i][j],b=w*m.Cm[i][j];A[i][j]=a;A[n+i][n+j]=a;A[i][n+j]=-b;A[n+i][j]=b}
-   const fz=FM.map(a=>{const Y=fdY(a.F,w),y2=Y[0]*Y[0]+Y[1]*Y[1],kmr=a.kd,kmi=a.kd*w*a.be;let er=kmr,ei=kmi;
-    if(y2>1e-60){const kfr=w*Y[1]/y2,kfi=w*Y[0]/y2,sr=kmr+kfr,si=kmi+kfi,nr=kmr*kfr-kmi*kfi,ni=kmr*kfi+kmi*kfr,d2=sr*sr+si*si;er=(nr*sr+ni*si)/d2;ei=(ni*sr-nr*si)/d2}
-    if(cpl){const dr=er-kmr,di=ei-kmi;for(const[i,ji]of a.nz)for(const[j,jj]of a.nz){const w2=ji*jj;A[i][j]+=dr*w2;A[n+i][n+j]+=dr*w2;A[i][n+j]-=di*w2;A[n+i][j]+=di*w2}}
-    return{a,Y,Kr:cpl?er:kmr,Ki:cpl?ei:kmi}});
-   const x=solve(A,[...Fre,...Fim]);W.push(w);
-   fz.forEach((q,k)=>{if(!x){fnd[k].v.push(NaN);fnd[k].F.push(NaN);return}let dr=0,di=0;for(const[i,ji]of q.a.nz){dr+=ji*x[i];di+=ji*x[n+i]}
-    const Fr=q.Kr*dr-q.Ki*di,Fi=q.Kr*di+q.Ki*dr,vr=q.Y[0]*Fr-q.Y[1]*Fi,vi=q.Y[0]*Fi+q.Y[1]*Fr;fnd[k].v.push(Math.hypot(vr,vi));fnd[k].F.push(Math.hypot(Fr,Fi))});
+  rpm.forEach(rp=>{const w=2*Math.PI*o*rp/60,rs=freqSolve(m,w,Fre,Fim,FM,cpl),x=rs.x;W.push(w);rs.fo.forEach((q,k)=>{fnd[k].v.push(q.v);fnd[k].F.push(q.F)});
    pts.forEach((p,pi)=>{if(!x){AX.forEach(a=>out[pi][a].push(NaN));return}
     const ur=cr([3,4,5].map(i=>x[6*p.k+i]),p.r),ui=cr([3,4,5].map(i=>x[n+6*p.k+i]),p.r);
     AX.forEach((a,i)=>out[pi][a].push(Math.hypot(x[6*p.k+i]+ur[i],x[n+6*p.k+i]+ui[i])))})});
@@ -665,7 +662,7 @@ function drawEx(){const el=$('excm');if(!R2||!R2.ex){el.innerHTML='';return}
  el.innerHTML=h}
 /* la respuesta forzada se mantiene al día mientras su pestaña está visible */
 let FRT=null;
-function syncForced(){clearTimeout(FRT);if($('tp4').hidden&&$('tp10').hidden){R2=null;['charts','excm','fres','fmob','fsum'].forEach(i=>{$(i).innerHTML=''});return}FRT=setTimeout(()=>runForced(),200)}
+function syncForced(){clearTimeout(FRT);if($('tp4').hidden&&$('tp10').hidden){R2=null;['charts','excm','fres','fmob','fsum','swres'].forEach(i=>{$(i).innerHTML=''});return}FRT=setTimeout(()=>{runForced();if(!$('tp10').hidden)runSweep()},200)}
 const calc0=calc;calc=function(){const r=calc0.apply(this,arguments);syncForced();return r};
 const nstep=v=>{const e=10**Math.floor(Math.log10(v)),f=v/e;return e*(f<1.5?1:f<3.5?2:f<7.5?5:10)};
 function legSVG(it,pos,L,T,pw,ph){if(!it||!it.length)return '';const fs=15,rh=22,w=Math.max(...it.map(a=>a.n.length))*8.2+44,h=it.length*rh+10,
@@ -764,6 +761,57 @@ function drawFnd(){const el=$('fres');if(!el)return;if(!R2){el.innerHTML='';retu
   '<p class="mu">La suma energética suma las velocidades cuadráticas de todos los tacos (fuentes incoherentes); la media por taco es esa suma dividida por el número de tacos con polín.</p>'}
 document.addEventListener('input',e=>{if(e.target.id==='fhs'||e.target.id==='fmt'||e.target.id==='frp')drawFnd();if(e.target.id==='ffx')try{drawFmob()}catch(er){$('fmob').innerHTML='<p class="err">'+er.message+'</p>'}});
 
+/* ---------- barrido en frecuencia: carga a todas las frecuencias ---------- */
+function freqSolve(m,w,Fre,Fim,FM,cpl){const n=m.n,A=Z(2*n,2*n);
+ for(let i=0;i<n;i++)for(let j=0;j<n;j++){const a=m.Kd[i][j]-w*w*m.M[i][j],b=w*m.Cm[i][j];A[i][j]=a;A[n+i][n+j]=a;A[i][n+j]=-b;A[n+i][j]=b}
+ const fz=FM.map(a=>{const Y=fdY(a.F,w),y2=Y[0]*Y[0]+Y[1]*Y[1],kmr=a.kd,kmi=a.kd*w*a.be;let er=kmr,ei=kmi;
+  if(y2>1e-60){const kfr=w*Y[1]/y2,kfi=w*Y[0]/y2,sr=kmr+kfr,si=kmi+kfi,nr=kmr*kfr-kmi*kfi,ni=kmr*kfi+kmi*kfr,d2=sr*sr+si*si;er=(nr*sr+ni*si)/d2;ei=(ni*sr-nr*si)/d2}
+  if(cpl){const dr=er-kmr,di=ei-kmi;for(const[i,ji]of a.nz)for(const[j,jj]of a.nz){const w2=ji*jj;A[i][j]+=dr*w2;A[n+i][n+j]+=dr*w2;A[i][n+j]-=di*w2;A[n+i][j]+=di*w2}}
+  return{a,Y,Kr:cpl?er:kmr,Ki:cpl?ei:kmi}});
+ const x=solve(A,[...Fre,...Fim]);
+ const fo=fz.map(q=>{if(!x)return{v:NaN,F:NaN};let dr=0,di=0;for(const[i,ji]of q.a.nz){dr+=ji*x[i];di+=ji*x[n+i]}
+  const Fr=q.Kr*dr-q.Ki*di,Fi=q.Kr*di+q.Ki*dr,vr=q.Y[0]*Fr-q.Y[1]*Fi,vi=q.Y[0]*Fi+q.Y[1]*Fr;return{v:Math.hypot(vr,vi),F:Math.hypot(Fr,Fi)}});
+ return{x,fo}}
+let SW=null;
+function runSweep(){const el=$('swres');if(!el)return;
+ try{normExc();const m=build(),n=m.n,f0=ev($('sf0').value),f1=ev($('sf1').value),np=Math.round(ev($('sfn').value));
+  if(!(f0>0&&f1>f0&&np>=2&&np<=5000))throw Error('Rango de frecuencias no válido: 0 < f mín < f máx y entre 2 y 5000 puntos');
+  if(!S.exc.length)throw Error('No hay fuerzas en la tabla de excitación (pestaña Respuesta dinámica)');
+  const Fre=Array(n).fill(0),Fim=Array(n).fill(0);
+  S.exc.forEach(e=>{const k=m.ids.indexOf(e[0]);if(k<0)throw Error('Excitación: el componente '+e[0]+' no es móvil');
+   const f3=e.slice(1,4),mo=cr([0,1,2].map(i=>e[7+i]-m.B[k].c[i]),f3),ph=(+e[11]||0)*Math.PI/180,Fv=Array(n).fill(0);
+   for(let i=0;i<3;i++){Fv[6*k+i]+=f3[i];Fv[6*k+3+i]+=e[4+i]+mo[i]}
+   for(let i=0;i<n;i++){Fre[i]+=Fv[i]*Math.cos(ph);Fim[i]+=Fv[i]*Math.sin(ph)}});
+  const cpl=$('fcp').value==='s',FM=foundMounts(m);FM.forEach(a=>a.F.ens(2.5*2*Math.PI*f1));
+  const pts=S.dpts.map(p=>{const k=m.ids.indexOf(p[1]);if(k<0)throw Error('Punto "'+p[0]+'": el componente '+p[1]+' no es móvil');return{name:p[0],k,r:[0,1,2].map(i=>p[2+i]-m.B[k].c[i])}});
+  const f=[],sol=m.B.map(b=>({name:bl(b),c:[[],[],[],[],[],[]]})),pp=pts.map(p=>({name:p.name,c:[[],[],[]]})),fo=FM.map(()=>({v:[],F:[]}));
+  for(let s=0;s<np;s++){const fq=f0+(f1-f0)*s/(np-1),w=2*Math.PI*fq,r=freqSolve(m,w,Fre,Fim,FM,cpl),x=r.x;f.push(fq);
+   m.B.forEach((b,k)=>{for(let c=0;c<6;c++)sol[k].c[c].push(x?Math.hypot(x[6*k+c],x[n+6*k+c]):NaN)});
+   pts.forEach((p,pi)=>{const ur=x?cr([3,4,5].map(i=>x[6*p.k+i]),p.r):null,ui=x?cr([3,4,5].map(i=>x[n+6*p.k+i]),p.r):null;for(let i=0;i<3;i++)pp[pi].c[i].push(x?Math.hypot(x[6*p.k+i]+ur[i],x[n+6*p.k+i]+ui[i]):NaN)});
+   r.fo.forEach((q,k)=>fo[k].v.push(q.v))}
+  SW={f,sol,pp,fm:FM.map(a=>({q:a.q,fn:a.F.name})),fo,cpl};drawSweep()}
+ catch(e){SW=null;el.innerHTML='<p class="err">'+e.message+'</p>'}}
+function drawSweep(){const el=$('swres');if(!el||!SW)return;
+ const q=$('sq').value,ax=+$('sax').value,lg=$('slg').checked,kr=$('vsel').value==='r'?Math.SQRT1_2:1,tr=ax<3,
+  fac=w=>q==='d'?1e6:q==='v'?w*1e3:w*w,un=tr?{d:'µm',v:'mm/s',a:'m/s²'}[q]:{d:'µrad',v:'mrad/s',a:'rad/s²'}[q],nm={d:'Desplazamiento',v:'Velocidad',a:'Aceleración'}[q],
+  conv=arr=>arr.map((u,j)=>u*fac(2*Math.PI*SW.f[j])*kr);
+ const ser=[],leg=[];let ci=0;
+ SW.sol.forEach(s=>{const c=COL[ci++%8];ser.push({c,v:conv(s.c[ax])});leg.push({n:s.name,c})});
+ if(tr)SW.pp.forEach(p=>{const c=COL[ci++%8];ser.push({c,v:conv(p.c[ax]),});leg.push({n:p.name+' (punto)',c})});
+ let h='<p class="mu">Carga de amplitud constante a todas las frecuencias · '+(kr<1?'valor RMS':'amplitud (pico)')+' · acoplamiento: '+(SW.cpl?'polín en serie con cada taco':'suelo rígido')+'.</p><h3 class="gh">Vibración de los sólidos (en su centro de gravedad)</h3>'+
+  chartSVG({xs:SW.f,ser,lg,leg,lpos:'tr',ylab:nm+' ('+un+')',xlab:'Frecuencia (Hz)'});
+ if(SW.fm.length){const L=v=>10*Math.log10(Math.max(v,1e-60)/REFV**2),pm=$('spm').value,sq=a=>a.map(v=>(v/Math.SQRT2)**2);
+  const ps=[],pl=[];
+  if(pm==='all'){SW.fm.forEach((a,k)=>{const c=COL[k%8];ps.push({c,v:SW.fo[k].v.map(v=>dBv(v/Math.SQRT2))});pl.push({n:mname(a.q),c})})}
+  else{const names=[...new Set(SW.fm.map(a=>a.fn))];names.forEach((fn,i)=>{const c=COL[i%8],ks=SW.fm.map((a,k)=>a.fn===fn?k:-1).filter(k=>k>=0);ps.push({c,v:SW.f.map((_,j)=>L(ks.reduce((t,k)=>t+(SW.fo[k].v[j]/Math.SQRT2)**2,0)))});pl.push({n:fn+' (suma de sus tacos)',c})});
+   ps.push({c:'var(--fg)',v:SW.f.map((_,j)=>L(SW.fm.reduce((t,_a,k)=>t+(SW.fo[k].v[j]/Math.SQRT2)**2,0)))});pl.push({n:'Suma total',c:'var(--fg)'})}
+  const rows=SW.fm.map((a,k)=>{let jb=0,mx=-Infinity;SW.fo[k].v.forEach((v,j)=>{if(v>mx){mx=v;jb=j}});return[esc(mname(a.q)),esc(a.fn),g(SW.f[jb],1),g(dBv(mx/Math.SQRT2),1)]});
+  h+='<h3 class="gh">Vibración en los polines (nivel de velocidad en el punto de cada taco)</h3>'+chartSVG({xs:SW.f,ser:ps,lg:false,tight:true,leg:pl,lpos:'tr',ylab:'Nivel de velocidad (dB re 5·10⁻⁸ m/s)',xlab:'Frecuencia (Hz)'})+
+   '<h3 class="gh">Máximo de cada taco en el barrido</h3>'+tab(['Taco','Polín','Frecuencia del máximo (Hz)','Nivel máximo (dB re 5e-8 m/s)'],rows)}
+ else h+='<p class="mu">Ningún taco con rigidez vertical activa tiene un polín asignado: no hay velocidad de polín que mostrar.</p>';
+ el.innerHTML=h}
+document.addEventListener('input',e=>{if(['sq','sax','slg','spm'].includes(e.target.id))drawSweep()});
+
 let R3=null;
 $('brunS').onclick=()=>runShock();
 document.addEventListener('input',e=>{if(e.target.id==='shs')drawShock()});
@@ -853,7 +901,7 @@ function plotT(t,ser,un,nm0,hl){const nm=nm0||(un==='mm'?'Deformación':'Acelera
 /* ---------- archivo: menú, abrir y guardar (en el equipo) ---------- */
 const MIR=[['cr0','cr0b'],['cr1','cr1b'],['cmg','cmgb'],['r0','r0b'],['r1','r1b']];
 document.addEventListener('input',e=>{const id=e.target.id;for(const [a,b] of MIR){if(id===a)$(b).value=e.target.value;else if(id===b)$(a).value=e.target.value}},true);
-const PIDS=['shst','ovon','ova','ovT','mgp','mgk','fcp','fmt','ffx','frp','cons','r0','r1','rn','ord','exz','rngc','vsel','sa1','sa2','sa3','sT','ma','mT','sTt','sdt','gapm','gapd','shi','nlop','shnl','cr0','cr1','cmg','cord','cy','ptd','mx1','mx2','mx3','mz','mcb','msm','msh','msa','msd','rpt','rpn','rp0','rp1','rp2','rp3','rp4','rp5'];
+const PIDS=['shst','ovon','ova','ovT','mgp','mgk','fcp','fmt','ffx','frp','sf0','sf1','sfn','sq','sax','slg','spm','cons','r0','r1','rn','ord','exz','rngc','vsel','sa1','sa2','sa3','sT','ma','mT','sTt','sdt','gapm','gapd','shi','nlop','shnl','cr0','cr1','cmg','cord','cy','ptd','mx1','mx2','mx3','mz','mcb','msm','msh','msa','msd','rpt','rpn','rp0','rp1','rp2','rp3','rp4','rp5'];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const FT=[{description:'Cálculo MDOF (*.mdof.json)',accept:{'application/json':['.json']}}];
 let FH=null,CURP='',DLN='',DEF=null,SNAP='';
@@ -920,7 +968,7 @@ document.addEventListener('click',e=>{const m=$('mmenu');if(e.target.id==='mfile
 document.addEventListener('keydown',e=>{if(!(e.ctrlKey||e.metaKey))return;const k=e.key.toLowerCase();
  if(k==='s'){e.preventDefault();(e.shiftKey?A.saveas:A.save)()}else if(k==='o'&&!e.shiftKey){e.preventDefault();A.open()}});
 
-const APP_VER='27.0',APP_DATE='15-11-2026';
+const APP_VER='27.1',APP_DATE='15-11-2026';
 $('appver').innerHTML='Versión '+APP_VER+'<small>'+APP_DATE+'</small><small id="offst"></small>';
 const TT=[['Modelo','Sólidos rígidos sobre suspensiones elásticas (6·N gdl). Los campos aceptan expresiones, p. ej. 1.8*6E+06.'],['Curvas de tacos','Curvas fuerza-deformación de tacos no lineales: ver, editar y aceptar.'],['Cálculo estático','Cargas, casos de carga y deformaciones en reposo.'],['Modal','Frecuencias naturales, modos y diagrama de Campbell.'],['Respuesta dinámica','Respuesta forzada por excitación armónica.'],['Choque','Choque de medio seno en el dominio del tiempo.'],['Choque modal (SRS)','Choque por especificación o por espectro de respuesta.'],['Informe','Genera el informe con los apartados que marques.'],['Vista 3D','Geometría del modelo, modos animados, deformadas estáticas y vectores de carga.'],['Tacos en el cálculo','Dónde trabaja cada taco (curva o rigidez lineal) en el caso de cálculo elegido.'],['Ruido estructural (polín)','Movilidad de la estructura bajo los tacos y nivel de velocidad transmitido al polín.']];
 function goTab(k,foc){
